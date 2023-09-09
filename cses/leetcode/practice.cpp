@@ -1,35 +1,36 @@
-#include <iostream>
-#include <limits.h>
+
+#include <bits/stdc++.h>
 using namespace std;
-
-#define V 9
-
-// returns the minimum distance vertex
-int minDistance(int dist[], bool sptSet[])
+class Solution
 {
-    int minValue = INT_MAX, min_index;
-    for (int i = 1; i <= sizeof(dist) / sizeof(int); i++) // vertices start from 1
+public:
+    vector<int> twoSum(vector<int> &nums, int target)
     {
-        if (dist[i] < minValue)
+        sort(nums.begin(), nums.end());
+        int i = 0, j = nums.size() - 1;
+        int sum;
+        vector<int> ans;
+        while (i < j)
         {
-            minValue = dist[i];
-            min_index = i;
+            sum = nums[i] + nums[j];
+            if (sum == target)
+            {
+                ans.push_back(i);
+                ans.push_back(j);
+                return ans;
+            }
+            else if (sum > target)
+            {
+                j--;
+            }
+            else
+            {
+                i++;
+            }
         }
+        return ans;
     }
-    return i;
-}
-
-void dijkstra(int graph[V][V], int src)
+};
+int main()
 {
-    int dist[V + 1];
-    bool sptSet[V + 1];
-
-    // initialize all distance as infinite
-    for (int i = 1; i <= V; i++)
-    {
-        dist[i] = INT_MAX;
-        sptSet[i] = false;
-    }
-
-    dist[src] = 0;
 }

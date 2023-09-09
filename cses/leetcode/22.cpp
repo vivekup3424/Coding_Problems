@@ -1,28 +1,65 @@
-// 22. Genrate Parentesis
-
+// Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 #include <bits/stdc++.h>
 using namespace std;
-
-int main()
+// Method 1:- Using backtracking
+class Solution1
 {
-    int n;
-    cin >> n;
-    Solution *A = new Solution();
-    vector<string> v = A->generateParenthesis(n);
-    printVectorString(v);
-}
-void printVectorString(vector<string> v)
-{
-    for (int i = 0; i < v.size(); i++)
+public:
+    void dfs(vector<string> &combinations, string &comb, int no_opening, int no_closing)
     {
-        cout << v[i] << endl;
+        if (no_opening == 0 && no_closing == 0)
+        {
+            combinations.push_back(comb);
+            return;
+        }
+        else
+        {
+            if (no_opening > 0)
+            {
+                comb.push_back('(');
+                dfs(combinations, comb, no_opening - 1, no_closing);
+                comb.pop_back();
+            }
+            if (no_closing > 0)
+            {
+                if (no_closing > no_opening)
+                {
+                    comb.push_back(')');
+                    dfs(combinations, comb, no_opening, no_closing - 1);
+                    comb.pop_back();
+                }
+            }
+        }
     }
-}
+    vector<string> generateParenthesis(int n)
+    {
+        vector<string> combinations;
+        string comb;
+        int no_openings = n, no_closings = n;
+        dfs(combinations, comb, no_openings, no_closings);
+        return combinations;
+    }
+};
 
+// Method 2:- Using stack
 class Solution
 {
 public:
+    void gp(vector<string> combinations, string comb, int n, stack<char> s)
+    {
+        if (n == 0)
+        {
+            combinations.push_back(comb);
+        }
+        else
+        {
+            if (s.empty() == false)
+            {
+                gp(combinations, comb.push_back)
+            }
+        }
+    }
     vector<string> generateParenthesis(int n)
     {
     }
-};
+}
