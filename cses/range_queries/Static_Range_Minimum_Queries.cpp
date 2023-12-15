@@ -15,7 +15,7 @@ inline void fast_io()
 // Time Complexity: O(nlogn) for preprocessing and O(1) for each query
 // Space Complexity: O(nlogn)
 
-vector<vector<lli>> lookup; // lookup[i][j] stores the minimum value in range [i, i+2^j-1]
+vector<vector<lli>> lookup; // lookup[i][j] stores the minimum value in range [i, i+2^j-1] (-1 because the indices are inclusive)
 void buildSparseTable(vector<lli> v)
 {
     int n = v.size();
@@ -62,3 +62,4 @@ int main()
 }
 
 // Method 2: Segment Tree
+// see this in Dynamic_Minimum_Range_Queries.cpp

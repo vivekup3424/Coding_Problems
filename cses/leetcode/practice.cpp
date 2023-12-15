@@ -1,36 +1,29 @@
 
 #include <bits/stdc++.h>
 using namespace std;
-class Solution
+
+class Node
 {
 public:
-    vector<int> twoSum(vector<int> &nums, int target)
-    {
-        sort(nums.begin(), nums.end());
-        int i = 0, j = nums.size() - 1;
-        int sum;
-        vector<int> ans;
-        while (i < j)
-        {
-            sum = nums[i] + nums[j];
-            if (sum == target)
-            {
-                ans.push_back(i);
-                ans.push_back(j);
-                return ans;
-            }
-            else if (sum > target)
-            {
-                j--;
-            }
-            else
-            {
-                i++;
-            }
-        }
-        return ans;
-    }
+    int data;
+    Node *next;
+    Node() : data(0), next(nullptr) {}
+    Node(int x) : data(x), next(nullptr) {}
+    Node(int x, Node *next) : data(x), next(next) {}
 };
+
+Node *constructLL(vector<int> &arr)
+{
+    Node *head = new Node();
+    Node *current = head;
+    for (int num : arr)
+    {
+        Node *temp = new Node(num);
+        current->next = temp;
+        current = current->next;
+    }
+    return head->next;
+}
 int main()
 {
 }
