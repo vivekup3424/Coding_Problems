@@ -22,6 +22,55 @@ int main()
     }
 }
 
+class DisjointSet{
+  vector<int> rank, parent,size;
+  public:
+  //1-based indexing here. will also work for 0-indexing
+  DisjointSet(int n){
+    rank.resize(n+1,0);
+    parent.resize(n+1);
+    size.resize(n+1,1); //initial size
+    for(int i = 0; i <= n;i ++){
+      parent[i] = i;
+    }
+  }
+  //find operation
+  int findUltimateParent(int i){
+    if(i == parent[i])return i;
+    else return parent[i] = findUltimateParent(parent[i]);
+  }
+  //union by size
+  void unionBySize(int u, int v){
+    int ult_parent_u = findUltimateParent(u);
+    int utl_parent_v = findUltimateParent(v);
+    if(ult_parent_u == utl_parent_v)return;
+    else if(size[ult_parent_u] < size[utl_parent_v]){
+      parent[ult_parent_u] = utl_parent_v;
+      size[utl_parent_v] += size[ult_parent_u];
+    }
+    else{
+      parent[utl_parent_v] = ult_parent_u;
+      size[ult_parent_u] += size[utl_parent_v];
+    }
+  }
+  //union operation
+  void unionByRank(int u, int v){
+    int ult_parent_u = findUltimateParent(u);
+    int utl_parent_v = findUltimateParent(v);
+    if(utl_parent_v == ult_parent_u)return ;
+    else if(rank[ult_parent_u] < rank[utl_parent_v]){
+      parent[ult_parent_u] = utl_parent_v;
+    }
+    else if(rank[utl_parent_v] < rank[ult_parent_u]) {
+      parent[utl_parent_v] = ult_parent_u;
+    }
+    else{
+      parent[utl_parent_v] = ult_parent_u;
+      rank[ult_parent_u]++;
+    }
+  }
+};
+
 template <class T>
 struct BIT { //1-indexed
   int n; vector<T> t;
@@ -46,3 +95,4 @@ struct BIT { //1-indexed
     return query(r) - query(l - 1);
   }
 };
+
