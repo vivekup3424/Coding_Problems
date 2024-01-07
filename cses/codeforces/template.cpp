@@ -23,10 +23,12 @@ int main()
 }
 
 class DisjointSet{
+  int n;
   vector<int> rank, parent,size;
   public:
   //1-based indexing here. will also work for 0-indexing
   DisjointSet(int n){
+    n = n;
     rank.resize(n+1,0);
     parent.resize(n+1);
     size.resize(n+1,1); //initial size
@@ -37,7 +39,7 @@ class DisjointSet{
   //find operation
   int findUltimateParent(int i){
     if(i == parent[i])return i;
-    else return parent[i] = findUltimateParent(parent[i]);
+    else return parent[i] = findUltimateParent(parent[i]); //path compression
   }
   //union by size
   void unionBySize(int u, int v){
@@ -69,6 +71,16 @@ class DisjointSet{
       rank[ult_parent_u]++;
     }
   }
+  //count number of components
+   int countComponents(){
+      int count = 0;
+      for(int i = 0; i < n;i++){
+        if(i == parent[i]){
+          count++;
+        }
+      }
+      return count;
+    }
 };
 
 template <class T>
