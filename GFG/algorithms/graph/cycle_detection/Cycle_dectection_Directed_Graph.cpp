@@ -8,7 +8,7 @@
 
 #include <bits/stdc++.h>
 using namespace std;
-int detectCycleInDirectedGraph(int n, vector < pair < int, int >> & edges) {
+int detectCycleInDirectedGraph_topologicaal(int n, vector < pair < int, int >> & edges) {
   vector<vector<int>> adj(n);
   for(auto edge: edges){
     adj[edge.first].push_back(edge.second);
@@ -40,4 +40,9 @@ int detectCycleInDirectedGraph(int n, vector < pair < int, int >> & edges) {
   }
   if(topo.size()==n)return false;
   else return true;
+}
+
+int detectCycle_DFS(int n, vector<pair<int,int>> &edges){
+  //directed Graph
+  vector<vector<int,int>> 
 }
