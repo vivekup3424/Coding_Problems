@@ -1,41 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
-struct node{
-    int val;
-    int level;
-};
-class Solution {
-public:  
-    int minimumOperationsToMakeEqual(int x, int y) {
-        set<int> visit;
-        queue<node>q;
-        q.push({x,0});
-        while(q.empty()==false){
-            struct node t = q.front();
-            q.pop();
-            if(y==t.val)return t.level;
-            visit.insert(t.val);
-            if(t.val % 5 == 0){
-                if(visit.find(t.val/5) == visit.end()){
-                    q.push({t.val/5, t.level+1});
-                }
-            }
-            if(t.val % 11 == 0){
-                if(visit.find(t.val/11) == visit.end()){
-                    q.push({t.val/11, t.level+1});
-                }
-            }
-            if(true){
-                if(visit.find(t.val + 1) == visit.end()){
-                    q.push({t.val + 1, t.level+1});
-                }
-            }
-            if(true){
-                if(visit.find(t.val -1 ) == visit.end()){
-                    q.push({t.val -1, t.level+1});
-                }
-            }
-        }
-        return -100;
+
+class Solution{
+    private:
+    bool findSubset(int tasks[],int n, int idx, int leftout_sum){
+        if(leftout_sum==0)return true;
+        else if(idx>=n and leftout_sum != 0)return false;
+        else if(leftout_sum < tasks[idx]) return findSubset(tasks,n,idx+1,leftout_sum);
+        return findSubset(tasks,n, idx+1, leftout_sum - tasks[idx]) || findSubset(tasks, n, idx+1, leftout_sum);
     }
+    public:
+	int minDifference(int tasks[], int n)  { 
+	    int sum  = 0;
+        for(int i = 0;i < n;i++){
+            sum += tasks[i];
+        }
+        bool result = false;
+        int s1 = (sum + 1)/2;
+        while(result == false){
+            result = findSubset(tasks,n,0,s1);
+            s1--;
+        }
+        return sum - (2 * s1);
+	} 
+
 };
