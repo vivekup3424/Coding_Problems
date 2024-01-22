@@ -2,7 +2,7 @@
 using namespace std;
 
 //brute force approach using two for loops in order to search for next greater element
-class Solution {
+class Solution1 {
 public:
     vector<int> nextGreaterElements(vector<int>& nums) {
         int n = nums.size();
@@ -28,6 +28,28 @@ public:
 };
 
 //better approach using monotonic stream
+//for the highest element, we can mark the nextgreater element as -1
+//and then use hashmap(in the form of a vector) 
+//and monotonic stack to get the next greater element
+class Solution{
+    public:
+        vector<int> nextGreaterElements(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> next(n, -1);
+        stack<int> s; // index stack
+        for (int i = 0; i < n * 2; i++) {
+            int num = nums[i % n]; 
+            while (!s.empty() && nums[s.top()] < num) {
+                next[s.top()] = num;
+                s.pop();
+            }
+            if (i < n) s.push(i);
+        }   
+        return next;
+    }
+    //Time Complexity = O(n)
+    //Space Complexity = O(n)
+};
 int main() {
     int t;
     std::cin >> t;
