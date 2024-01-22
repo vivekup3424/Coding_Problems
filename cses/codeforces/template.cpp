@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long int lli;
+typedef long long ll;
 typedef long long unsigned llu;
 typedef std::vector<int> vi; 
 
@@ -13,7 +13,7 @@ inline void fast_io()
 int main()
 {
     fast_io();
-    int T;
+    ll T;
     cin >> T;
     while (T--)
     {
@@ -21,30 +21,38 @@ int main()
         
     }
 }
-
+void dfs(vector<vector<ll>> adjList, vector<ll> visited,ll src){
+    if(visited[src])return ;
+    else{
+      visited[src] = true;
+      for(ll i : adjList[src]){
+        dfs(adjList,visited,i);
+      }
+    }
+  }
 class DisjointSet{
-  int n;
-  vector<int> rank, parent,size;
+  ll n;
+  vector<ll> rank, parent,size;
   public:
   //1-based indexing here. will also work for 0-indexing
-  DisjointSet(int n){
+  DisjointSet(ll n){
     n = n;
     rank.resize(n+1,0);
     parent.resize(n+1);
     size.resize(n+1,1); //initial size
-    for(int i = 0; i <= n;i ++){
+    for(ll i = 0; i <= n;i ++){
       parent[i] = i;
     }
   }
   //find operation
-  int findUltimateParent(int i){
+  ll findUltimateParent(ll i){
     if(i == parent[i])return i;
     else return parent[i] = findUltimateParent(parent[i]); //path compression
   }
   //union by size
-  void unionBySize(int u, int v){
-    int ult_parent_u = findUltimateParent(u);
-    int utl_parent_v = findUltimateParent(v);
+  void unionBySize(ll u, ll v){
+    ll ult_parent_u = findUltimateParent(u);
+    ll utl_parent_v = findUltimateParent(v);
     if(ult_parent_u == utl_parent_v)return;
     else if(size[ult_parent_u] < size[utl_parent_v]){
       parent[ult_parent_u] = utl_parent_v;
@@ -56,9 +64,9 @@ class DisjointSet{
     }
   }
   //union operation
-  void unionByRank(int u, int v){
-    int ult_parent_u = findUltimateParent(u);
-    int utl_parent_v = findUltimateParent(v);
+  void unionByRank(ll u, ll v){
+    ll ult_parent_u = findUltimateParent(u);
+    ll utl_parent_v = findUltimateParent(v);
     if(utl_parent_v == ult_parent_u)return ;
     else if(rank[ult_parent_u] < rank[utl_parent_v]){
       parent[ult_parent_u] = utl_parent_v;
@@ -72,14 +80,18 @@ class DisjointSet{
     }
   }
   //count number of components
-   int countComponents(){
-      int count = 0;
-      for(int i = 0; i < n;i++){
+   ll countComponents(){
+      ll count = 0;
+      for(ll i = 0; i < n;i++){
         if(i == parent[i]){
           count++;
         }
       }
       return count;
+    }
+    ll sizeOfGroup(ll i){
+      ll parent = findUltimateParent(i); //finding parent with path compression
+      return size[parent];
     }
 };
 

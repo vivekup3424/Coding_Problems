@@ -6,22 +6,18 @@ class Solution
 public:
     vector<bool> kidsWithCandies(vector<int> &candies, int extraCandies)
     {
-        // find the maxcandies any kid currently has
-        auto m = max_element(candies.begin(), candies.end());
-        int M = *m;
-        // find the maxCandies vector
-        int n = candies.size();
-        vector<int> maxCandies(n);
-        for (int i = 0; i < n; i++)
+        int presentMax = 0;
+        for (auto candy : candies)
+            presentMax = max(presentMax, candy);
+        vector<bool> ans;
+        for (int i = 0; i < candies.size(); i++)
         {
-            maxCandies[i] = candies[i] + extraCandies;
+            if (candies[i] + extraCandies >= presentMax)
+                ans.push_back(true);
+            else
+                ans.push_back(false);
         }
-        vector<bool> result(n);
-        for (int i = 0; i < n; i++)
-        {
-            result[i] = (maxCandies[i] >= M);
-        }
-        return result;
+        return ans;
     }
 };
 int main()

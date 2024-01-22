@@ -1,41 +1,33 @@
-
 #include <bits/stdc++.h>
 using namespace std;
-class Solution
+typedef long long ll;
+typedef long long unsigned llu;
+typedef std::vector<int> vi; 
+
+inline void fast_io()
 {
-public:
-    long long countSubarrays(vector<int> &nums, int k)
-    {
-        int n = nums.size();
-        int maxElement = INT_MIN;
-        for (int i : nums)
-        {
-            maxElement = max(maxElement, i);
-        }
-        // I need to only store the frequency of maxElement in a subarray
-        // hence I dont need a freq map, but rather constant space
-        int freq = 0; // freq of maxElement in current subarray
-        long long counter = 0;
-        int l = 0;
-        for (int i = 0; i < n; i++)
-        {
-            if (nums[i] == maxElement)
-            {
-                freq++;
-            }
-            while (freq >= k and l < n)
-            {
-                counter++;
-                if (nums[l] == maxElement)
-                {
-                    freq--;
-                    l++;
-                }
-            }
-        }
-        return counter;
-    }
-};
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
 int main()
 {
+    fast_io();
+    ll T;
+    cin >> T;
+    while (T--)
+    {
+        vector<ll> sides;
+        ll a1, b1;
+        cin>>a1>>b1;
+        for(auto i = 0;i <3;i++){ //2-time
+            ll a, b;
+            cin>>a>>b;
+            ll l = ((a-a1)*(a-a1) + (b-b1)*(b-b1));
+            sides.push_back(l);
+        }
+        sort(sides.begin(),sides.end());
+        ll product2 = sides[1] * sides[0];
+        cout<<int(sqrt(product2))<<endl;
+    }
 }
