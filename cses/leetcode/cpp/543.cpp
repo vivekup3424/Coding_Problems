@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 struct TreeNode
@@ -15,8 +14,7 @@ class Solution
 public:
     int diameterOfBinaryTree(TreeNode *root)
     {
-        unordered_map<int, vector<TreeNode *>> mp;
-    }
+        }
 };
 int main()
 {
