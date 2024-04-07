@@ -14,17 +14,19 @@ int main() {
         string s;
         cin >> s;
         
-        vector<long long> ans(n, 0);
-        vector<int> nxt(26, n);
-        ans[n - 1] = 1;
-        nxt[s[n - 1] - 'a'] = n - 1;
-    
-        for (int i = n - 2; i >= 0; i--) {
-            ans[i] = ans[i + 1] + (nxt[s[i] - 'a'] - i);
-            nxt[s[i] - 'a'] = i;
+        long long ans = 0;
+        vector<int> first_occurence(26, -1);
+        for (int i = 0; i < n; i++) {
+            char c = s[i] - 'a';
+            if(first_occurence[c]==-1){
+                first_occurence[c] = i;
+                ans += (n-i);
+            }
+            else{
+                continue;
+            }
         }
-    
-        cout << ans[0] << endl;
+        cout << ans << endl;
     }
     return 0;
 }
