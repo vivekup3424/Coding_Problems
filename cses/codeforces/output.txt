@@ -1,5 +1,7 @@
-NO
-NO
-NO
-NO
-NO
+Alice
+Bob
+Bob
+Bob
+Bob
+Alice
+Alice

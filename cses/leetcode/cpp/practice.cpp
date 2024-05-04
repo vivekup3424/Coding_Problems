@@ -1,61 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <limits>
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
-typedef long long unsigned llu;
-typedef std::vector<int> vi;
-typedef std::vector<long long> vll;
-
-inline void fast_io()
-{
-    ios_base::sync_with_stdio(false);
-    std::cin.tie(NULL);
-    cout.tie(NULL);
-}
-
-// Template function to input elements to a vector
-template <typename T>
-void inputVector(vector<T> &v, int n)
-{
-    v.resize(n);
-    for (int i = 0; i < n; i++)
-    {
-        std::cin >> v[i];
-    }
-}
-
-// Template function to output elements of a vector
-template <typename T>
-void outputVector(const vector<T> &v, int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        cout << v[i] << " ";
-    }
-    cout << "\n";
-}
 
 class Solution {
 public:
-    long long maximumHappinessSum(vector<int>& happiness, int k) {
-        priority_queue<int, vector<int>> maxHeap;
-        for(int i: happiness){
-            maxHeap.push(i);
+    vector<int> minimumTime(int n, vector<vector<int>>& edges, vector<int>& disappear) {
+        // Initialize distances array with INF
+        vector<int> dist(n, INT_MAX);
+        dist[0] = 0; // Starting node
+        
+        // Relax edges repeatedly
+        for (int i = 0; i < n - 1; ++i) {
+            for (const auto& edge : edges) {
+                int u = edge[0], v = edge[1], w = edge[2];
+                if (dist[u] != INT_MAX && dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                }
+            }
         }
-        int count = 0;
-        long long sum = 0;
-        while(k-- and maxHeap.size()>0){
-            sum += max(0, maxHeap.top()-count);
-            count++;
+        
+        // Check for negative weight cycles
+        for (const auto& edge : edges) {
+            int u = edge[0], v = edge[1], w = edge[2];
+            if (dist[u] != INT_MAX && dist[u] + w < dist[v]) {
+                // Negative weight cycle detected
+                return vector<int>(n, -1);
+            }
         }
-        return sum;
+        
+        // Adjust times based on disappear times
+        for (int i = 0; i < n; ++i) {
+            if (disappear[i] < dist[i]) {
+                dist[i] = -1; // Node disappears before it can be reached
+            }
+        }
+        
+        return dist;
     }
 };
 
-int main()
-{
-    fast_io();
-    vector<int>v = {1,2,3};
-    int k = 2;
-    Solution A;
-    ll m = A.maximumHappinessSum(v,k);
+int main() {
+    Solution sol;
+
+    // Test case
+    int n = 1;
+    vector<vector<int>> edges = {{0,0,4},{0,0,2},{0,0,7},{0,0,8},{0,0,10},{0,0,4},{0,0,6},{0,0,10},{0,0,3},{0,0,1}};
+    vector<int> disappear = {19};
+
+    vector<int> result = sol.minimumTime(n, edges, disappear);
+
+    cout << "Minimum times to reach each node:\n";
+    for (int i = 0; i < result.size(); ++i) {
+        cout << "Node " << i << ": " << result[i] << endl;
+    }
+
+    return 0;
 }

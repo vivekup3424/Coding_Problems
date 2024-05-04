@@ -12,21 +12,23 @@ inline void fast_io()
     cout.tie(NULL);
 }
 #define MAX 1000
-int vis[MAX + 10][MAX + 10];
-char grid[MAX + 10][MAX + 10];
-int n, m;
-bool result = false;
-int neighborX[4] = {0, 0, 1, -1};
+int neighborX[4] = {0, 0, 1, -1}; //U,D,R,L
 int neighborY[4] = {1, -1, 0, 0};
-bool isValid(int x, int y)
+char directions[4] = {'U','D','R','L'};
+bool isValid(vector<vector<char>> &grid,int x, int y, int n,int m)
 {
     if (x < 0 || y < 0 || x >= n || y >= m || grid[x][y] == '#')
         return false;
     return true;
 }
-void DFS(int x, int y)
+void dfs(vector<vector<char>> &grid,
+        int x, int y, 
+        vector<char> &path, 
+        bool &result,
+        vector<vector<bool>> &visited)
 {
-    vis[x][y] = 1;
+    int n = grid.size(), m = grid[0].size();
+    visited[x][y] = true;
     if (grid[x][y] == 'B')
     {
         result = true;
@@ -36,21 +38,54 @@ void DFS(int x, int y)
     {
         int newX = x + neighborX[i];
         int newY = y + neighborY[i];
-        if (isValid(newX, newY) and !vis[newX][newY])
+        if (isValid(grid,newX, newY,n,m) and !visited[newX][newY])
         {
-            DFS(newX, newY);
+            path.push_back(directions[i]);
+            dfs(grid,newX, newY,path,result,visited);
         }
     }
 }
+void bfs(vector<vector<char>> &grid,
+        int x, int y, 
+        queue<int,vector<int>> &q, 
+        bool &result,
+        vector<vector<bool>> &visited){
+            q.push      
+        }
+
 int main()
 {
     fast_io();
+    int n,m;
     cin >> n >> m;
+    vector<vector<char>> grid(n,vector<char>(m));
     for (auto i = 0; i < n; i++)
     {
         for (auto j = 0; j < m; j++)
         {
             cin >> grid[i][j];
         }
+    }
+    vector<vector<bool>> visited(n,vector<bool>(m,false));
+    bool result = false;
+    vector<char> path;
+    for (auto i = 0; i < n; i++)
+    {
+        for (auto j = 0; j < m; j++)
+        {
+            if(grid[i][j]=='A'){
+                dfs(grid,i,j,path,result,visited);
+            }
+        }
+    }
+    if(result==true){
+        cout<<"YES\n";
+        cout<<path.size()<<endl;        for(char c: path){
+            cout<<c;
+        }
+        cout<<endl;
+    }
+    else{
+        cout<<"NO\n";
     }
 }

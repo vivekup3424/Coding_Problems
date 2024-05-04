@@ -1,18 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int mod = 1000000007;
+//Function to find the nth catalan number.
+int findCatalan(int n) 
+{
+    int a = 1;
+    cout<<"0 = "<<a<<endl;
+    for(int i = 1; i < n; i++){
+        int t = (((a * 2*(2*i -1))%mod)/(i+1))%mod;
+        cout<<i<<" = "<<t<<endl;
+        a = t;
+    }
+    return a;
+}
 int main(){
-    int arr[5] = {1,2,3,4,5};
-    for (int i = 0; i < 5; i++)
-    {
-        cout<<arr[i]<<" ";
-    }
-    cout<<endl;
-    
-    for (int i = 0; i < 5; i++)
-    {
-        cout<<i[arr]<<" ";
-    }
-    cout<<endl;
-    
+    findCatalan(100);
 }
