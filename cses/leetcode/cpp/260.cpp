@@ -1,23 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
-class Solution {
+class Solution
+{
 public:
-    //Method 1: Maintaing a frequency hashset
-    vector<int> singleNumber1(vector<int>& nums) {
-        map<int,int> freq;
-        for(int n :nums){
-            freq[n]++;
-        }
-        vector<int> v;
-        for(auto it: freq){
-            if(it.second==1){
-                v.push_back(it.first);
-            }
-        }
-        return v;
+    vector<int> singleNumber(vector<int> &nums)
+    {
+        // get the total of xor bits
+        int total = accumulate(nums.begin(), nums.end(),
+                               0, bit_xor<int>());
     }
 };
-int main()
-{
-
-}

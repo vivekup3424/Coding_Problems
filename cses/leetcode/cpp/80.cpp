@@ -1,5 +1,3 @@
-// 80. Remove Duplicates from Sorted Array II
-//?
 #include <bits/stdc++.h>
 using namespace std;
 class Solution
@@ -7,37 +5,15 @@ class Solution
 public:
     int removeDuplicates(vector<int> &nums)
     {
-        int n = nums.size();
-        if (n == 1 || n == 2)
+        int i = 0, j = 0, length = 0;
+        for (int element : nums)
         {
-            return n;
-        }
-        int i = 2, j = 2;
-        while (i < n)
-        {
-            if (nums[i] != nums[i - 2])
+            if (i == 0 or i == 1 or nums[i - 2] != element)
             {
-                nums[j] = nums[i++];
-                j += 2;
-            }
-            else
-            {
+                nums[i] = element;
                 i++;
             }
         }
-        return j;
+        return i;
     }
 };
-void printVector(vector<int> nums)
-{
-    for (int i = 0; i < nums.size(); i++)
-        cout << nums[i] << " ";
-    cout << endl;
-};
-int main()
-{
-    vector<int> v = {1, 1, 1, 2, 2, 3};
-    Solution *A = new Solution();
-    A->removeDuplicates(v);
-    printVector(v);
-}
