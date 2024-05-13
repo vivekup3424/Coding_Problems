@@ -52,7 +52,7 @@ int main()
         {
             if (i == n - 1)
             {
-                if (a[i] == 1)
+                if (a[i] == '1')
                 {
                     count_a[i] = {0, 1};
                 }
@@ -63,7 +63,7 @@ int main()
             }
             else
             {
-                if (a[i] == 1)
+                if (a[i] == '1')
                 {
                     count_a[i] = {0 + count_a[i + 1].first,
                                   1 + count_a[i + 1].second};
@@ -79,7 +79,7 @@ int main()
         {
             if (i == m - 1)
             {
-                if (b[i] == 1)
+                if (b[i] == '1')
                 {
                     count_b[i] = {0, 1};
                 }
@@ -90,7 +90,7 @@ int main()
             }
             else
             {
-                if (b[i] == 1)
+                if (b[i] == '1')
                 {
                     count_b[i] = {0 + count_b[i + 1].first,
                                   1 + count_b[i + 1].second};
@@ -114,5 +114,40 @@ int main()
             cout << count_b[i].first << " " << count_b[i].second << endl;
         }
         cout << "==============================\n";
+
+        // now comes the major calculation
+        int count0 = count_b[0].first;
+        int count1 = count_b[1].second;
+        int length = 0;
+        bool stop = false;
+        while (!stop)
+        {
+            cout << "Count 0 =" << count0 << ", Count1 = " << count1 << endl;
+            if (a[length] == '1')
+            {
+                if (count1 > 0)
+                {
+                    count1--;
+                    length++;
+                }
+                else
+                {
+                    stop = true;
+                }
+            }
+            else if (a[length] == '0')
+            {
+                if (count0 > 0)
+                {
+                    count0--;
+                    length++;
+                }
+                else
+                {
+                    stop = true;
+                }
+            }
+        }
+        cout << "Length = " << length << endl;
     }
 }

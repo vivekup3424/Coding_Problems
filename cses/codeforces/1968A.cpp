@@ -5,7 +5,7 @@ typedef long long unsigned llu;
 typedef std::vector<int> vi;
 typedef std::vector<long long> vll;
 typedef std::vector<vector<long long>> vvll;
-const int MOD = 1e9+7;
+const int MOD = 1e9 + 7;
 
 inline void fast_io()
 {
@@ -44,18 +44,19 @@ int main()
     while (T--)
     {
         ll x;
-        cin>>x;
-        ll max_value = 0, current_value = 0, max_y = 0;
-        ll temp = x-1;
-        while (temp>0)
+        cin >> x;
+        ll max_value = INT_MIN, max_y = 0;
+        ll root_x = sqrt(x) + 1;
+        for (int i = 1; i < x; i++)
         {
-            current_value = __gcd(x,temp)+temp;
-            if(current_value > max_value){
-                max_value = current_value;
-                max_y = temp;
+            ll value = gcd(x, i) + i;
+            if (value > max_value)
+            {
+                max_y = i;
+                max_value = value;
             }
-            temp--;
         }
-        cout<<max_y<<endl;
+
+        cout << max_y << endl;
     }
 }

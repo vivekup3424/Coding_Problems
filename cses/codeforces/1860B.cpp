@@ -43,27 +43,13 @@ int main()
     std::cin >> T;
     while (T--)
     {
-        ll n;
-        cin >> n;
-        vll v(n, 0);
-        inputVector(v, n);
-        int first_value = v.front(),
-            back_value = v.back();
-        int current_length = 0, min_length = INT_MAX;
-        for (int i = 0; i < n; i++)
-        {
-            if (v[i] == first_value)
-            {
-                current_length++;
-            }
-            else if (v[i] != first_value or i == n - 1)
-            {
-                min_length = min(min_length, current_length);
-                current_length = 0;
-            }
-        }
-        {
-            cout << (min_length == n ? -1 : min_length) << endl;
-        }
+        ll m, k, a1, ak;
+        cin >> m >> k >> a1 >> ak;
+        int k_coins = m / k;
+        int one_coins = m % k;
+        cout << "K = " << k_coins << ", one_coins= " << one_coins << endl;
+        k_coins -= ak;
+        one_coins -= a1;
+        cout << k_coins + one_coins << endl;
     }
 }

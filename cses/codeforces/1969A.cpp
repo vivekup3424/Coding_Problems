@@ -45,25 +45,23 @@ int main()
     {
         ll n;
         cin >> n;
-        vll v(n, 0);
-        inputVector(v, n);
-        int first_value = v.front(),
-            back_value = v.back();
-        int current_length = 0, min_length = INT_MAX;
+        vll p(n);
+        inputVector(p, n);
+        unordered_map<ll, ll> mp;
         for (int i = 0; i < n; i++)
         {
-            if (v[i] == first_value)
-            {
-                current_length++;
-            }
-            else if (v[i] != first_value or i == n - 1)
-            {
-                min_length = min(min_length, current_length);
-                current_length = 0;
-            }
+            mp[i + 1] = p[i];
         }
+        bool isTwo = false;
+        for (auto it : mp)
         {
-            cout << (min_length == n ? -1 : min_length) << endl;
+            auto a = it.first, b = it.second;
+            if (mp[b] == a)
+            {
+                isTwo = true;
+                break;
+            }
         }
+        cout << (isTwo ? 2 : 3) << endl;
     }
 }

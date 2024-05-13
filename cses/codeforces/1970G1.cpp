@@ -43,27 +43,21 @@ int main()
     std::cin >> T;
     while (T--)
     {
-        ll n;
-        cin >> n;
-        vll v(n, 0);
-        inputVector(v, n);
-        int first_value = v.front(),
-            back_value = v.back();
-        int current_length = 0, min_length = INT_MAX;
-        for (int i = 0; i < n; i++)
+        ll n, m, c;
+        cin >> n >> m >> c;
+        unordered_map<ll, vll> adj;
+        for (int i = 1; i <= m; i++)
         {
-            if (v[i] == first_value)
-            {
-                current_length++;
-            }
-            else if (v[i] != first_value or i == n - 1)
-            {
-                min_length = min(min_length, current_length);
-                current_length = 0;
-            }
+            ll a, b;
+            cin >> a >> b;
+            adj[a].push_back(b);
+            adj[b].push_back(a);
         }
+        ll total = 0;
+        if (n % 2 == 0)
         {
-            cout << (min_length == n ? -1 : min_length) << endl;
+            total = 2 * ((n / 2) * (n / 2));
         }
+        cout << total << endl;
     }
 }

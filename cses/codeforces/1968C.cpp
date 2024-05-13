@@ -45,25 +45,13 @@ int main()
     {
         ll n;
         cin >> n;
-        vll v(n, 0);
-        inputVector(v, n);
-        int first_value = v.front(),
-            back_value = v.back();
-        int current_length = 0, min_length = INT_MAX;
-        for (int i = 0; i < n; i++)
+        vll v(n - 1, 0);
+        inputVector(v, n - 1);
+        vll ans(n, 1);
+        for (int i = 0; i < n - 1; i++)
         {
-            if (v[i] == first_value)
-            {
-                current_length++;
-            }
-            else if (v[i] != first_value or i == n - 1)
-            {
-                min_length = min(min_length, current_length);
-                current_length = 0;
-            }
+            ans[i + 1] = ans[i] + v[i];
         }
-        {
-            cout << (min_length == n ? -1 : min_length) << endl;
-        }
+        outputVector(ans, n);
     }
 }
