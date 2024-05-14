@@ -1,5 +1,4 @@
-4
-11 3 0 0
-11 3 20 20
-11 3 6 1
-100000000 2 0 0
+3
+Buttercup must be milked beside Bella
+Blue must be milked beside Bella
+Sue must be milked beside Beatrice
