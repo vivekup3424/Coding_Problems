@@ -1,4 +1,11 @@
-3
-Buttercup must be milked beside Bella
-Blue must be milked beside Bella
-Sue must be milked beside Beatrice
+9
+11010
+00000000
+1
+10
+0001111
+0110
+0100
+0101
+1010
+
