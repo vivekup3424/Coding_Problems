@@ -35,7 +35,6 @@ void outputVector(const vector<T> &v, int n)
     }
     cout << "\n";
 }
-
 int main()
 {
     fast_io();
@@ -43,15 +42,28 @@ int main()
     std::cin >> T;
     while (T--)
     {
-        ll x, y;
-        cin >> x >> y;
-        ll num = (ll)ceil(float(y) / float(2));
-        ll freeespace = 15 * num - 4 * y;
-        if (x > freeespace)
+        ll n;
+        cin >> n;
+        vll c(n);
+        inputVector(c, n);
+        sort(c.begin(), c.end());
+        vector<int> temp;
+        // get the set of all unique elements in c
+        set<int> st;
+        for (int num : c)
         {
-            x -= freeespace;
+            st.insert(num);
         }
-        num += (ll)ceil(float(x) / float(15));
-        cout << num << endl;
+        if (st.count(1) == 0)
+        {
+            cout << "NO";
+            continue;
+        }
+        for (auto it : st)
+        {
+            temp.push_back(it);
+        }
+        // check if using these integers whether I can get all
+        // all the integers in c or not
     }
 }

@@ -45,13 +45,13 @@ int main()
     {
         ll x, y;
         cin >> x >> y;
-        ll num = (ll)ceil(float(y) / float(2));
+        ll num = (y + 1) / 2;
         ll freeespace = 15 * num - 4 * y;
         if (x > freeespace)
         {
             x -= freeespace;
+            num += (ll)ceil(float(x) / float(15));
         }
-        num += (ll)ceil(float(x) / float(15));
         cout << num << endl;
     }
 }

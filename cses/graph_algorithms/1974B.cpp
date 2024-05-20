@@ -43,15 +43,38 @@ int main()
     std::cin >> T;
     while (T--)
     {
-        ll x, y;
-        cin >> x >> y;
-        ll num = (ll)ceil(float(y) / float(2));
-        ll freeespace = 15 * num - 4 * y;
-        if (x > freeespace)
+        ll n;
+        cin >> n;
+        string b;
+        cin >> b;
+        vector<char> v;
+        set<char> st;
+        for (int i = 0; i < b.size(); i++)
         {
-            x -= freeespace;
+            char c = b[i];
+            if (st.count(c) == 0)
+            {
+                v.push_back(c);
+                st.insert(c);
+            }
         }
-        num += (ll)ceil(float(x) / float(15));
-        cout << num << endl;
+        sort(v.begin(), v.end());
+        unordered_map<char, char> mp;
+        int i = 0, j = v.size()-1;
+        while (i <= j)
+        {
+            mp[v[i]] = v[j];
+            mp[v[j]] = v[i];
+            i++;
+            j--;
+        }
+
+        int len = v.size();
+        for (int i = 0; i < b.size(); i++)
+        {
+            char c = b[i];
+            b[i] = mp[c];
+        }
+        cout << b << endl;
     }
 }
