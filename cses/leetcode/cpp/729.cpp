@@ -18,7 +18,15 @@ public:
             {
                 return false;
             }
+            else if (start < meetings[i].second and
+                     end > meetings[i].second)
+            {
+                return false;
+            }
         }
+        meetings.push_back({end, start});
+        sort(meetings.begin(), meetings.end());
+        return true;
     }
 };
 
