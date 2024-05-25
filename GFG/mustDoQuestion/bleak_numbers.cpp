@@ -19,6 +19,7 @@ public:
             {
                 r = mid - 1;
             }
+            vector<int> v;
             else
             {
                 l = mid + 1;
