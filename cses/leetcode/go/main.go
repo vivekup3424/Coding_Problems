@@ -1,36 +1,36 @@
 package main
 
-import "fmt"
+import "container/heap"
+//defining the minHeap
+type Heap []int
+func (m Heap) Len() int{
+	return len(m)	
+}
+func (h Heap) Less(i,j int) bool{
+	return h[i] < h[j]
+}
+func (h Heap) Swap(i,j int) {
+	h[i],h[j] = h[j],h[i]
+}
+func (h *Heap) Push(x int){
+	*h = append(*h, x)
+}
+func (h *Heap) Pop(){
+	old := *h
+	n := len(old)
+	x := old(n-1)
+	*h := old[0:n-1]
+	return x
+}
+func maxScoreWords(words []string, letters []byte, score []int) int {
+	n := len(words)
+	hashmap := make(map[rune]Heap)
+	m := len(letters)
+	for i := m{
+		hashmap
+	}
+}
 
-func main() {
-	// Test cases
-	intervals := [][]int{{1, 3}, {6, 9}}
-	newInterval := []int{2, 5}
-	fmt.Println("Before insertion:", intervals)
-	fmt.Println("New interval:", newInterval)
-	fmt.Println("After insertion:", insert(intervals, newInterval))
-
-	intervals = [][]int{{1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}}
-	newInterval = []int{4, 8}
-	fmt.Println("Before insertion:", intervals)
-	fmt.Println("New interval:", newInterval)
-	fmt.Println("After insertion:", insert(intervals, newInterval))
-
-	intervals = [][]int{}
-	newInterval = []int{5, 7}
-	fmt.Println("Before insertion:", intervals)
-	fmt.Println("New interval:", newInterval)
-	fmt.Println("After insertion:", insert(intervals, newInterval))
-
-	intervals = [][]int{{1, 5}}
-	newInterval = []int{2, 3}
-	fmt.Println("Before insertion:", intervals)
-	fmt.Println("New interval:", newInterval)
-	fmt.Println("After insertion:", insert(intervals, newInterval))
-
-	intervals = [][]int{{1, 5}}
-	newInterval = []int{2, 7}
-	fmt.Println("Before insertion:", intervals)
-	fmt.Println("New interval:", newInterval)
-	fmt.Println("After insertion:", insert(intervals, newInterval))
+func main(){
+	
 }
