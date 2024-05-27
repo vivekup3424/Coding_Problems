@@ -36,6 +36,13 @@ func (this *RandomizedSet) Remove(val int) bool {
 func (this *RandomizedSet) GetRandom() int {
 	n := rand.Int()
 	n = n % this.length
+	for key, val := range this.hashmap {
+		if val > 0 && n > 0 {
+			n--
+		} else if val > 0 && n == 0 {
+			return key
+		}
+	}
 }
 
 /**
