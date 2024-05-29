@@ -43,6 +43,7 @@ func (this *RandomizedSet) GetRandom() int {
 			return key
 		}
 	}
+	return 0
 }
 
 /**
