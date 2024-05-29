@@ -22,11 +22,29 @@ int majorityElement(int a[], int size)
         }
     }
     printf("Element = %d\n", element);
+    printf("Count=  %d\n", count);
     return element;
 }
 
 int main()
 {
-    int arr[] = {1, 2, 3, 4};
-    majorityElement(arr, 4);
+    int arr[] =
+        {
+            17,
+            19,
+            9,
+            5,
+            3,
+            6,
+            17,
+            7,
+            18,
+            16,
+            18,
+            11,
+            3,
+            15,
+            2,
+        };
+    majorityElement(arr, 15);
 }
