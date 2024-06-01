@@ -35,7 +35,48 @@ void outputVector(const vector<T> &v, int n)
     }
     cout << "\n";
 }
+void something(ll x, int idx, int prev_state, vector<int> &taken, vector<int> &finalAnswer)
+{
+    if (finalAnswer.size() != 0)
+    {
+        return;
+    }
+    if (x == 0)
+    {
+        finalAnswer = taken;
+        return;
+    }
+    else if (idx >= 6)
+    {
+        return;
+    }
+    else
+    {
+        if (prev_state != 0)
+        {
+            taken.push_back(0); // since consecutive elements can't be
+                                //  non-zero
 
+            something(x, idx + 1, 0, taken, finalAnswer);
+        }
+        else
+        {
+            ll value = 1 << idx;
+            // 1 at the idx
+            taken.push_back(1);
+            something(x - value, idx + 1, 1, taken, finalAnswer);
+            taken.pop_back();
+            //-1 at the idx
+            taken.push_back(-1);
+            something(x + value, idx + 1, -1, taken, finalAnswer);
+            taken.pop_back();
+            // not taking it, 0 at the idx
+            taken.push_back(0);
+            something(x, idx + 1, 0, taken, finalAnswer);
+            taken.pop_back();
+        }
+    }
+}
 int main()
 {
     fast_io();
@@ -45,10 +86,14 @@ int main()
     {
         int x;
         cin >> x;
-        int dp[32][3];
-        for (int i = 0; i < 32; i++)
+        vector<int> answer;
+        vector<int> finalAnswer;
+        something(x, 0, 0, answer, finalAnswer);
+        cout << finalAnswer.size() << endl;
+        for (auto i : finalAnswer)
         {
-            for
+            cout << i << " ";
         }
+        cout << endl;
     }
 }
