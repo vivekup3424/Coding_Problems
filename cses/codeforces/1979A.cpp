@@ -47,10 +47,10 @@ int main()
         cin >> n;
         vll v(n);
         inputVector(v, n);
-        int maxi = v[0];
+        ll maxi = INT_MAX;
         for (int i = 1; i < n; i++)
         {
-            maxi = max(v[i], v[i - 1]);
+            maxi = min(max(v[i], v[i - 1]), maxi);
         }
         cout << maxi - 1 << endl;
     }
