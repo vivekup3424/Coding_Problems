@@ -35,7 +35,19 @@ void outputVector(const vector<T> &v, int n)
     }
     cout << "\n";
 }
-
+ll getSum(vll v, ll n, ll idx, ll sum)
+{
+    if (idx == n)
+    {
+        return sum;
+    }
+    else
+    {
+        return max(
+            getSum(v, n, idx + 1, sum + v[idx]),
+            getSum(v, n, idx + 1, abs(sum + v[idx])));
+    }
+}
 int main()
 {
     fast_io();
@@ -43,5 +55,10 @@ int main()
     std::cin >> T;
     while (T--)
     {
+        ll n;
+        cin >> n;
+        vll v(n);
+        inputVector(v, n);
+        cout << getSum(v, n, 0, 0) << endl;
     }
 }

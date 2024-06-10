@@ -43,5 +43,20 @@ int main()
     std::cin >> T;
     while (T--)
     {
+        ll n;
+        cin >> n;
+        vll v(n);
+        inputVector(v, n);
+        if (v.front() == v.back())
+        {
+            cout << "NO\n";
+        }
+        else
+        {
+            cout << "YES\n";
+            string s(n, 'R');
+            s[1] = 'B';
+            cout << s << endl;
+        }
     }
 }
