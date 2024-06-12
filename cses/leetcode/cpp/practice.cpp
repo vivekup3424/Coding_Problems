@@ -5,49 +5,43 @@ typedef long long ll;
 class Solution
 {
 public:
-    int maximumLength(vector<int> &nums, int k)
+    int maxReward(vector<int> &r, int idx, int sum, int &maxSum)
     {
-        int n = nums.size();
-        // using sliding window approach
-        int start = 0, end = 0;
-        int length = 0, maxLength = 0, pair = 0;
-        while (end < n)
+        maxSum = max(maxSum, sum);
+        if (idx == r.size())
         {
-            while (pair > k and end < n and start < end)
-            {
-                if (nums[start] != nums[start + 1])
-                {
-                    pair--;
-                }
-                start++;
-                length--;
-                if (length < 0)
-                {
-                    length == 0;
-                }
-            }
-            if (nums[end] == nums[end - 1] || (end == 0))
-            {
-                length++;
-                end++;
-            }
-            else if (nums[end] != nums[end - 1])
-            {
-                length++;
-                pair++;
-                end++;
-            }
-            maxLength = max(maxLength, length);
+            return maxSum;
         }
-        return maxLength;
+        if (sum < r[idx])
+        {
+            // choose the ith elemetn
+            return max(
+                maxReward(r, idx + 1, sum + r[idx], maxSum),
+                maxReward(r, idx + 1, sum, maxSum));
+        }
+        else
+        {
+            // cant choose the ith element
+            return maxReward(r, idx + 1, sum, maxSum);
+        }
+    }
+    int maxTotalReward(vector<int> &r)
+    {
+        sort(r.begin(), r.end());
+        int n = r.size();
+        int maxSum = 0, sum = 0;
+        return maxReward(r, 0, sum, maxSum);
+        int totalSum = 0;
+        for (auto i : r)
+        {
+            totalSum +=
+        }
     }
 };
-
 int main()
 {
-    Solution A;
-    vector<int> v = {1, 2, 3, 4, 5, 1};
-    int k = 2;
-    int ans = A.maximumLength(v, k);
-    cout << ans << endl;
+    Solution sol;
+    vector<int> rewards = {2, 1, 4, 3};
+    cout << sol.maxTotalReward(rewards) << endl;
+    return 0;
 }

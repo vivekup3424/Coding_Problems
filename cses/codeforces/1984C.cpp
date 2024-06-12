@@ -1,16 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
 int main()
 {
-    int t;
+    ll t;
     cin >> t;
     for (; t > 0; t--)
     {
-        int n;
+        ll n;
         cin >> n;
-        vector<int> a(n);
-        int sum = 0, mini = 0;
-        for (int i = 0; i < n; i++)
+        vector<ll> a(n);
+        ll sum = 0, mini = 0;
+        for (ll i = 0; i < n; i++)
         {
             cin >> a[i];
             sum += a[i];
