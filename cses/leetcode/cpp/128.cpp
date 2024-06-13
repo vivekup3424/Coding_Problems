@@ -61,8 +61,16 @@ public:
 
 class Solution2
 {
-    // using hashsets or simply set
-} int main()
+    // using hashsets or simply set, using union-find method
+public:
+    int longestConsecutive(vector<int> &nums)
+    {
+        int n = nums.size();
+        vector<int> size(n, 1);
+        map<int, int> parent;
+    }
+};
+int main()
 {
     // Example usage
     vector<int> nums = {0, 0};
