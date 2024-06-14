@@ -26,9 +26,10 @@ int subarrayBitwiseORs2(vector<int> &arr)
 {
     // since there are 4*1e8 elements, hence maximum bit required is 30
     // so our solution can be optimised for that
-    set<int> allResults, currentResults, prevResults;
+    set<int> allResults, prevResults;
     for (int num : arr)
     {
+        set<int> currentResults;
         for (auto r : prevResults)
         {
             int value = r | num;
