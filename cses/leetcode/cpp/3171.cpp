@@ -5,23 +5,40 @@ typedef long long ll;
 class Solution
 {
 public:
-    int minimumDifference(vector<int> &nums, int k)
+    set<int> subarrayBitwiseORs(vector<int> &arr)
     {
-        int n = nums.size();
-        vector<int> dp(n + 1, 0);
-        for (int i = 0; i < n; i++)
+        // since there are 4*1e8 elements, hence maximum bit required is 30
+        // so our solution can be optimised for that
+        set<int> allResults, prevResults;
+        for (int num : arr)
         {
-            if (i == 0)
+            set<int> currentResults;
+            for (auto r : prevResults)
             {
-                dp[i] = nums[i];
+                int value = r | num;
+                currentResults.insert(value);
             }
-            else
+            currentResults.insert(num);
+            prevResults = currentResults;
+            for (auto r : prevResults)
             {
-                int choice1 = abs(dp[i - 1] & nums[i] - k);
-                int choice2 = abs(dp[i - 1] - k);
-                dp[i] = min(choice1, choice2);
+                allResults.insert(r);
             }
         }
-        return dp[n];
+        return allResults;
+    }
+
+    int minimumDifference(vector<int> &nums, int k)
+    {
+        set<int> results = subarrayBitwiseORs(nums);
+        int minDiff = INT_MAX;
+        for (auto i : results)
+        {
+            int diff = abs(i - k);
+            if (diff < minDiff)
+            {
+                minDiff = diff;
+            }
+        }
     }
 };

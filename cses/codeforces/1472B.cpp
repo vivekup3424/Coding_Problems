@@ -39,43 +39,55 @@ void outputVector(const vector<T> &v, int n)
 int main()
 {
     fast_io();
-    ll T;
+    int T;
     std::cin >> T;
     while (T--)
     {
-        ll n;
+        int n;
         cin >> n;
-        int count1 = 0, count2 = 0;
-        for (int i = 0; i < n; i++)
+        vector<int> v(n);
+        inputVector(v, n);
+        int sum = accumulate(v.begin(), v.end(), 0);
+        if (sum & 1)
         {
-            ll temp;
-            cin >> temp;
-            if (temp == 1)
+            cout << "NO\n";
+            continue;
+        }
+        else
+        {
+            ll required_sum = sum >> 1;
+            bool dp[n + 1][required_sum + 1];
+            for (int i = 0; i < n + 1; i++)
             {
-                count1++;
+                for (int j = 0; j < required_sum + 1; j++)
+                {
+                    if (i == 0)
+                    {
+                        dp[i][j] = false;
+                    }
+                    else if (j == 0)
+                    {
+                        dp[i][j] = true;
+                    }
+                    else if (v[i - 1] > required_sum)
+                    {
+                        dp[i][j] = dp[i - 1][j];
+                    }
+                    else
+                    {
+                        dp[i][j] = dp[i - 1][j - v[i - 1]] ||
+                                   dp[i - 1][j];
+                    }
+                }
             }
-            else if (temp == 2)
+            if (dp[n][required_sum] == true)
             {
-                count2++;
+                cout << "YES" << endl;
+            }
+            else
+            {
+                cout << "NO" << endl;
             }
         }
-        int a = 0, b = 0;
-        // distributing the elements
-        int l1 = count2 / 2;
-        int l2 = count2 - l1;
-        a += 2 * l1;
-        b += 2 * l2;
-        if (b > a)
-        {
-            // first equalize a
-            if (count1 >= b - a)
-            {
-                count1 -= b - a;
-                a = b;
-            }
-            a += count1 / 2;
-            b += (count1 - count1 / 2);
-        }
-        cout << a << ", " << b << endl;
     }
 }
