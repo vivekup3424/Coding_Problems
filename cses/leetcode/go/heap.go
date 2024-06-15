@@ -1,5 +1,5 @@
 package main
-
+package main
 import "sort"
 
 type Interface interface {

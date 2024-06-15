@@ -49,7 +49,7 @@ int main()
         inputVector(a, n);
         vll b(n);
         inputVector(b, n);
-        ll l = 0, r = INT_MAX;
+        ll l = 0, r = INT64_MAX;
         ll ans = 0;
         while (l <= r)
         {
