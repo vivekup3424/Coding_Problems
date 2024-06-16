@@ -25,6 +25,9 @@ public:
     vector<int> getNewsFeed(int userId)
     {
         // Retrieves the 10 most recent tweet IDs in the
+        // get the elements from each queue, in a sequential mannner and then feed them into a minQueue
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> minQueue;
+        // first the feed from userId itself
     }
 
     void follow(int followerId, int followeeId)

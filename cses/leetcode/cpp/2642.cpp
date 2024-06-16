@@ -13,7 +13,7 @@ public:
     {
         vertices = n;
         adj.resize(n);
-        distanceMatrix.resize(n, vector<int>(n, INT_MAX));
+        distanceMatrix.resize(n, vector<int>(n, -1));
 
         // Initialize diagonal to zero (distance to self is zero)
         for (int i = 0; i < n; ++i)
@@ -36,7 +36,7 @@ public:
 
     int shortestPath(int node1, int node2)
     {
-        if (distanceMatrix[node1][node2] != INT_MAX || node1 == node2)
+        if (distanceMatrix[node1][node2] != -1 || node1 == node2)
         {
             return distanceMatrix[node1][node2];
         }
