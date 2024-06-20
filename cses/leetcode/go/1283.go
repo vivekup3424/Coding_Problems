@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
-	"sort"
+	"slices"
 )
 
 type Ints []int
@@ -20,9 +20,9 @@ func calculateValue(nums []int, speed int) int {
 	return total
 }
 func smallestDivisor(nums []int, threshold int) int {
-	sort.Ints(nums)
+	//sort.Ints(nums)
 	fmt.Println(nums)
-	l, r := 0, nums[len(nums)-1]
+	l, r := 1, slices.Max(nums)
 	ans := r
 	for l <= r {
 		mid := (l + r) >> 1 //bitwise right shift(divides by 2)
