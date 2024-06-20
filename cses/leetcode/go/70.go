@@ -1,13 +1,5 @@
 package main
 
-import (
-	"bufio"
-	"fmt"
-	"os"
-	"strconv"
-	"strings"
-)
-
 func climbStairs(n int) int {
 	oneStep, twoStep := 1, 2
 	current := 0
@@ -24,13 +16,14 @@ func climbStairs(n int) int {
 	}
 	return current
 }
-func main() {
-	writer := bufio.NewWriter(os.Stdout)
-	writer.Write([]byte("Enter the number of steps: "))
-	writer.Flush()
-	reader := bufio.NewReader(os.Stdin)
-	input, _ := reader.ReadString('\n')
-	input = strings.TrimSpace(input)
-	n, _ := strconv.Atoi(input)
-	fmt.Println(climbStairs(int(n)))
-}
+
+//func main() {
+//	writer := bufio.NewWriter(os.Stdout)
+//	writer.Write([]byte("Enter the number of steps: "))
+//	writer.Flush()
+//	reader := bufio.NewReader(os.Stdin)
+//	input, _ := reader.ReadString('\n')
+//	input = strings.TrimSpace(input)
+//	n, _ := strconv.Atoi(input)
+//	fmt.Println(climbStairs(int(n)))
+//}
