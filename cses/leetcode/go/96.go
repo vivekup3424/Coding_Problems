@@ -18,7 +18,8 @@ func numTrees(n int) int {
 	fmt.Println(dp)
 	return dp[len(dp)-1]
 }
-func main() {
-	n := 3
-	fmt.Println(numTrees(n))
-}
+
+//func main() {
+//	n := 3
+//	fmt.Println(numTrees(n))
+//}
