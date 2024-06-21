@@ -1,5 +1,8 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
+
 typedef long long ll;
 typedef long long unsigned llu;
 typedef std::vector<int> vi;
@@ -11,7 +14,6 @@ inline void fast_io()
 {
     ios_base::sync_with_stdio(false);
     std::cin.tie(NULL);
-    cout.tie(NULL);
 }
 
 // Template function to input elements to a vector
@@ -27,11 +29,11 @@ void inputVector(vector<T> &v, int n)
 
 // Template function to output elements of a vector
 template <typename T>
-void outputVector(const vector<T> &v, int n)
+void outputVector(const vector<T> &v)
 {
-    for (int i = 0; i < n; i++)
+    for (const auto &el : v)
     {
-        cout << v[i] << " ";
+        cout << el << " ";
     }
     cout << "\n";
 }
@@ -41,7 +43,7 @@ class Solution
 public:
     int maxSatisfied(vector<int> &customers, vector<int> &grumpy, int m)
     {
-        // calculate the initial result, with no alterations
+        // Calculate the initial satisfied customers without alterations
         ll happy = 0;
         ll n = customers.size();
         for (int i = 0; i < n; i++)
@@ -51,31 +53,31 @@ public:
                 happy += customers[i];
             }
         }
-        // get the initial window
-        int left = 0, right = 0;
-        ll maxSum = 0, currenSum = 0;
-        for (; right < 3; right++)
+
+        // Sliding window to calculate the maximum additional satisfied customers
+        ll maxSum = 0, currentSum = 0;
+        for (int i = 0; i < m; i++)
         {
-            if (grumpy[right] == 1)
+            if (grumpy[i] == 1)
             {
-                currenSum += customers[right];
-                maxSum = max(maxSum, currenSum);
+                currentSum += customers[i];
             }
         }
-        for (; right < n;)
+        maxSum = currentSum;
+
+        for (int i = m; i < n; i++)
         {
-            if (grumpy[left] == 1)
+            if (grumpy[i - m] == 1)
             {
-                currenSum -= customers[left];
+                currentSum -= customers[i - m];
             }
-            if (grumpy[right] == 1)
+            if (grumpy[i] == 1)
             {
-                currenSum += customers[right];
+                currentSum += customers[i];
             }
-            maxSum = max(maxSum, currenSum);
-            left++;
-            right++;
+            maxSum = max(maxSum, currentSum);
         }
+
         return maxSum + happy;
     }
 };
@@ -83,18 +85,14 @@ public:
 int main()
 {
     fast_io();
-    ll T;
-    std::cin >> T;
-    while (T--)
-    {
-        ll n;
-        cin >> n;
-        vi customers(n);
-        inputVector(customers, n);
-        vi grumpy(n);
-        inputVector(grumpy, n);
-        int minutes;
-        cin >> minutes;
-        cout << Solution().maxSatisfied(customers, grumpy, minutes) << endl;
-    }
+    int n, m;
+    cin >> n >> m;
+    vi customers(n), grumpy(n);
+    inputVector(customers, n);
+    inputVector(grumpy, n);
+
+    Solution sol;
+    cout << sol.maxSatisfied(customers, grumpy, m) << "\n";
+
+    return 0;
 }
