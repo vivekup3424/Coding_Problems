@@ -16,7 +16,7 @@ public:
                 dp[0][0] = nums[0];
                 dp[0][1] = nums[0];
             }
-            else if (nums[i] > 0)
+            else if (nums[i] >= 0)
             {
                 dp[i][0] = dp[i][1] = max(dp[i - 1][0], dp[i - 1][1]) + nums[i];
             }
