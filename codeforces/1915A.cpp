@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int lli;
+typedef long long unsigned llu;
+typedef std::vector<int> vi; 
+
+inline void fast_io()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+int main()
+{
+    fast_io();
+    int T;
+    cin >> T;
+    while (T--)
+    {
+        lli a,b,c;
+        cin>>a>>b>>c;
+        lli d = (a ^ b) ^c ;
+        cout<<d<<endl;
+        
+    }
+}
