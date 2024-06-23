@@ -5,43 +5,59 @@ typedef long long ll;
 class Solution
 {
 public:
-    int maxReward(vector<int> &r, int idx, int sum, int &maxSum)
+    const int MOD = 1e9 + 7;
+
+    int numberOfPermutations(int n, vector<vector<int>> &requirements)
     {
-        maxSum = max(maxSum, sum);
-        if (idx == r.size())
+        int maxInversions = n * (n - 1) / 2;
+        vector<vector<int>> dp(n + 1, vector<int>(maxInversions + 1, 0));
+
+        dp[0][0] = 1;
+
+        for (int i = 1; i <= n; ++i)
         {
-            return maxSum;
+            for (int j = 0; j <= maxInversions; ++j)
+            {
+                for (int k = 0; k < i; ++k)
+                {
+                    if (j >= k)
+                    {
+                        dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % MOD;
+                    }
+                }
+            }
         }
-        if (sum < r[idx])
+
+        // Filter permutations based on requirements
+        int result = 0;
+        for (int j = 0; j <= maxInversions; ++j)
         {
-            // choose the ith elemetn
-            return max(
-                maxReward(r, idx + 1, sum + r[idx], maxSum),
-                maxReward(r, idx + 1, sum, maxSum));
+            bool valid = true;
+            for (auto &req : requirements)
+            {
+                int endi = req[0] + 1; // Convert 0-based to 1-based index
+                int cnti = req[1];
+                if (dp[endi][cnti] == 0)
+                {
+                    valid = false;
+                    break;
+                }
+            }
+            if (valid)
+            {
+                result = (result + dp[n][j]) % MOD;
+            }
         }
-        else
-        {
-            // cant choose the ith element
-            return maxReward(r, idx + 1, sum, maxSum);
-        }
-    }
-    int maxTotalReward(vector<int> &r)
-    {
-        sort(r.begin(), r.end());
-        int n = r.size();
-        int maxSum = 0, sum = 0;
-        return maxReward(r, 0, sum, maxSum);
-        int totalSum = 0;
-        for (auto i : r)
-        {
-            totalSum +=
-        }
+
+        return result;
     }
 };
+
 int main()
 {
-    Solution sol;
-    vector<int> rewards = {2, 1, 4, 3};
-    cout << sol.maxTotalReward(rewards) << endl;
+    Solution solution;
+    int n = 3;
+    vector<vector<int>> requirements = {{2, 2}, {0, 0}};
+    cout << solution.numberOfPermutations(n, requirements) << endl; // Output: 2
     return 0;
 }
