@@ -57,3 +57,36 @@ public:
         return dp[i][M] = sums[i] - min;
     }
 };
+
+int recurse(vector<int> piles, int n, int idx, int M, int turn)
+{
+    if (idx >= n)
+    {
+        return 0;
+    }
+    else
+    {
+        if (turn == 0)
+        {
+            // Alice's turn
+            int maxValue = 0;
+            int sum = 0;
+            for (int x = 1; x <= min(2 * M, n); x++)
+            {
+                sum += piles[idx + x - 1];
+                maxValue = max(maxValue, sum + recurse(piles, n, idx + x, max(x, M), 1 - turn));
+            }
+            return maxValue;
+        }
+        else
+        {
+            // Bob's turn, he will try to minimize the score of Alice's
+            int minValue = 0;
+            for (int x = 1; x <= min(2 * M, n); x++)
+            {
+                minValue = min(minValue, recurse(piles, n, idx + x, max(x, M), 1 - turn));
+            }
+            return minValue;
+        }
+    }
+}
