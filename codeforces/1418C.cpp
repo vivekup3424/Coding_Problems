@@ -1,0 +1,2 @@
+/*before trying this question try to complete the
+stone game series of leetcode*/
