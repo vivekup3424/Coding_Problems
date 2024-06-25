@@ -35,7 +35,7 @@ void outputVector(const vector<T> &v, int n)
     }
     cout << "\n";
 }
-bool isIntervalInside(int a, int c, int b, int d)
+bool isIntervalInside(ll a, ll c, ll b, ll d)
 {
     return (b <= a && c <= d) || (a <= b && d <= c);
 }
