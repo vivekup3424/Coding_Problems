@@ -21,7 +21,7 @@ public:
         bool flag = true;
         for (auto it : freqHashMap)
         {
-            while (freqHashMap[it.first] > 0)
+            while (it.second > 0)
             {
                 for (int i = 0; i < k; i++)
                 {

@@ -14,17 +14,12 @@ bool isNStraightHand(vector<int> &hand, int groupSize)
     {
         freqHashMap[h]++;
     }
-    // print the hashmap
-    for (auto it : freqHashMap)
-    {
-        printf("%d : %d\n", it.first, it.second);
-    }
     // let's use map for searching, that way my
     // time complexity would be reduced to O(logn) for searching
     bool flag = true;
     for (auto it : freqHashMap)
     {
-        while (it.second > 0)
+        while (freqHashMap[it.first] > 0)
         {
             for (int i = 0; i < groupSize; i++)
             {
