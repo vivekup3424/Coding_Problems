@@ -19,7 +19,7 @@ type Answer struct {
 func parseNumber(str string, idx int) int {
 	//get numeral value before idx
 	var numBuffer []byte
-	for i := idx - 1; i >= 0; i-- {
+	for i := idx; i >= 0; i-- {
 		if str[i] >= '0' && str[i] <= '9' {
 			numBuffer = append(numBuffer, str[i])
 		} else if str[i] == ' ' {
