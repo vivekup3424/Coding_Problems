@@ -46,4 +46,42 @@ int minHalls(int lectures[][2], int n)
 // we can't use the above approach
 // but we can think in terms of getting the
 // maximum number of non-overlapping intervals
-// using a priority-queue I can solve this question
+// using an ordering
+bool ascendingEndingTimes(int a[2], int b[2])
+{
+    if (a[1] < b[1])
+    {
+        return true;
+    }
+    else if (a[0] < b[0])
+    {
+        return true; // sort in increasing order of starttime
+    }
+    else
+    {
+        return false;
+    }
+}
+int minHallsOrdering(int lectures[][2], int n)
+{
+    sort(lectures, lectures + n, ascendingEndingTimes);
+    int count = 0;
+    int end_time = -1;
+    for (int i = 0; i < n; i++)
+    {
+        if (lectures[i][0] > end_time)
+        {
+            // current meeting takes place after, the
+            // previous meeting has been held
+            end_time = lectures[i][0];
+        }
+        else if (lectures[i][0] <= end_time)
+        {
+            // current meeting takes place before the previous
+            // meeting has been adjourned
+            // hence new room is required
+            count++;
+            end_time = max(end_time, lectures[i][1]);
+        }
+    }
+}
