@@ -51,7 +51,7 @@ func maxProfitL(prices []int) int {
 	}
 	return sum
 }
-func main() {
+func mainlgnd() {
 	writer := bufio.NewWriter(os.Stdout)
 	reader := bufio.NewReader(os.Stdin)
 	writer.Write([]byte("Enter the length of the array: \n"))
