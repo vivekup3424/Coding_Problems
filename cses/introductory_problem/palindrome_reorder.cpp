@@ -3,7 +3,6 @@ using namespace std;
 typedef long long ll;
 int main(int argc, char const *argv[])
 {
-    freopen("input.txt", "r", stdin);
     string s;
     cin >> s;
     map<char, int> mp;
@@ -25,31 +24,23 @@ int main(int argc, char const *argv[])
     }
     if (oddCount > 1)
     {
-        cout << "NO SOLUTION" << endl;
+        std::cout << "NO SOLUTION" << endl;
         return 0;
     }
     for (auto it : mp)
     {
         char element = it.first;
-        if (mp[element] == 1)
+        if (mp[element] % 2 == 1)
         {
             ans[n / 2] = element;
-            continue;
+            mp[element]--;
         }
-        else
+        for (int f = 0; f < mp[element] / 2; f++)
         {
-            for (int f = 0; f < mp[element] / 2; f++)
-            {
-                ans[i++] = element;
-                ans[j--] = element;
-            }
+            ans[i++] = element;
+            ans[j--] = element;
         }
     }
-    cout << "Outputing the map:'\n";
-    for (auto it : mp)
-    {
-        cout << it.first << " " << it.second << endl;
-    }
-    // cout << ans << endl;
+    std::cout << ans << endl;
     return 0;
 }
