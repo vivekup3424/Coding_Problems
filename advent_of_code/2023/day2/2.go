@@ -10,15 +10,7 @@ import (
 	"strings"
 )
 
-// Answer struct to hold the game details
-type Answer struct {
-	id    int
-	green int
-	blue  int
-	red   int
-}
-
-func main1() {
+func main() {
 	writer := bufio.NewWriter(os.Stdout)
 	writer.WriteString("Write the relative file-path to the input file:-\n")
 	writer.Flush()
@@ -31,8 +23,7 @@ func main1() {
 	}
 	dataString := string(data)
 	rowValues := strings.Split(dataString, "\n")
-	maxBlues, maxReds, maxGreens := 14, 12, 13
-	sum := 0
+	sumProduct := 0
 
 	//input := "Game 88: 7 green, 3 red, 10 blue; 8 blue, 8 red, 3 green; 18 green, 1 blue, 7 red; 8 red, 7 green, 10 blue"
 	for _, input := range rowValues {
@@ -62,10 +53,8 @@ func main1() {
 				ans.green = max(ans.green, val)
 			}
 		}
-		if ans.red <= maxReds && ans.green <= maxGreens && ans.blue <= maxBlues {
-			fmt.Printf("ID = %v, max-red = %v, max-blue = %v, max-green = %v\n", ans.id, ans.red, ans.blue, ans.green)
-			sum += ans.id
-		}
+
+		sumProduct += ans.red * ans.blue * ans.green
 	}
-	fmt.Println("Sum = ", sum)
+	fmt.Println("Sum of Products = ", sumProduct)
 }
