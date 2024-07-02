@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func main1() {
+func main() {
 	writer := bufio.NewWriter(os.Stdout)
 	reader := bufio.NewReader(os.Stdin)
 	writer.WriteString("Write relative path to the input file:- ")
