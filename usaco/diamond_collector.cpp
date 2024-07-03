@@ -4,8 +4,8 @@ using namespace std;
 
 int main()
 {
-    freopen("~/Coding_Problems/cses/codeforces/input.txt", "r", stdin);
-    freopen("~/Coding_Problems/cses/codeforces/output.txt", "w", stdout);
+    freopen("diamond.in", "r", stdin);
+    freopen("diamond.out", "w", stdout);
 
     int n, k;
     cin >> n >> k;

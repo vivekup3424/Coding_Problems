@@ -19,6 +19,8 @@ pail, please help him determine the maximum amount of milk he can possibly add t
  */
 int main(int argc, char const *argv[])
 {
+    freopen("pails.in", "r", stdin);
+    freopen("pails.out", "w", stdout);
     int x, y, m;
     cin >> x >> y >> m;
     if (x > y)
