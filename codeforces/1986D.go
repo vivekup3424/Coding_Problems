@@ -33,7 +33,7 @@ func solve(n int, s string) int {
 	}
 	return minResult
 }
-func main() {
+func main1986D() {
 	var t int
 	fmt.Scan(&t)
 	for i := 0; i < t; i++ {
