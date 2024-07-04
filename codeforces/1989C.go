@@ -18,7 +18,7 @@ package main
 
 import "fmt"
 
-func main() {
+func main1989C() {
 	//input a variable t, as number of testcases
 	var t int
 	fmt.Scanf("%d", &t)
