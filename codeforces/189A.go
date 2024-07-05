@@ -16,4 +16,5 @@ The first line contains four space-separated integers n, a, b and c (1 ≤ n
 func main() {
 	var n, a, b, c int
 	fmt.Scanf("%d %d %d %d\n", &n, &a, &b, &c)
+	numRibbons := make([]int, n+1)
 }

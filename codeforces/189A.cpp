@@ -35,7 +35,7 @@ void outputVector(const vector<T> &v, int n)
     }
     cout << "\n";
 }
-int solve(int n, int a, int b, int c)
+int solveBFS(int n, int a, int b, int c)
 {
     queue<pair<int, int>> q; //{index. count}
     q.push({0, 0});
@@ -56,6 +56,35 @@ int solve(int n, int a, int b, int c)
     }
     return maxi;
 }
+int solveMemoized(vector<int> &memo, int n, int a, int b, int c)
+{
+    if (memo[n] != -1)
+        return memo[n];
+    if (n == 0)
+        return memo[n] = 0;
+    if (n < 0)
+        return memo[n] = INT_MIN;
+    int x = solveMemoized(memo, n - a, a, b, c);
+    int y = solveMemoized(memo, n - b, a, b, c);
+    int z = solveMemoized(memo, n - c, a, b, c);
+    return memo[n] = 1 + max(x, max(y, z));
+}
+// solve the problem using bottom up approach
+int solveBottomUp(int n, int a, int b, int c)
+{
+    vector<int> dp(n + 1, INT_MIN);
+    dp[0] = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        if (i - a >= 0)
+            dp[i] = max(dp[i], 1 + dp[i - a]);
+        if (i - b >= 0)
+            dp[i] = max(dp[i], 1 + dp[i - b]);
+        if (i - c >= 0)
+            dp[i] = max(dp[i], 1 + dp[i - c]);
+    }
+    return dp[n];
+}
 int main()
 {
     fast_io();
@@ -64,6 +93,7 @@ int main()
     {
         int n, a, b, c;
         cin >> n >> a >> b >> c;
-        cout << solve(n, a, b, c) << "\n";
+        vector<int> memo(n + 1, -1); // memoization
+        cout << solveMemoized(memo, n, a, b, c) << "\n";
     }
 }
