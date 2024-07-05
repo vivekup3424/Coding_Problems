@@ -39,19 +39,22 @@ int solve(int n, int a, int b, int c)
 {
     queue<pair<int, int>> q; //{index. count}
     q.push({0, 0});
+    int maxi = 0;
     while (!q.empty())
     {
         auto p = q.front();
         if (p.first == n)
         {
-            return p.second;
+            maxi = max(maxi, p.second);
         }
         q.pop();
+        if (p.first > n)
+            continue;
         q.push({p.first + a, p.second + 1});
         q.push({p.first + b, p.second + 1});
         q.push({p.first + c, p.second + 1});
     }
-    return -1;
+    return maxi;
 }
 int main()
 {
