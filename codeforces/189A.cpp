@@ -35,7 +35,24 @@ void outputVector(const vector<T> &v, int n)
     }
     cout << "\n";
 }
-
+int solve(int n, int a, int b, int c)
+{
+    queue<pair<int, int>> q; //{index. count}
+    q.push({0, 0});
+    while (!q.empty())
+    {
+        auto p = q.front();
+        if (p.first == n)
+        {
+            return p.second;
+        }
+        q.pop();
+        q.push({p.first + a, p.second + 1});
+        q.push({p.first + b, p.second + 1});
+        q.push({p.first + c, p.second + 1});
+    }
+    return -1;
+}
 int main()
 {
     fast_io();
@@ -44,24 +61,6 @@ int main()
     {
         int n, a, b, c;
         cin >> n >> a >> b >> c;
-        vector<int> v(n + 1, 0);
-        for (int i = 1; i < n + 1; i++)
-        {
-            int choice1 = 0, choice2 = 0, choice3 = 0;
-            if (i - a > 0)
-            {
-                choice1 = v[i - a];
-            }
-            if (i - b > 0)
-            {
-                choice2 = v[i - b];
-            }
-            if (i - c > 0)
-            {
-                choice3 = v[i - c];
-            }
-            v[i] = max({choice1, choice2, choice3}) + 1;
-        }
-        std::cout << v.back() << endl;
+        cout << solve(n, a, b, c) << "\n";
     }
 }
