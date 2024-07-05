@@ -11,3 +11,22 @@ def height(node):
     for c in node.child:
         maxHeight = max(maxHeight, height(c))
     return 1 + maxHeight
+
+def diamter(root):
+    if root is None:
+        return 0
+    #find the top two highest children
+    firstMax, secondMax = 0, 0
+    for c in root.child:
+        h = height(c)
+        if h > firstMax:
+            secondMax = firstMax
+            firstMax = h
+        elif h > secondMax:
+            secondMax = h
+    
+    #find the diameter of each child
+    maxDiameter = 0
+    for c in root.child:
+        maxDiameter = max(maxDiameter, diamter(c))
+    return max(maxDiameter, firstMax + secondMax + 1)
