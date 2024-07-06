@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const router = express.Router();
 const pg = require("pg"); //postgres client
+const { database, host, password, user } = require("pg/lib/defaults");
 
 // client side static assets
 router.get("/", (_, res) => res.sendFile(path.join(__dirname, "./index.html")));
@@ -21,8 +22,13 @@ router.get("/detail", (_, res) =>
 /**
  * Student code starts here
  */
-
-// connect to postgres
+const pool = pg.Pool({
+  database: "recipes",
+  host: "localhost",
+  password:"postgres",
+  user: "postgres"
+})
+// connect to po/*  */stgres
 
 
 router.get("/search", async function (req, res) {
