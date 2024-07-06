@@ -56,3 +56,7 @@ SELECT id, title, image
 FROM ingredients
 LIMIT 5
 OFFSET 5;
+
+SELECT *
+FROM ingredients
+WHERE type = 'fruit';
