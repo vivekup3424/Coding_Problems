@@ -69,3 +69,5 @@ WHERE id >= 10
 --The best example would be if a user types something into the search bar, they're likely not giving you something that you match exactly. You would expect a search for "pota" to match "potato", right? Enter LIKE in SQL.-
 
 SELECT * FROM ingredients WHERE title LIKE '%pota%';
+
+SELECT * FROM ingredients WHERE CONCAT(title, type) LIKE '%fruit%';
