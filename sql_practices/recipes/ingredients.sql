@@ -60,3 +60,8 @@ OFFSET 5;
 SELECT *
 FROM ingredients
 WHERE type = 'fruit';
+
+SELECT *
+FROM ingredients
+WHERE id <= 10
+  OR id >= 20;
