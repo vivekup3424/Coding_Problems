@@ -6,6 +6,9 @@ CREATE TABLE ingredients(
 ALTER TABLE ingredients
 ADD COLUMN image VARCHAR(255) NOT NULL;
 
+ALTER TABLE ingredients
+ADD COLUMN type VARCHAR(255) NOT NULL;
+
 INSERT INTO ingredients (
   title, image, type
 ) VALUES
@@ -45,3 +48,11 @@ UPDATE ingredients
 SET image = 'watermelon.jpg'
 WHERE title = 'watermelon';
 
+SELECT id, title, image
+FROM ingredients
+LIMIT 5;
+
+SELECT id, title, image
+FROM ingredients
+LIMIT 5
+OFFSET 5;
