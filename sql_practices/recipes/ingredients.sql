@@ -1,6 +1,6 @@
 CREATE TABLE ingredients(
-    id PRIMARY KEY GENERATED ALWAYS AS INDETITY,
-    title VARCHAR(255) NOT NULL,
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    title VARCHAR(255) UNIQUE NOT NULL 
 );
 
 ALTER TABLE ingredients
@@ -40,3 +40,8 @@ INSERT INTO ingredients (
   ( 'tomato', 'tomato.jpg', 'vegetable' ),
   ( 'watermelon', 'watermelon.jpg', 'fruit' )
 ON CONFLICT DO NOTHING;
+
+UPDATE ingredients
+SET image = 'watermelon.jpg'
+WHERE title = 'watermelon';
+
