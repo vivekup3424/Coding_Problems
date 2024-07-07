@@ -5,7 +5,6 @@
 using namespace std;
 
 bool can_transform(vector<vector<int>>& a, vector<vector<int>>& b, int n, int m) {
-    // Compute the difference matrix
     vector<vector<int>> diff(n, vector<int>(m));
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
@@ -13,10 +12,8 @@ bool can_transform(vector<vector<int>>& a, vector<vector<int>>& b, int n, int m)
         }
     }
     
-    // Check if all values in the diff matrix can be transformed to zero
     for (int i = 0; i < n - 1; ++i) {
         for (int j = 0; j < m - 1; ++j) {
-            // If top-left corner is non-zero, apply operation to make it zero
             if (diff[i][j] != 0) {
                 int change = (3 - diff[i][j]) % 3;
                 diff[i][j] = (diff[i][j] + change) % 3;
@@ -27,7 +24,6 @@ bool can_transform(vector<vector<int>>& a, vector<vector<int>>& b, int n, int m)
         }
     }
 
-    // Check if the last row and column are all zeros
     for (int i = 0; i < n; ++i) {
         if (diff[i][m - 1] != 0) return false;
     }
