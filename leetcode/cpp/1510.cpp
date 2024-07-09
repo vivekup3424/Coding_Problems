@@ -12,11 +12,6 @@ inline void fast_io()
     ios_base::sync_with_stdio(false);
     std::cin.tie(NULL);
     cout.tie(NULL);
-}
-
-// Template function to input elements to a vector
-template <typename T>
-void inputVector(vector<T> &v, int n)
 {
     v.resize(n);
     for (int i = 0; i < n; i++)
