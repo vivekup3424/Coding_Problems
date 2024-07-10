@@ -29,6 +29,7 @@ class Solution {
 public:
     int checkRecord(int n) {
         int count = 0;
+        
         recurse(n,0,0,0,count);
         return count;
     }

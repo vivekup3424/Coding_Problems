@@ -30,6 +30,7 @@ map<int,int> generatePowerPrimes(int n){
             break;
         }
     } 
+    return {};
 }
 class Solution{
 public:
