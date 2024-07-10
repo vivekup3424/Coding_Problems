@@ -79,7 +79,6 @@ ll total_ways_memo(vll coins, vll memo, ll sum)
 // well let's try the dp way
 int main()
 {
-    fast_io();
     ll n, x;
     cin >> n >> x;
     vll coins(n);
