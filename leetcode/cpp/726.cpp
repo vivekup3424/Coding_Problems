@@ -2,101 +2,93 @@
 using namespace std;
 typedef long long ll;
 
-/*
-* @author Vivek Upadhyay(vivekup3424)
-* @date 14/07/2024
-*/
-bool isAlpha(char c){
-    if(c >= 'A' && c <= 'Z') return true;
-    if(c >= 'a' && c <= 'z') return true;
-    return false;
-}
-bool isNum(char c){
-    if(c >= '0' && c <= '9'){
-        return true;
-    }
-    return false;
+bool isAlpha(char c)
+{
+    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
 }
 
-class Solution {
+bool isNum(char c)
+{
+    return c >= '0' && c <= '9';
+}
+
+class Solution
+{
 public:
-    /**
-     * A function to count atoms in the given formula.
-     *
-     * @param formula the input formula to count atoms from
-     *
-     * @return a string representing the count of atoms
-     *
-     * @throws None
-     */
-    string countOfAtoms(string formula) {
-        map<string,int> freqHashMap;
-        stack<pair<string,int>> stk; //stores the atom and its valency
+    string countOfAtoms(string formula)
+    {
+        map<string, int> freqHashMap;
+        vector<pair<string, int>> stk;
         int n = formula.size();
-        for(int i = 0; i < n; i++){
-            if(formula[i]=='('){
-               stk.push({"(",1});
-               continue;
+
+        for (int i = 0; i < n;)
+        {
+            if (formula[i] == '(')
+            {
+                stk.push_back({"(", 1});
+                i++;
             }
-            else if(formula[i]==')'){
-               //check to see, if any number follow ")" 
-               if(i<n and isNum(formula[i])){
+            else if (formula[i] == ')')
+            {
+                i++;
                 string num = "";
-                while(i < n and isNum(formula[i])){
+                while (i < n && isNum(formula[i]))
+                {
                     num.push_back(formula[i]);
+                    i++;
                 }
-                int val = 1;
-                if(num!=""){
-                    val = atoi(num);
-                }
-                //pop all the previous atoms inside the braces from
-                //stack
-                while(stk.size()>0 and stk.top().first !="("){
-                    auto p = stk.top();
-                    freqHashMap[p.first] += p.second * val;
-                }
-                if(stk.size()>0 and stk.top().first =="("){
-                    stk.pop();
-                }
-               }
+                int val = num.empty() ? 1 : stoi(num);
+                stk.push_back({")", val});
             }
-            string atom = "", num = "";
-            bool smallCase = false;
-            while(i<n and isAlpha(formula[i])){
-                if(smallCase==true and 'A'<=formula[i]<='Z'){
-                    break;
+            else
+            {
+                string atom = "";
+                if (isAlpha(formula[i]) && isupper(formula[i]))
+                {
+                    atom += formula[i];
+                    i++;
+                    while (i < n && isAlpha(formula[i]) && islower(formula[i]))
+                    {
+                        atom += formula[i];
+                        i++;
+                    }
                 }
-                else if('a' <= formula[i] <= 'z'){
-                    smallCase = true;
-                } 
-                atom.push_back(formula[i]);
+                string num = "";
+                while (i < n && isNum(formula[i]))
+                {
+                    num += formula[i];
+                    i++;
+                }
+                int val = num.empty() ? 1 : stoi(num);
+                stk.push_back({atom, val});
             }
-            while(i<n and isNum(formula[i])){
-                num.push_back(formula[i]);
-            }
-            int val = 1;
-            if(num != ""){
-                val = atoi(num);
-            }
-            stk.push({aton,val});
-        }         
-        while(stk.size()>0){
-            auto p = stk.top();
-            freqHashMap[p.first] += p.second;
         }
-        //creating the frequency strings from hashmap
+
+        // while (!stk.empty())
+        //{
+        //     auto p = stk.top();
+        //     stk.pop();
+        //     freqHashMap[p.first] += p.second;
+        // }
+
         string ans = "";
-        for(auto it: freqHashMap){
-            ans.push_back(it.first);
-            ans.push_back(to_string(it.second));
+        for (auto &it : freqHashMap)
+        {
+            ans += it.first;
+            if (it.second > 1)
+            {
+                ans += to_string(it.second);
+            }
         }
         return ans;
     }
 };
 
-main() {
+int main()
+{
     Solution s;
-    cout << s.countOfAtoms("H2O") << endl;
-    cout << s.countOfAtoms("Mg(OH)2") << endl;
-    cout << s.countOfAtoms("K4(ON(SO3)2)2") << endl;
+    cout << s.countOfAtoms("H2O") << endl;           // H2O
+    cout << s.countOfAtoms("Mg(OH)2") << endl;       // H2MgO2
+    cout << s.countOfAtoms("K4(ON(SO3)2)2") << endl; // K4N2O14S4
+    return 0;
 }
