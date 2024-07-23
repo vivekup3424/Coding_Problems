@@ -1,16 +1,41 @@
 from typing import List
-
+import heapq
+class MaxHeap:
+    def __init__(self):
+        self.heap = []
+    
+    def push(self, val, x, y):
+        # Use negative value to simulate max heap
+        heapq.heappush(self.heap, (-val, x, y))
+    
+    def pop(self):
+        # Pop the element with the maximum value
+        neg_val, x, y = heapq.heappop(self.heap)
+        return (-neg_val, x, y)
+    
+    def peek(self):
+        # Peek at the element with the maximum value without popping it
+        if not self.heap:
+            return None
+        neg_val, x, y = self.heap[0]
+        return (-neg_val, x, y)
+    
+    def __len__(self):
+        return len(self.heap)
 class Solution:
-    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:
-        n = len(target)
-        m = len(words)
-        dp = [float('inf')] * (n + 1)
-        dp[0] = 0
+    def maximumScore(self, grid: List[List[int]]) -> int:
+        max_heap = MaxHeap()
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                max_heap.push(grid[i][j], i, j)
         
-        for i in range(1, n + 1):
-            for j in range(m):
-                word = words[j]
-                if len(word) <= i and target[i - len(word):i] == word:
-                    dp[i] = min(dp[i], dp[i - len(word)] + costs[j])
-        
-        return dp[n] if dp[n] != float('inf') else -1
+        count = 0
+        while max_heap:
+            count += 1
+            val, x, y = max_heap.pop()
+            if val == 0:
+                grid[x][y] = -1
+            else:
+                count += val
+                for i in range(0,x):
+                    grid[i][y] = -1
