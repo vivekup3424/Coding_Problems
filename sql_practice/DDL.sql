@@ -1,3 +1,18 @@
+
+drop table prereq;
+drop table time_slot;
+drop table advisor;
+drop table takes;
+drop table student;
+drop table teaches;
+drop table section;
+drop table instructor;
+drop table course;
+drop table department;
+drop table classroom;
+
+
+
 create table classroom
 	(building		varchar(15),
 	 room_number		varchar(7),
@@ -113,4 +128,3 @@ create table prereq
 		on delete cascade,
 	 foreign key (prereq_id) references course (course_id)
 	);
-
