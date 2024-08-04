@@ -17,7 +17,7 @@ public:
         {
             if (minHeap.size() == k)
             {
-                if (it.second > minHeap.top().first)
+                if (it.second > minHeap.top().second)
                 {
                     minHeap.pop();
                 }
