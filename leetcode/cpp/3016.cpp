@@ -21,7 +21,9 @@ public:
         set<char> special_chars = {'1', '*', '0', '#'};
         for (auto it : mp)
         {
-            if (special_chars.count())
+            sum += it.second * ((count / 8) + 1);
+            count++;
         }
+        return sum;
     }
 };
