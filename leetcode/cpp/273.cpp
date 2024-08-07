@@ -23,16 +23,18 @@ public:
         }
         if (num < thousand)
         {
-            return convertToWords(num / hundred) + " Hundred" + " " + convertToWords(num % 100);
+            return convertToWords(num / hundred) + " Hundred" + " " + convertToWords(num % hundred);
         }
         if (num < million)
         {
-            return convertToWords(num / thousand) + " Thousand" + " " + convertToWords(num % 1000);
+            return convertToWords(num / thousand) + " Thousand" + " " + convertToWords(num % thousand);
         }
         if (num < billion)
         {
-            return convertToWords(num / million) + " Million" + convertToWords(num %)
+            return convertToWords(num / million) + " Million" + " " + convertToWords(num % million);
         }
+        return convertToWords(num / billion) + " Billion" + " " +
+               convertToWords(num);
     }
     string numberToWords(int num)
     {
