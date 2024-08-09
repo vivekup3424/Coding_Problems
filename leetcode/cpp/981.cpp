@@ -4,7 +4,7 @@ using namespace std;
 class TimeMap
 {
 public:
-    map<string, priority_queue<pair<int, string>>> mp;
+    map<std::string, priority_queue<pair<int, string>>> mp;
     TimeMap()
     {
         ;
@@ -17,6 +17,7 @@ public:
 
     string get(string key, int timestamp)
     {
+        if (mp[key].top().first >= tim)
     }
 };
 
