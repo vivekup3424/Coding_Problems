@@ -14,7 +14,17 @@ func isValidSudoku(board [][]byte) bool {
 	for i := 0; i < 9; i++ {
 		for j := 0; j < 9; j++ {
 			val := board[i][j]
-			if slices.Contains(row_map[i],val)
+			if val != byte('.') {
+				if (slices.Contains(row_map[i], val) ||
+					slices.Contains(col_map[j], val) ||
+					slices.Contains(coordinate{i, j}, val)) {
+					return false
+				}
+				row_map[i] = append(row_map[i], val)
+				col_map[j] = append(col_map[j], val)
+				box_map(coordinate{i, j}) = append(box_map(coordinate{i, j}), val)
+
+			}
 		}
 	}
 	return true
