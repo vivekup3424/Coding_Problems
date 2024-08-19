@@ -1,3 +1,4 @@
-struct semaphore{
-    enum value(0,1);
+struct semaphore
+{
+    enum value(0, 1);
 };
