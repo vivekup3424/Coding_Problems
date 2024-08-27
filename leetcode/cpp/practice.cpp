@@ -1,48 +1,56 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-struct coordinate
+class DSU
 {
-    int x;
-    int y;
-};
+public:
+    int vertices;
+    std::vector<int> parent;
+    std::vector<int> rank;
 
-int solution(int n, vector<vector<int>> entryTime)
-{
-    priority_queue<pair<int, coordinate>, vector<pair<int, coordinate>>, greater<pair<int, coordinate>>> pq;
-    pq.push({0, {0, 0}}); // Start with time = 0 at position (0, 0)
-
-    vector<vector<int>> visited(n, vector<int>(n, INT_MAX));
-    visited[0][0] = 0;
-
-    int directions[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-
-    while (!pq.empty())
+    // Constructor initializes the DSU with n vertices
+    DSU(int n)
     {
-        auto [currentTime, coord] = pq.top();
-        pq.pop();
-
-        int x = coord.x;
-        int y = coord.y;
-
-        if (x == n - 1 && y == n - 1)
-            return currentTime;
-
-        for (auto &dir : directions)
+        vertices = n;
+        parent.resize(n);
+        rank.resize(n);
+        for (int i = 0; i < n; ++i)
         {
-            int nx = x + dir[0], ny = y + dir[1];
-
-            if (nx >= 0 && ny >= 0 && nx < n && ny < n)
-            {
-                int nextTime = max(currentTime, entryTime[nx][ny]);
-                if (nextTime < visited[nx][ny])
-                {
-                    visited[nx][ny] = nextTime;
-                    pq.push({nextTime, {nx, ny}});
-                }
-            }
+            parent[i] = i;
+            rank[i] = 0;
         }
     }
 
-    return -1;
-}
+    // Find function with path compression
+    int find(int u)
+    {
+        if (parent[u] != u)
+        {
+            parent[u] = find(parent[u]);
+        }
+        return parent[u];
+    }
+
+    // Union function with union by rank
+    void union_sets(int u, int v)
+    {
+        int root_u = find(u);
+        int root_v = find(v);
+
+        if (root_u != root_v)
+        {
+            if (rank[root_u] < rank[root_v])
+            {
+                parent[root_u] = root_v;
+            }
+            else if (rank[root_u] > rank[root_v])
+            {
+                parent[root_v] = root_u;
+            }
+            else
+            {
+                parent[root_v] = root_u;
+                rank[root_u]++;
+            }
+        }
+    }
+};
