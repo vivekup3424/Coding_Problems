@@ -12,7 +12,7 @@ int main()
         {
             cout << 0 << endl;
         }
-        else if (min(A, B) <= X)
+        else if (min(A, B) <= X * X)
         {
             cout << 1 << endl;
         }
