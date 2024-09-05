@@ -36,7 +36,37 @@ public:
         return shortLong[shortUrl];
     }
 };
+class Solution1
+{
+public:
+    map<string, string> shortToLong;
+    map<string, string> longToShort;
+    // Encodes a URL to a shortened URL.
+    string encode(string longUrl)
+    {
+        int len = longUrl.size();
+        string shortUrl = to_string(len) + "|||" + longUrl.substr(0, len / 4);
+        shortToLong.insert({shortUrl, longUrl});
+        longToShort.insert({longUrl, shortUrl});
+        return shortUrl;
+    }
 
+    // Decodes a shortened URL to its original URL.
+    string decode(string shortUrl)
+    {
+        if (shortToLong.find(shortUrl) == shortToLong.end())
+        {
+            return "";
+        }
+        string temp = shortToLong[shortUrl];
+        shortToLong.erase(shortUrl);
+        return temp;
+    }
+};
+
+// Your Solution object will be instantiated and called as such:
+// Solution solution;
+// solution.decode(solution.encode(url));
 // Your Solution object will be instantiated and called as such:
 // Solution solution;
 // solution.decode(solution.encode(url));
