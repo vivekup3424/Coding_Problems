@@ -58,9 +58,40 @@ public:
 int correctSolution(vector<int> &nums)
 {
     int n = nums.size();
-    // using the orignal vector nums as hashset
+    // using the orignal vector nums as visited array
     // for storing the numbers, and check the smallest missing positive number
     // since we know that smallest positive number can be at max n+1
+    // since negatives are useless to us, just convert the negative values to 0
+    // since I am going to make use of the array as a visited array, where if
+    // I encounter a number num where num >= 1 and num <= n, then I am going to
+    // mark the index num-1 as visited, ie nums[num-1] = -1 (VISITED)
+    for (int i = 0; i < n; i++)
+    {
+        if (nums[i] < 0)
+        {
+            nums[i] = 0;
+        }
+    }
+    for (int i = 0; i < n; i++)
+    {
+        int temp = abs(nums[i]);
+        if (temp > 0 and temp <= n)
+        {
+            nums[temp - 1] *= (nums[temp - 1] < 0 ? 1 : -1);
+        }
+    }
+    for (int i = 0; i < n; i++)
+    {
+        cout << i << "=>" << nums[i] << endl;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        if (nums[i] != -1)
+        {
+            return i + 1;
+        }
+    }
+    return n + 1;
 }
 int firstMissingPositiveSort(vector<int> nums)
 {
