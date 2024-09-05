@@ -12,7 +12,7 @@ public:
             nums[nums[i] - 1] *= -1;
         }
         for (int i = 0; i < n; i++)
-        {
+        /*  */ {
             cout << i << " " << nums[i] << endl;
         }
         return {};
