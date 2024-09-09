@@ -48,3 +48,12 @@ int isCircle(vector<string> &arr){
     cout<<endl;
     return 1;
 }
+int main (int argc, char *argv[]) {
+    int n;
+    cin>>n;
+    vector<string> arr(n);
+    for(int i = 0; i < n; i++){
+        cin>>arr[i];
+    }
+    return 0;
+}
