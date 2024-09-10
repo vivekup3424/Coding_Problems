@@ -11,7 +11,7 @@ using namespace std;
 class Solution {
 public:
     
-    ListNode insertGreatestCommonDivisors(ListNode* head) {
+    ListNode *insertGreatestCommonDivisors(ListNode* head) {
        ListNode *temp = head;
        while(temp->next!=NULL)
        {
@@ -24,6 +24,6 @@ public:
         temp->next = newNode;
         temp = tempNext;
        }
-       return *head; 
+       return head; 
     }
 };
