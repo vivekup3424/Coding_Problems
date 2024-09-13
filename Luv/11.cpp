@@ -29,5 +29,7 @@ int main()
     cin >> T;
     while (T--)
     {
+        set<int> st;
+        map<int,int> fq;
     }
 }

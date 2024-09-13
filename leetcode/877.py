@@ -1,4 +1,6 @@
+from collections import defaultdict
 def stoneGame(piles):
+    d = defaultdict()
     dp = {}
     def dfs(l,r):
         if l>r:
