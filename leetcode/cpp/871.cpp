@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+auto compare = [](const pair<int, int> &a, const pair<int, int> &b)
+{
+    return a.second < b.second; // max-heap larger fuel comes first
+};
 class Solution
 {
 public:
@@ -8,20 +11,24 @@ public:
     {
         int n = stations.size();
         int prevPosition = 0;
-        // as a start let's find some kind of count
-        for (int i = 0; i < n; i++)
+        int leftOutFuel = startFuel;
+        int range = startFuel;
+        sort(stations.begin(), stations.end());
+        int i = 0; // station index
+        int refuels = 0;
+        while (range < target)
         {
-            int place = stations[i][0];
-            int fuel = stations[i][1];
-            startFuel -= place - prevPosition + fuel;
-            if (startFuel < 0)
+            priority_queue<pair<int, int>,
+                           vector<pair<int, int>,
+                                  decltype(compare)>>
+                pq;
+            while (i < n and stations[i][0] <= range)
             {
-                return -1;
+                pq.push({stations[i][0], stations[i][1]});
             }
-            else if (startFuel == 0 and place != target)
-            {
-                return -1;
-            }
+            // get the first fuel
+            auto p = pq.top();
+            delete (&pq);
         }
     }
 };
