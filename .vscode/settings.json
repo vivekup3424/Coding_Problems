@@ -85,7 +85,10 @@
     "typeindex": "cpp",
     "typeinfo": "cpp",
     "valarray": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "expected": "cpp",
+    "format": "cpp",
+    "stacktrace": "cpp"
   },
   "C_Cpp.errorSquiggles": "enabled"
 }
