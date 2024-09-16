@@ -12,30 +12,34 @@ using namespace std;
 class Solution {
 public:
   int maxLength(string s) {
-    stack<int> st;
-    st.push(-1);
-    int max_len = 0;
-
-    for (int i = 0; i < s.length(); i++) {
-      if (s[i] == '(') {
-        st.push(i);
-      } else {
-        st.pop();
-        if (st.empty()) {
-          st.push(i);
-        } else {
-          max_len = max(max_len, i - st.top());
+    stack<string> stk;
+    int maxi = 0;
+    for (char c : s) {
+      if (c == '(') {
+        stk.push("(");
+      } else if (c == ')') {
+        int temp = 0;
+        while (stk.size() > 0 && stk.top() != "0" && stk.top() != "(") {
+          auto t = stk.top();
+          stk.pop();
+          auto i = stoi(t);
+          temp += i;
         }
+        if (stk.size()>0 && stk.top() == "(") {
+          stk.pop();
+          temp += 2;
+        }
+        maxi = max(maxi,temp);
+        stk.push(to_string(temp));
       }
     }
-
-    return max_len;
+    return maxi;
   }
 };
-int main(int argc, char *argv[]) {
-  freopen("~/Desktop/fileInput.txt", "r", stdin);
+int main (int argc, char *argv[]) {
+  freopen("~/Desktop/fileInput.txt",  "r", stdin);
   string s;
-  cin >> s;
-  cout << Solution().maxLength(s);
+  cin>>s;
+  cout<<Solution().maxLength(s);
   return 0;
 }
