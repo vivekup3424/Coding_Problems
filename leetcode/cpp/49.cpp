@@ -1,4 +1,4 @@
-
+#include <sstream>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -67,7 +67,7 @@ public:
             {
                 output.push_back({strs[i]});    // if it doesn't, add a new vector to 'output' with the current string as the first element
                 m_map[str] = output.size() - 1; // also add the sorted string and its index in 'output' to the map
-            }
+        }
         }
         return output; // return the final 2D vector
     }
@@ -76,4 +76,23 @@ public:
 
     So the basic idea of this solution is to use a map to keep track of the sorted strings and their corresponding indices in the output vector.Then we loop over each string in the input vector,
     sort it in alphabetical order, and check if the sorted string already exists in the map.If it does, we add the original string to the corresponding vector in the output vector.If it doesn't, we add a new vector to the output vector with the current string as the first element, and also add the sorted string and its index in the output vector to the map. Finally, we return the output vector.
+}
+
+/**
+ * I want to rather than grouping anagram, I want to group dictionaries such that I have a 
+ * list of sentences, each sentence comes from a dictionaries
+ * I want to group all those sentences that come from the same dictionary
+ * Note: For a sentence to come from a dictionary, every word of that 
+ * dictionary must be used to making that sentence, 
+ * hence sentence should use all words from the dictionary
+ * ignore cases inside the  sentences
+ *
+ * Examples
+ * list = ["i want an apple", "apple drinks wine and peak", "want an apple i", "drinks apple peak and wine",
+ * 		"apple wine"]
+ * Would make a result dictionary containing three keys, which are
+ */
+
+map<string,vector<string>> groupDictionaries(vector<string> words){
+	
 }
