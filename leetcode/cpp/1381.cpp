@@ -1,8 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-using namespace std;
-
 class CustomStack
 {
 private:
@@ -22,7 +17,7 @@ public:
         index++;
         if (index >= capacity)
         {
-            index = capacity - 1; // pointing to the last occupied index
+            index = capacity-1; //pointing to the last occupied index
         }
         else
         {
@@ -30,30 +25,21 @@ public:
         }
         return;
     }
-    int pop()
-    {
-        if (index >= 0)
-        {
+    int pop(){
+        if(index>=0){
             return arr[index--];
-        }
-        else
-        {
-            index = -1;
+        }else{
+            index=-1;
         }
         return -1;
     }
-    void increment(int k, int val)
-    {
-        // start from the last index and go till index-k+1
-        for (int i = index; i >= index - k + 1; i--)
-        {
-            if (i < 0)
-            {
+    void increment(int k, int val){
+        //start from the last index and go till index-k+1
+        for(int i = 0; i <=min(k-1,index); i++){
+            if(i<0){
                 break;
-            }
-            else
-            {
-                arr[i] += val;
+            }else{
+                arr[i]+=val;
             }
         }
         return;
