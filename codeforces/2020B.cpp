@@ -1,30 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-// Template function to output elements of a vector
-template <typename T>
-void outputVector(const vector<T> &v, int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        cout << v[i] << " ";
-    }
-    cout << "\n";
-}
 int main()
 {
-    // let's try to simulate the problems for 20 bulbs
-    vector<bool> bulbs(40, 0);
-    for (int i = 1; i <= 40; i++)
+    int t;
+    cin >> t;
+    while (t--)
     {
-        outputVector(bulbs, 40);
-        for (int j = i; j <= 40; j++)
+        long long k, l = 1, r = 2e18;
+        cin >> k;
+        while (r - l > 1)
         {
-            if (j % i == 0)
-            {
-                int idx = j - 1;
-                bulbs[idx] = !bulbs[idx];
-            }
+            long long mid = (l + r) >> 1;
+            long long n = mid - int(sqrtl(mid));
+            if (n >= k)
+                r = mid;
+            else
+                l = mid;
         }
+        cout << r << "\n";
     }
+    return 0;
 }
