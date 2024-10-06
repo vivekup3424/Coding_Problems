@@ -31,4 +31,24 @@ public:
         // Check the last window
         return s1Count == s2Count;
     }
+    bool checkInclusion2(string s1, string s2)
+    {
+        vector<int> p1(26, 0), p2(26, 0);
+        for (char c : s1)
+        {
+            p1[c - 'a']++;
+        }
+        for (char c : s2)
+        {
+            p2[c - 'a']++;
+        }
+        for (int i = 0; i < 26; i++)
+        {
+            if (p1[i] > p2[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 };
