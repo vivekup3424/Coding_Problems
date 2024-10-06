@@ -4,6 +4,21 @@ using namespace std;
 class Solution
 {
 public:
+    int maxProfit2(vector<int> &prices)
+    {
+        int maxP = 0, currentProfit = 0;
+        for (int i = 1; i < prices.size(); i++)
+        {
+            currentProfit += (prices[i] - prices[i - 1]);
+            if (currentProfit < 0)
+            {
+                currentProfit = 0;
+            }
+            maxP = max(maxP, currentProfit);
+        }
+        return maxP;
+    }
+    
     int maxProfit(vector<int> &prices)
     {
         int l = 0, r = 1, maxProfit = 0;
