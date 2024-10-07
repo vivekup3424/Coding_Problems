@@ -45,19 +45,12 @@ public:
 class Solution
 {
 public:
-    void gp(vector<string> combinations, string comb, int n, stack<char> s)
+    void gp(vector<string> combinations, int n)
     {
-        if (n == 0)
-        {
-            combinations.push_back(comb);
-        }
-        else
-        {
-            if (s.empty() == false)
-            {
-                gp(combinations, comb.push_back)
-            }
-        }
+        stack<string> stk;
+        int opening = n, closing = n;
+
+
     }
     vector<string> generateParenthesis(int n)
     {
