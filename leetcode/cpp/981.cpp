@@ -1,10 +1,11 @@
 #include <bits/stdc++.h>
+#include <string>
 using namespace std;
 
 class TimeMap
 {
 public:
-    map<std::string, priority_queue<pair<int, string>>> mp;
+    map<string,vector<pair<int,string>>> events;
     TimeMap()
     {
         ;
@@ -12,12 +13,28 @@ public:
 
     void set(string key, string value, int timestamp)
     {
-        mp[key].push({timestamp, value});
+        events[key].push_back({timestamp,value});
     }
 
     string get(string key, int timestamp)
     {
-        if (mp[key].top().first >= tim)
+        //if key doesn't exists
+        if(events.find(key)==events.end()){
+            return "";
+        }
+        int l = 0, r = events[key].size()-1, m = 0;
+        int ans = -1;
+        while(l<=r){
+            m = (l+r)/2;
+            if(events[key][m].first <= timestamp){
+                ans = m;
+                l = m+1;
+            }
+            else{
+                r = m-1;
+            }
+        }
+        return (ans == -1) ? "" : events[key][ans].second;
     }
 };
 
