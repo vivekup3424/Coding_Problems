@@ -1,34 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution
-{
+class Solution{
 public:
-    int findMin(vector<int> &nums)
-    {
-        // find the position of min_element
-        int n = nums.size();
-        int l = 0, r = n - 1;
-        int mid = (l + r) / 2;
-        while (l < r)
-        {
-            mid = (l + r) / 2;
-            if (nums[l] > nums[r])
-            {
-                l = mid + 1;
+    int findMin(vector<int> v){
+        int n = v.size();
+        int l = 0, r = n-1, m = 0;
+        int miniElement = v[0];
+        while(l<=r){
+            if (v[l] < v[r]) {
+                miniElement = min(miniElement, v[l]);
+                break;
             }
-            else
-            {
-                r = mid;
+            m = (l+r)/2;
+            miniElement = min(miniElement, v[m]);
+            if(v[m] >=  v[l]){
+                l = m+1;
+            }
+            else{
+                r = m-1;
             }
         }
-        return mid = ()
+        return miniElement;
     }
 };
-
 int main()
 {
-    vector<int> v = {2, 1};
+    vector<int> v = {5,1,2,3,4};
     Solution A;
-    A.findMin(v);
+    cout<<A.findMin(v)<<endl;
 }
+
