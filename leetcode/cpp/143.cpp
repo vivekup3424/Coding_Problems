@@ -11,32 +11,41 @@ using namespace std;
 
 class Solution {
 public:
+    
     void reorderList(ListNode* head) {
-        //store the list in a vector
-        vector<int> v;
-        ListNode *temp = head;
-        while(temp!=nullptr){
-            v.push_back(temp->val);
-            temp = temp->next;
+        //find the middle of the linkedlist
+        ListNode *slow = head;
+        ListNode *fast = head;
+        while(fast != nullptr && fast->next != nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        int i = 0, j = v.size()-1;
-        ListNode *head1 = nullptr;
-        while(i<j){
-            if(i==0){
-                ListNode *head1 = new ListNode(v[i]);
-                temp = head1;
-            }
-            else if(i > 0){
-                ListNode *newNode = new ListNode(v[i]);
-                temp->next = newNode;
-                temp = newNode;
-            }
-            i++;
-            ListNode *newNode = new ListNode(v[j]);
-            temp->next = newNode;
-            j--;
-            temp = newNode;
+        //slow node is the middle node
+        //reverse the second part
+        ListNode *prev = slow;
+        ListNode *current = slow->next;
+        while(current!=nullptr){
+            ListNode *temp = current->next;
+            current->next = prev;
+            prev = current;
+            current = temp;
         }
-        return head1;
+
+        ListNode *first = head, *second = slow->next;
+        bool firstConnect = true;
+        while(second != nullptr){
+            if(firstConnect){
+                ListNode *tempFirst = first->next;
+                first->next = second;
+                first = tempFirst;
+                firstConnect = !firstConnect;
+            }
+            else{
+                ListNode *tempSecond = second->next;
+                second->next = first;
+                second = tempSecond;
+                firstConnect = !firstConnect;
+            }
+        }
     } 
-};
+}; 
