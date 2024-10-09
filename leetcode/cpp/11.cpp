@@ -19,6 +19,20 @@ public:
         }
         return product;
     }
+    int maxArea2(vector<int> &height){
+        int n = height.size();
+        int i = 0, j = n-1;
+        int maxProduct = 0;
+        while(i<=j){
+            maxProduct = max(maxProduct, min(height[i], height[j]) * (j-i));
+            if(height[i] < height[j]){
+                i++;
+            }else{
+                j--;
+            }
+        }
+        return maxProduct;
+    }
 };
 int main()
 {

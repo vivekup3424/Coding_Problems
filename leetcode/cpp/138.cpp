@@ -1,5 +1,6 @@
 
 #include <bits/stdc++.h>
+#include <cstdint>
 using namespace std;
 
 class Node
@@ -44,6 +45,28 @@ public:
             head = head->next;
         }
         return temp->next;
+    }
+    Node *copyRandomList2(Node *head){
+        //maps to store the addresses of nodes
+        map<uintptr_t,Node *> mp;
+        mp[(uintptr_t)nullptr] = nullptr;
+        Node *temp = head;
+        while(temp!=nullptr){
+            Node *newNode = new Node(temp->val);
+            if(mp.find((uintptr_t)temp->next) == mp.end()){
+                Node *nextNode = new Node(temp->next->val);
+                mp[(uintptr_t)nextNode] = nextNode;
+            }
+            if(mp.find((uintptr_t)temp->random) == mp.end()){
+                Node *randomNode = new Node(temp->random->val);
+                mp[(uintptr_t)randomNode] = randomNode;
+            }
+            newNode->next = temp->next;
+            newNode->random = temp->random;
+            mp[(uintptr_t)newNode] = newNode;
+        }
+
+        return nullptr;
     }
 };
 int main()
