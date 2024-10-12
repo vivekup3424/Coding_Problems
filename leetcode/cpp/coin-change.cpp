@@ -10,7 +10,6 @@ public:
     while (i < coins.size() and a) {
       count += a / coins[i];
       a = a % coins[i];
-      i++;
     }
     if (a != 0)
       return -1;
