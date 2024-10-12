@@ -6,14 +6,14 @@ class Solution
 public:
     int coinChange(vector<int> &coins, int a)
     {
-        sort(coins.begin(), coins.end());
+        sort(coins.rbegin(), coins.rend());
         int count = 0;
-        int i = coins.size() - 1;
-        while (a and i > 0)
+        int i = 0;
+        while (i < coins.size() and a)
         {
             count += a / coins[i];
             a = a % coins[i];
-            i--;
+            i++;
         }
         if (a != 0)
             return -1;
