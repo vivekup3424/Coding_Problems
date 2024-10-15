@@ -14,11 +14,28 @@
 */
 
 #include <bits/stdc++.h>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
+private:
+    void dfs(unordered_map<string, multiset<string>> &m, string airport,vector<string> &result){
+        while(!m[airport].empty()){
+            auto it = *m[airport].begin();
+            m[airport].erase(it);
+            result.push_back(it);
+            dfs(m,it,result);
+        }
+    }
 public:
     vector<string> findItinerary(vector<vector<string>>& tickets) {
-        vector<string>
+        unordered_map<string, multiset<string>> graph;
+        int numTickets = tickets.size();
+        for(auto ticket : tickets){
+            graph[ticket[0]].insert(ticket[1]);
+        }
+        vector<string> result;
+        dfs(graph,"JFK",result);
+        return result;
     }
 };
