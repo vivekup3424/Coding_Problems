@@ -35,7 +35,17 @@ public:
             graph[ticket[0]].insert(ticket[1]);
         }
         vector<string> result;
+        result.push_back("JFK");
         dfs(graph,"JFK",result);
         return result;
     }
 };
+int main(){
+    vector<vector<string>> v = {{"MUC","LHR"},{"JFK","MUC"},{"SFO","SJC"},{"LHR","SFO"}};
+    auto t = Solution().findItinerary(v);
+    for(auto i : t){
+        cout<<i<<"=>";
+    }
+    cout<<"\n";
+    return 0;
+}
