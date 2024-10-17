@@ -22,13 +22,8 @@ class Solution {
 public:
     int maxAbsValExpr(vector<int>& arr1, vector<int>& arr2) {
         vector<vector<int>> ans = validCombinations(3);
-        for(auto v : ans){
-            for(auto i : v){
-                cout<<i<<" ";
-            }
-            cout<<endl;
-        }
-        return -1;
+        int maxi = INT_MIN; //-infinity
+        
     }
 };
 int main(){
