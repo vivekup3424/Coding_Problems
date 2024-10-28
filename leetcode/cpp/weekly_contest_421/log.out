@@ -1,0 +1,112 @@
+
+=== Testing with t = 26 ===
+Initial state:
+After transformation 0:
+String: abczz
+Length: 5
+Character frequencies:
+a: 1 times
+b: 1 times
+c: 1 times
+z: 2 times
+------------------------
+After transformation 1:
+String: aabbbcd
+Length: 7
+Character frequencies:
+a: 2 times
+b: 3 times
+c: 1 times
+d: 1 times
+------------------------
+After transformation 24:
+String: abxxyyyz
+Length: 8
+Character frequencies:
+a: 1 times
+b: 1 times
+x: 2 times
+y: 3 times
+z: 1 times
+------------------------
+After transformation 25:
+String: abbcyyzzz
+Length: 9
+Character frequencies:
+a: 1 times
+b: 2 times
+c: 1 times
+y: 2 times
+z: 3 times
+------------------------
+After transformation 26:
+String: aaabbbbccdzz
+Length: 12
+Character frequencies:
+a: 3 times
+b: 4 times
+c: 2 times
+d: 1 times
+z: 2 times
+------------------------
+
+=== Testing with t = 42 ===
+Initial state:
+After transformation 0:
+String: abczz
+Length: 5
+Character frequencies:
+a: 1 times
+b: 1 times
+c: 1 times
+z: 2 times
+------------------------
+After transformation 1:
+String: aabbbcd
+Length: 7
+Character frequencies:
+a: 2 times
+b: 3 times
+c: 1 times
+d: 1 times
+------------------------
+After transformation 24:
+String: abxxyyyz
+Length: 8
+Character frequencies:
+a: 1 times
+b: 1 times
+x: 2 times
+y: 3 times
+z: 1 times
+------------------------
+After transformation 25:
+String: abbcyyzzz
+Length: 9
+Character frequencies:
+a: 1 times
+b: 2 times
+c: 1 times
+y: 2 times
+z: 3 times
+------------------------
+After transformation 26:
+String: aaabbbbccdzz
+Length: 12
+Character frequencies:
+a: 3 times
+b: 4 times
+c: 2 times
+d: 1 times
+z: 2 times
+------------------------
+After transformation 27:
+String: aabbbbbccccdde
+Length: 14
+Character frequencies:
+a: 2 times
+b: 5 times
+c: 4 times
+d: 2 times
+e: 1 times
+------------------------
