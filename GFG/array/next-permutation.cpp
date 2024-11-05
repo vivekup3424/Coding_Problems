@@ -24,7 +24,7 @@ int main (int argc, char *argv[]) {
     cout<<"Enter the elements of the array:-\n";
     vector<int> v(n);
     for(int i = 0; i < n; i++){
-        cin>>v[i];
+        cin>>v[];
     }
     Solution().nextPermutation(v);
     cout<<"Next Permutation:-\n";
