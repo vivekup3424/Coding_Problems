@@ -1,10 +1,18 @@
-
+#include <bits/stdc++.h>
+#include <queue>
+using namespace std;
+class comparator{
+public:
+    bool operator()(int a, int b){
+        return a < b;
+    }
+};
 class Solution
 {
 public:
     int lastStoneWeight(vector<int> &stones)
     {
-        priority_queue<int> pq;
+        priority_queue<int,vector<int>,comparator> pq;
         for (int i = 0; i < stones.size(); i++)
         {
             pq.push(stones[i]);
@@ -21,3 +29,6 @@ public:
         return pq.top();
     }
 };
+int main (int argc, char *argv[]) {
+    return 0;
+}
