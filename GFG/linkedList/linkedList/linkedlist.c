@@ -13,6 +13,8 @@ struct LinkedList
 struct list *create_singly_linked_list()
 {
     struct list *start = (struct list *)malloc(sizeof(struct list));
+    printf("Size of start node = %lu",sizeof(struct list));
+    printf("Size of start pointer = %lu",sizeof(start));
     struct list *ptr1 = (struct list *)malloc(sizeof(struct list));
     int i=0,data=-1;
     char c;
