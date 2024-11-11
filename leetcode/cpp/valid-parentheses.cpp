@@ -14,7 +14,6 @@ An input string is valid if:
     bracket of the same typ
 */
 
-
 class Solution
 {
 public:
