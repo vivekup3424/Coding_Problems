@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sliding Puzzle Solver</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .game-container {
+            background: #2d2d2d;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 8px;
+            background-color: #404040;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .tile {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .tile:not(.empty):hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .tile:not(.empty) {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        .tile.empty {
+            background-color: #666;
+            cursor: default;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            padding: 12px 24px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .button:hover {
+            background-color: #357abd;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            background-color: #404040;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .solution-path {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #404040;
+            border-radius: 5px;
+            max-width: 300px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="stats">
+            <div class="stat-item">Moves: <span id="moveCount">0</span></div>
+            <div class="stat-item">Minimum Required: <span id="minMoves">-</span></div>
+        </div>
+        <div class="board" id="board"></div>
+        <div class="controls">
+            <button class="button" id="resetBtn">Reset</button>
+            <button class="button" id="solveBtn">Show Solution</button>
+            <button class="button" id="shuffleBtn">Shuffle</button>
+        </div>
+        <div class="solution-path" id="solutionPath"></div>
+    </div>
+
+    <script>
+        class SlidingPuzzle {
+            constructor() {
+                this.initialState = [
+                    [1, 2, 3],
+                    [4, 0, 5]
+                ];
+                this.currentState = JSON.parse(JSON.stringify(this.initialState));
+                this.moves = 0;
+                this.targetState = [[1, 2, 3], [4, 5, 0]];
+                this.initializeBoard();
+                this.addEventListeners();
+            }
+
+            initializeBoard() {
+                const boardElement = document.getElementById('board');
+                boardElement.innerHTML = '';
+
+                for (let i = 0; i < 2; i++) {
+                    for (let j = 0; j < 3; j++) {
+                        const tile = document.createElement('div');
+                        tile.className = 'tile';
+                        if (this.currentState[i][j] === 0) {
+                            tile.classList.add('empty');
+                        } else {
+                            tile.textContent = this.currentState[i][j];
+                        }
+                        tile.dataset.row = i;
+                        tile.dataset.col = j;
+                        boardElement.appendChild(tile);
+                    }
+                }
+
+                this.updateMoveCount();
+                this.checkSolution();
+            }
+
+            addEventListeners() {
+                document.getElementById('board').addEventListener('click', (e) => {
+                    if (e.target.classList.contains('tile') && !e.target.classList.contains('empty')) {
+                        const row = parseInt(e.target.dataset.row);
+                        const col = parseInt(e.target.dataset.col);
+                        this.tryMove(row, col);
+                    }
+                });
+
+                document.getElementById('resetBtn').addEventListener('click', () => this.reset());
+                document.getElementById('shuffleBtn').addEventListener('click', () => this.shuffle());
+                document.getElementById('solveBtn').addEventListener('click', () => this.showSolution());
+            }
+
+            findEmptyPosition() {
+                for (let i = 0; i < 2; i++) {
+                    for (let j = 0; j < 3; j++) {
+                        if (this.currentState[i][j] === 0) {
+                            return [i, j];
+                        }
+                    }
+                }
+            }
+
+            tryMove(row, col) {
+                const [emptyRow, emptyCol] = this.findEmptyPosition();
+                if (this.isAdjacent(row, col, emptyRow, emptyCol)) {
+                    // Swap tiles
+                    [this.currentState[row][col], this.currentState[emptyRow][emptyCol]] = 
+                    [this.currentState[emptyRow][emptyCol], this.currentState[row][col]];
+                    
+                    this.moves++;
+                    this.initializeBoard();
+                }
+            }
+
+            isAdjacent(row1, col1, row2, col2) {
+                return (Math.abs(row1 - row2) === 1 && col1 === col2) ||
+                       (Math.abs(col1 - col2) === 1 && row1 === row2);
+            }
+
+            updateMoveCount() {
+                document.getElementById('moveCount').textContent = this.moves;
+            }
+
+            reset() {
+                this.currentState = JSON.parse(JSON.stringify(this.initialState));
+                this.moves = 0;
+                this.initializeBoard();
+                document.getElementById('solutionPath').textContent = '';
+            }
+
+            shuffle() {
+                const moves = 50;
+                for (let i = 0; i < moves; i++) {
+                    const [emptyRow, emptyCol] = this.findEmptyPosition();
+                    const possibleMoves = [];
+                    
+                    // Check all adjacent positions
+                    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+                    
+                    for (const [dx, dy] of directions) {
+                        const newRow = emptyRow + dx;
+                        const newCol = emptyCol + dy;
+                        
+                        if (newRow >= 0 && newRow < 2 && newCol >= 0 && newCol < 3) {
+                            possibleMoves.push([newRow, newCol]);
+                        }
+                    }
+
+                    // Make a random valid move
+                    const [moveRow, moveCol] = possibleMoves[
+                        Math.floor(Math.random() * possibleMoves.length)
+                    ];
+                    
+                    [this.currentState[moveRow][moveCol], this.currentState[emptyRow][emptyCol]] = 
+                    [this.currentState[emptyRow][emptyCol], this.currentState[moveRow][moveCol]];
+                }
+                
+                this.moves = 0;
+                this.initializeBoard();
+                document.getElementById('solutionPath').textContent = '';
+            }
+
+            checkSolution() {
+                const isSolved = JSON.stringify(this.currentState) === JSON.stringify(this.targetState);
+                if (isSolved) {
+                    setTimeout(() => {
+                        alert(`Puzzle solved in ${this.moves} moves!`);
+                    }, 100);
+                }
+            }
+
+            showSolution() {
+                // For this simplified version, we'll just show if the current state is solvable
+                const solutionPath = document.getElementById('solutionPath');
+                const isSolvable = this.isSolvable();
+                if (isSolvable) {
+                    solutionPath.textContent = "This puzzle state is solvable! Try to solve it by moving tiles adjacent to the empty space.";
+                    document.getElementById('minMoves').textContent = "Solvable";
+                } else {
+                    solutionPath.textContent = "This puzzle state cannot be solved. Try shuffling or resetting the board.";
+                    document.getElementById('minMoves').textContent = "-1";
+                }
+            }
+
+            isSolvable() {
+                // Flatten the array and remove the empty tile (0)
+                const flatArray = this.currentState.flat().filter(x => x !== 0);
+                
+                // Count inversions
+                let inversions = 0;
+                for (let i = 0; i < flatArray.length - 1; i++) {
+                    for (let j = i + 1; j < flatArray.length; j++) {
+                        if (flatArray[i] > flatArray[j]) {
+                            inversions++;
+                        }
+                    }
+                }
+
+                // For a 2x3 puzzle, if the empty tile is in its final position (bottom right),
+                // the number of inversions must be even for the puzzle to be solvable
+                const [emptyRow] = this.findEmptyPosition();
+                return (inversions + emptyRow) % 2 === 0;
+            }
+        }
+
+        // Start the game when the page loads
+        window.onload = () => {
+            new SlidingPuzzle();
+        };
+    </script>
+</body>
+</html>
