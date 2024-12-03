@@ -10,3 +10,10 @@ class Solution:
                 output += " "
             output += s[i]
         return output
+
+
+print("Enter the string")
+s = input()
+print("Enter the spaces")
+spaces = list(map(int, input().split()))
+print(Solution().addSpaces(s, spaces))
