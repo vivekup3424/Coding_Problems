@@ -2,7 +2,6 @@ input = open("./input", mode="r")
 # convert input to matrix of characters
 input = input.read().strip().split("\n")
 rows, cols = len(input), len(input[0])
-print(rows, cols)
 count = 0
 X_indices = []
 for i in range(rows):
@@ -11,60 +10,55 @@ for i in range(rows):
             X_indices.append((i, j))
 for indices in X_indices:
     x, y = indices[0], indices[1]
-    word = "MAS"
     # search horizontally-front
-    k = 0
-    for j in range(y + 1, cols):
-        if input[x][j] == word[k]:
-            k += 1
-        if k == len(word):
-            count += 1
-            break
+    if (
+        y + 3 < cols
+        and input[x][y + 1] == "M"
+        and input[x][y + 2] == "A"
+        and input[x][y + 3] == "S"
+    ):
+        count += 1
     # search horizontally-back
-    k = 0
-    for j in range(y - 1, -1, -1):
-        if input[x][j] == word[k]:
-            k += 1
-        if k == len(word):
-            count += 1
-            break
+    if (
+        y - 3 >= 0
+        and input[x][y - 1] == "M"
+        and input[x][y - 2] == "A"
+        and input[x][y - 3] == "S"
+    ):
+        count += 1
     # search vertically-down
-    k = 0
-    for j in range(x + 1, rows):
-        if input[j][y] == word[k]:
-            k += 1
-        if k == len(word):
-            count += 1
-            break
+    if (
+        x + 3 < rows
+        and input[x + 1][y] == "M"
+        and input[x + 2][y] == "A"
+        and input[x + 3][y] == "S"
+    ):
+        count += 1
     # search vertically-up
-    k = 0
-    for j in range(x - 1, -1, -1):
-        if input[j][y] == word[k]:
-            k += 1
-        if k == len(word):
-            count += 1
-            break
-    # search horizontally-down
-    k = 0
-    temp_x, temp_y = x + 1, y + 1
-    while temp_x < rows and temp_y < cols:
-        if input[temp_x][temp_y] == word[k]:
-            k += 1
-        if k == len(word):
-            count += 1
-            break
-        temp_x += 1
-        temp_y += 1
-    # search horizontally-up
-    k = 0
-    temp_x, temp_y = x - 1, y - 1
-    while temp_x >= 0 and temp_y >= 0:
-        if input[temp_x][temp_y] == word[k]:
-            k += 1
-        if k == len(word):
-            count += 1
-            break
-        temp_x += -1
-        temp_y += -1
+    if (
+        x - 3 >= 0
+        and input[x - 1][y] == "M"
+        and input[x - 2][y] == "A"
+        and input[x - 3][y] == "S"
+    ):
+        count += 1
+    # search diagonally-down
+    if (
+        x + 3 < rows
+        and y + 3 < cols
+        and input[x + 1][y + 1] == "M"
+        and input[x + 2][y + 2] == "A"
+        and input[x + 3][y + 3] == "S"
+    ):
+        count += 1
+    # search diagonally-up
+    if (
+        x - 3 >= 0
+        and y - 3 >= 0
+        and input[x - 1][y - 1] == "M"
+        and input[x - 2][y - 2] == "A"
+        and input[x - 3][y - 3] == "S"
+    ):
+        count += 1
 
 print(count)
