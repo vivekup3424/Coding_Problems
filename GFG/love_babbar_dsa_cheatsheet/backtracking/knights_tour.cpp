@@ -3,38 +3,27 @@
 // Print the order of each cell in which they are visited.
 
 #include <bits/stdc++.h>
+#include <csignal>
 using namespace std;
-#define MAX 1000
-bool visited[MAX][MAX];
-int possible_moves_y[] = {3, 3, -3, -3, 1, -1, 1, -1};
-int possible_moves_x[] = {1, -1, 1, -1, 3, 3, -3, -3};
-bool isValid(int x, int y)
-{
-    if (x >= 0 and y >= 0 and x < 8 and y < 8 and !visited[x][y])
-        return true;
-    else
-        return false;
+void dfs(int x, int y, int ChessBoard[8][8], bool visited[8][8]){
+    if(visited[x][y] == true){
+        return;
+    }
+    dfs(x + 2, y + 1, ChessBoard, visited);
+    dfs(x + 2, y - 1, ChessBoard, visited);
+    dfs(x - 2, y + 1, ChessBoard, visited);
+    dfs(x - 2, y - 1, ChessBoard, visited);
+    dfs(x + 1, y + 2, ChessBoard, visited);
+    dfs(x + 1, y - 2, ChessBoard, visited);
+    dfs(x - 1, y + 2, ChessBoard, visited);
+    dfs(x - 1, y - 2, ChessBoard, visited);
 }
-bool knights_tour(int chess[8][8], int)
-{
-}
-int main()
-{
-    int chess[8][8];
-    int counter = 0;
-    for (int i = 0; i < 8; i++)
-    {
-        for (int j = 0; j < 8; j++)
-        {
-            chess[i][j] = counter;
-            counter++;
+int main(){
+    int N = 8;
+    int Solution[N][N];
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < N; j++){
+            Solution[i][j] = 0;
         }
     }
-    vector<int> empty;
-    knights_tour(chess, 0, 0, empty);
-    for (int i = 0; i < empty.size(); i++)
-    {
-        cout << empty[i] << ", ";
-    }
-    return 0;
 }
