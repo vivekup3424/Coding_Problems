@@ -1,40 +1,68 @@
-// Given a 8*8 board with the Knight placed on the first block of an empty board.
-// Moving according to the rules of chess knight must visit each square exactly once.
-// Print the order of each cell in which they are visited.
-
 #include <bits/stdc++.h>
 using namespace std;
-void dfs(int x, int y, int ChessBoard[8][8], set<pair<int,int>> visited){
-    if((visited.count({x,y}) and visited.size()<64) || x < 0 || y < 0 || x >= 8 || y >= 8){
-        visited.erase({x,y});
-        ChessBoard[x][y]  = 0;
-        return;
+
+// Define knight's possible moves
+const vector<pair<int, int>> knightMoves = {
+    {2, 1}, {2, -1}, {-2, 1}, {-2, -1},
+    {1, 2}, {1, -2}, {-1, 2}, {-1, -2}
+};
+int answer[8][8];
+// Function to perform DFS and solve the Knight's Tour
+bool dfs(int x, int y, int ChessBoard[8][8], set<pair<int, int>> &visited) {
+    if (visited.size() == 64) {
+        // Base case: all cells are visited
+        return true;
     }
-    visited.insert({x,y});
+
+    // Check bounds and whether cell is already visited
+    if (x < 0 || y < 0 || x >= 8 || y >= 8 || visited.count({x, y})) {
+        return false;
+    }
+
+    // Mark the current cell as visited and update ChessBoard
+    visited.insert({x, y});
     ChessBoard[x][y] = visited.size();
-    dfs(x + 2, y + 1, ChessBoard, visited);
-    dfs(x + 2, y - 1, ChessBoard, visited);
-    dfs(x - 2, y + 1, ChessBoard, visited);
-    dfs(x - 2, y - 1, ChessBoard, visited);
-    dfs(x + 1, y + 2, ChessBoard, visited);
-    dfs(x + 1, y - 2, ChessBoard, visited);
-    dfs(x - 1, y + 2, ChessBoard, visited);
-    dfs(x - 1, y - 2, ChessBoard, visited);
+
+    // Explore all possible knight moves
+    for (auto move : knightMoves) {
+        int nextX = x + move.first;
+        int nextY = y + move.second;
+        if (dfs(nextX, nextY, ChessBoard, visited)) {
+            return true; // Solution found
+        }
+    }
+
+    // Backtracking: unmark the current cell and reset ChessBoard
+    visited.erase({x, y});
+    ChessBoard[x][y] = 0;
+
+    return false; // No valid moves from this point
 }
-int main(){
-    int Solution[8][8];
-    for(int i = 0; i < 8; i++){
-        for(int j = 0; j < 8; j++){
-            Solution[i][j] = 0;
+
+int main() {
+    // Initialize the ChessBoard
+    int ChessBoard[8][8];
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            ChessBoard[i][j] = 0;
         }
     }
-    set<pair<int,int>> visited;
-    dfs(0,0,Solution,visited);
-    for(int i = 0; i < 8; i++){
-        for(int j = 0; j < 8; j++){
-            cout << Solution[i][j] << " ";
+
+    // Set to track visited cells
+    set<pair<int, int>> visited;
+
+    // Start DFS from the top-left corner
+    if (dfs(0, 0, ChessBoard, visited)) {
+        // Print the solution
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                cout << setw(3) << ChessBoard[i][j] << " ";
+            }
+            cout << endl;
         }
-        cout << endl;
+    } else {
+        cout << "No solution exists for the Knight's Tour!" << endl;
     }
+
     return 0;
 }
