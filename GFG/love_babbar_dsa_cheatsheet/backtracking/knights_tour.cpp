@@ -3,10 +3,9 @@
 // Print the order of each cell in which they are visited.
 
 #include <bits/stdc++.h>
-#include <csignal>
 using namespace std;
 void dfs(int x, int y, int ChessBoard[8][8], bool visited[8][8]){
-    if(visited[x][y] == true){
+    if(visited[x][y] == true || x < 0 || y < 0 || x >= 8 || y >= 8){
         return;
     }
     dfs(x + 2, y + 1, ChessBoard, visited);
