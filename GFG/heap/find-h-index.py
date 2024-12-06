@@ -46,7 +46,18 @@ class MinHeap:
         if smallest != i:
             self.heap[i], self.heap[smallest] = self.heap[smallest], self.heap[i]
             self.heapify(smallest)
+    def __sizeof__(self) -> int:
+        "returns the size of the current minHeap"
+        return len(self.heap)
 
+class Solution:
+    def hIndex(self,citations):
+        minheap = MinHeap()
+        for i in citations:
+            if i > 0:
+                minheap.push(i)
+        ans = 0
+        while 
 
 def main():
     minheap = MinHeap()
