@@ -34,22 +34,14 @@ def printMatrix(A):
 
 
 def numberOfLiveNeighbors(matrix, x, y):
-    moves = set()
-    for i in {-1, 0, 1}:
-        for j in {-1, 0, 1}:
-            moves.add((i, j))
-    print(moves)
-    count = 1
-    for dx, dy in moves:
-        newX = x + dx
-        newY = y + dy
-        if (
-            0 <= newX < len(matrix)
-            and 0 <= newY < len(matrix[0])
-            and matrix[newX][newY] == "█"
-        ):
-            count += 1
-    return count
+    rows, cols = len(matrix), len(matrix[0])
+    directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+    live_neighbors = 0
+    for dx, dy in directions:
+        nx, ny = x + dx, y + dy
+        if 0 <= nx < rows and 0 <= ny < cols:  # Check bounds
+            live_neighbors += matrix[nx][ny] == "█"
+    return live_neighbors
 
 
 def GameOfLife():
@@ -60,8 +52,9 @@ def GameOfLife():
     )  # Dimensions of the matrix
     matrix = generateMatrix(rows, cols)
     temp = copy.deepcopy(matrix)
-    time_delay = 0.5
+    time_delay = 1 / 14
     while True:
+        print("\033[H\033[J")
         printMatrix(matrix)
         for i in range(0, rows):
             for j in range(0, cols):
