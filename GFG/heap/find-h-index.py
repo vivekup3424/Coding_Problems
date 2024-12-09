@@ -57,7 +57,7 @@ class Solution:
             if i > 0:
                 minheap.push(i)
         ans = 0
-        while 
+        while minheap.__sizeof__() > 0:
 
 def main():
     minheap = MinHeap()

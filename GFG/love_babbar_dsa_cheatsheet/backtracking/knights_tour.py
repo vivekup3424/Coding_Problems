@@ -46,12 +46,6 @@ def solve_knights_tour(board, x, y, move_count, start_time, time_limit):
     return False
 
 
-def print_board(board):
-    """Print the chessboard with the knight's path."""
-    for row in board:
-        print(" ".join(str(cell).rjust(3, " ") for cell in row))
-
-
 def main():
     size = 8  # Size of the chessboard
     board = initialize_board(size)
@@ -64,9 +58,12 @@ def main():
 
     if solve_knights_tour(board, start_x, start_y, 1, start_time, time_limit):
         print("Solution found!")
-        print_board(board)
+        print(board)
     else:
         print("No solution exists or the search exceeded the time limit.")
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"Total Execution time : {execution_time}")
 
 
 if __name__ == "__main__":

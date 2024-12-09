@@ -6,11 +6,22 @@ const vector<pair<int, int>> knightMoves = {
     {2, 1}, {2, -1}, {-2, 1}, {-2, -1},
     {1, 2}, {1, -2}, {-1, 2}, {-1, -2}
 };
-int answer[8][8];
+int answer[8][8]; // Global array to store the final solution
+
+// Function to copy ChessBoard to answer
+void copyBoard(int ChessBoard[8][8], int answer[8][8]) {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            answer[i][j] = ChessBoard[i][j];
+        }
+    }
+}
+
 // Function to perform DFS and solve the Knight's Tour
 bool dfs(int x, int y, int ChessBoard[8][8], set<pair<int, int>> &visited) {
     if (visited.size() == 64) {
         // Base case: all cells are visited
+        /*copyBoard(ChessBoard, answer); // Copy solution to the global answer*/
         return true;
     }
 
@@ -53,10 +64,10 @@ int main() {
 
     // Start DFS from the top-left corner
     if (dfs(0, 0, ChessBoard, visited)) {
-        // Print the solution
+        // Print the solution from the global answer array
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                cout << setw(3) << ChessBoard[i][j] << " ";
+                cout << setw(3) << answer[i][j] << " ";
             }
             cout << endl;
         }
