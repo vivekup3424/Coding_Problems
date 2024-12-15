@@ -12,7 +12,8 @@ const calculateSum = (n) => {
 };
 let n = 0;
 rl.question("Enter a number n", (n) => {
+  num = parseInt(n);
   process.stdout.write(
-    `The sum of first ${n} natural numbers is ${calculateSum(n)}`,
+    `The sum of first ${num} natural numbers is ${calculateSum(num)}`,
   );
 });
