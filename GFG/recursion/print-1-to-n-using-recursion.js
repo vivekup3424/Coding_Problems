@@ -1,4 +1,4 @@
-import readline from "readline";
+const readline = require("readline");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -24,7 +24,7 @@ rl.question("Enter the starting and ending numbers (e.g., 1 5): ", (input) => {
     );
   } else {
     // Print numbers from i to n
-    console.log([...Array(n - i + 1).keys()].map((k) => k + i).join(" "));
+    print1toN(i, n);
   }
   rl.close(); // Close the interface
 });
