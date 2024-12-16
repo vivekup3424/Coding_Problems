@@ -1,17 +1,33 @@
+# Since A has extra space at the end, we can merge from the end of the arrays
+# instead of the beginning. This avoids the need to shift elements multiple times.
+
+from typing import List
+
+
 class Solution:
-    def mergeArrays(self, a, b):
-        # a contains first sorted elements,
-        # b contains the other part of the sorted elements
-        # without using extra memory
-        i, j = 0, 0
-        while i < len(a)
-            print(f"i = {i}, j = {j}")
-            print(a)
-            print(b)
-            if a[i] <= b[j]:
-                i += 1
+    def mergeArrays(self, a: List[int], b: List[int]):
+        i, j = len(a) - 1, len(b) - 1
+        for _ in range(len(b)):
+            a.append(0)
+        k = len(a) - 1
+        while i >= 0 and j >= 0:
+            if a[i] >= b[j]:
+                a[k] = a[i]
+                k -= 1
+                i -= 1
             else:
-                a[i], b[j] = b[j], a[i]
+                a[k] = b[j]
+                k -= 1
+                j -= 1
+        while i >= 0:
+            a[k] = a[i]
+            k -= 1
+            i -= 1
+        while j >= 0:
+            a[k] = b[j]
+            k -= 1
+            j -= 1
+        return a
 
 
 def main():
@@ -20,7 +36,7 @@ def main():
     # m = int(input())
     b = [2, 3]
     ob = Solution()
-    ob.mergeArrays(a, b)
+    print(ob.mergeArrays(a, b))
 
 
 if __name__ == "__main__":
