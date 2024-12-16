@@ -15,13 +15,9 @@ int solve(vector<int> arr, int i, int j) // i = starting index and j = ending in
     {
         return 0;
     }
-    else if (i == 0 or j >= arr.size() - 1)
-    {
-        return 0;
-    }
     int minimum = INT_MAX;
     // Ai = arr[i-1] x arr[i]
-    for (int k = i; k < j; j++)
+    for (int k = i; k < j; k++)
     {
         // i to k, k+1 to j
         // solve(arr,i,k), solve(arr,k+1,j)
