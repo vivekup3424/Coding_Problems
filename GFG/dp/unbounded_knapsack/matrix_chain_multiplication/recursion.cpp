@@ -11,7 +11,7 @@ using namespace std;
 // 4.Calculate answer from temporary answer
 int solve(vector<int> arr, int i, int j) // i = starting index and j = ending index (Ai to Aj)
 {
-    if (i >= j)
+    if (i == j)
     {
         return 0;
     }
@@ -26,13 +26,12 @@ int solve(vector<int> arr, int i, int j) // i = starting index and j = ending in
         int temporary = solve(arr, i, k) + solve(arr, k + 1, j) + arr[i - 1] * arr[k] * arr[j];
         minimum = min(minimum, temporary);
     }
-    cout << minimum << "\n";
     return minimum;
 }
 int main()
 {
-    vector<int> arr = {10, 20, 30, 40};
-    solve(arr, 1, 2);
+    vector<int> arr = {1, 2, 3, 4};
+    cout << solve(arr, 0,arr.size()-1);
 }
 // Time Complexity is exponenetial
 
