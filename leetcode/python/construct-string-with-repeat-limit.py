@@ -1,5 +1,5 @@
 import heapq
-from collections import Counter
+from collections import Counter, UserString
 
 
 class Solution:
@@ -10,14 +10,29 @@ class Solution:
         counter = Counter(s)
         maxHeap = [(-ord(key), val) for key, val in counter.items()]
         heapq.heapify(maxHeap)
-        for key, val in counter.items():
-            heapq.heappush(maxHeap, (-ord(key), -val))
         print(maxHeap)
+        answer = []
+        while maxHeap:
+            char, cnt = heapq.heappop(maxHeap)
+            char = chr(-char)
+            current_cnt = min(cnt, int(repeatLimit))
+            answer += [char] * current_cnt
+            cnt -= current_cnt
+            if cnt > 0 and maxHeap:
+                next_char, next_cnt = heapq.heappop(maxHeap)
+                next_char = chr(-next_char)
+                answer += [next_char]
+                next_cnt -= 1
+                if next_cnt > 0:
+                    heapq.heappush(maxHeap, (-ord(next_char), next_cnt))
+            heapq.heappush(maxHeap, (-ord(char), cnt))
+        print(answer)
         return "SHITT"
 
 
 def main():
-    userString = input("Please enter an string")
+    # userString = input("Please enter an string")
+    userString = "zzzzccczaac"
     Solution().repeatLimitedString(s=userString, repeatLimit="3")
 
 
