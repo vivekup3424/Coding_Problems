@@ -1,0 +1,40 @@
+{
+	// Use IntelliSense to learn about possible Node.js debug attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Launch blog",
+			"program": "${workspaceRoot}\\blog\\node_modules\\moleculer\\bin\\moleculer-runner.js",
+			"args": [
+				"services"
+			],
+			"env": {
+				"PORT": "4000"
+			},
+			"cwd": "${workspaceRoot}\\blog"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Launch conduit",
+			"program": "${workspaceRoot}\\conduit\\node_modules\\moleculer\\bin\\moleculer-runner.js",
+			"args": [
+				"services"
+			],
+			"env": {
+				"PORT": "3000"
+			},
+			"cwd": "${workspaceRoot}\\conduit"
+		},		
+		{
+			"type": "node",
+			"request": "attach",
+			"name": "Attach",
+			"port": 9229
+		}
+	]
+}
