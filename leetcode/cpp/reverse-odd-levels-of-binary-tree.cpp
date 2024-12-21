@@ -16,22 +16,11 @@ public:
         if(root == nullptr){
             return root;
         }
-        //doing a level order traversal
-        vector<int> nodes;
-        queue<TreeNode*> q;
-        q.push(root);
-        while(q.size()>0){
-            auto top = q.front();
-            q.pop();
-            nodes.push_back(top->val);
-            if(top->left != nullptr){
-                q.push(top->left);
-            }
-            if(top->right != nullptr){
-                q.push(top->right);
-            }   
-        }
-        //constructing new Tree from the level order traversal
-        TreeNode* newRoot = new TreeNode(nodes[0]);
+        auto temp = root->left;
+        root->left = root->right;
+        root->right = temp;
+        reverseOddLevels(root->left);
+        reverseOddLevels(root->right);
+        return root;
     }
 };
