@@ -1,3 +1,3 @@
-> [!NOTE]
-> theta
-Lundera
+for (int i = 0;i  M ; i++){
+whatever
+}
