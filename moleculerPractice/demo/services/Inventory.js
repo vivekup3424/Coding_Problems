@@ -13,7 +13,6 @@ module.exports = {
       if (inventory[item]) {
         inventory[item] += quantity;
       } else {
-        // Add new item,if it doesn't exist
         inventory[item] = quantity;
       }
       await this.saveInventory(inventory);

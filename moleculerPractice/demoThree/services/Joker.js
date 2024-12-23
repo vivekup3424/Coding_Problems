@@ -4,36 +4,16 @@ const path = require("path");
 const INVENTORY_FILE = path.join(__dirname, "inventory.json");
 
 module.exports = {
-  name: "inventory",
+  name: "library",
 
   actions: {
-    async addItem(ctx) {
+    async updateItem(ctx) {
       const { item, quantity } = ctx.params;
       const inventory = await this.loadInventory();
-      if (inventory[item]) {
-        inventory[item] += quantity;
-      } else {
-        // Add new item,if it doesn't exist
-        inventory[item] = quantity;
-      }
+      inventory[item] = quantity;
       await this.saveInventory(inventory);
       ctx.broadcast("inventory.updated", { item, quantity: inventory[item] });
       return `Item '${item}' updated. New quantity: ${inventory[item]}`;
-    },
-
-    async getItem(ctx) {
-      const { item } = ctx.params;
-      const inventory = await this.loadInventory();
-      if (inventory[item]) {
-        return { item, quantity: inventory[item] };
-      } else {
-        throw new Error(`Item '${item}' not found in inventory.`);
-      }
-    },
-
-    async getAllItems() {
-      const inventory = await this.loadInventory();
-      return inventory;
     },
   },
 
@@ -44,9 +24,9 @@ module.exports = {
         return JSON.parse(data);
       } catch (err) {
         if (err.code === "ENOENT") {
-          return {};
+          return {}; // Return an empty object if the file doesn't exist
         }
-        throw err;
+        throw err; // Throw error if it's another issue
       }
     },
 

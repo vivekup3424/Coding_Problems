@@ -1,9 +1,10 @@
 const { ServiceBroker } = require("moleculer");
+const subscriber = require("./services/subscriber");
 const NATS = require("nats");
 const pino = require("pino")
 const broker = new ServiceBroker({
   namespace: "inventory-broker",
-  nodeID: "shop-node-2",
+  nodeID: "shop-node-3",
   transporter: {
     type: "NATS",
     options: {
@@ -11,21 +12,23 @@ const broker = new ServiceBroker({
       token: "keus-iot-platform",
     }
   },
+  requestTimeout: 5000,
+  api: {
+    port: 3000
+  }
 });
+broker.createService(require("./services/Joker"));
 
 broker.start().then(async () => {
   pino().info("Broker started and listening for requests...");
-  pino().info(`Services are called from another node, to node: ${broker.nodeID}`)
   try {
-    pino().info(await broker.call("inventory.addItem", { item: "apple", quantity: 10 }));
-    pino().info(await broker.call("inventory.addItem", { item: "banana", quantity: 20 }));
-    pino().info(await broker.call("inventory.addItem", { item: "orange", quantity: 15 }));
+    pino().info(await broker.call("inventory.addItem", { item: "apple", quantity: 8 }));
+    pino().info(await broker.call("inventory.addItem", { item: "banana", quantity: -43 }));
+    pino().info(await broker.call("inventory.addItem", { item: "orange", quantity: -76 }));
     pino().info("Fetching details for 'apple':");
     pino().info(await broker.call("inventory.getItem", { item: "apple" }));
-    pino().info("Adding quantity for 'orange':");
-    pino().info(await broker.call("inventory.addItem", { item: "orange", quantity: 6 }));
-    pino().info("Adding quantity for 'apple':");
-    pino().info(await broker.call("library.updateItem", { item: "apple", quantity: 6 }));
+    pino().info("Updating quantity for 'orange':");
+    pino().info(await broker.call("inventory.addItem", { item: "orange", quantity: 23 }));
     pino().info("Fetching all items in the inventory:");
     pino().info(await broker.call("inventory.getAllItems"));
   } catch (err) {
