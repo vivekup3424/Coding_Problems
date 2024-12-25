@@ -23,8 +23,6 @@ class Solution:
                     if indegree[neighbor] == 1:
                         queue.append(neighbor)
             return topo
-        def dfs(gra,souce):
-
         topo1 = topoSort(edges1)
         topo2 = topoSort(edges2)
         centersOne = [topo1[0]]
