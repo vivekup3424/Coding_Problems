@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
 type Printer interface {
 	Print()
@@ -31,9 +34,16 @@ func (ps PrinterScannerImpl) Print() {
 	fmt.Println(("Printing the printer"))
 	fmt.Printf("Model Number = %s", ps.ModelNumber)
 }
-func (ps PrinterScannerImpl) Scan(){
-	ps.ModelNumber = 
+func (ps PrinterScannerImpl) Scan() {
+	fmt.Println("Lund")
 }
+
+type Handler interface {
+	ServerHTTP(http.ResponseWriter, *http.Request)
+}
+type MyHandler struct {
+}
+
 
 func main() {
 	jack := Person{"Jack Jackson"}
