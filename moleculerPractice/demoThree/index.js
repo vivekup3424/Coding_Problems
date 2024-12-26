@@ -8,7 +8,7 @@ const broker = new ServiceBroker({
   transporter: {
     type: "NATS",
     options: {
-      url: "nats://10.1.4.196:6970",
+      url: "nats://localhost:6971",
       token: "keus-iot-platform",
     }
   },
@@ -20,18 +20,5 @@ const broker = new ServiceBroker({
 broker.createService(require("./services/Joker"));
 
 broker.start().then(async () => {
-  pino().info("Broker started and listening for requests...");
-  try {
-    pino().info(await broker.call("inventory.addItem", { item: "apple", quantity: 8 }));
-    pino().info(await broker.call("inventory.addItem", { item: "banana", quantity: -43 }));
-    pino().info(await broker.call("inventory.addItem", { item: "orange", quantity: -76 }));
-    pino().info("Fetching details for 'apple':");
-    pino().info(await broker.call("inventory.getItem", { item: "apple" }));
-    pino().info("Updating quantity for 'orange':");
-    pino().info(await broker.call("inventory.addItem", { item: "orange", quantity: 23 }));
-    pino().info("Fetching all items in the inventory:");
-    pino().info(await broker.call("inventory.getAllItems"));
-  } catch (err) {
-    console.error("An error occurred during the workflow:", err);
-  }
+  console.log("Broker 3 started")
 });
