@@ -1,0 +1,19 @@
+{
+  "name": "channeldemo",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0",
+    "moleculer-repl": "^0.7.4"
+  },
+  "dependencies": {
+    "@moleculer/channels": "^0.1.8",
+    "lodash": "^4.17.21",
+    "moleculer": "^0.14.35",
+    "moleculer-web": "^0.10.7",
+    "nats": "^2.29.2"
+  }
+}
