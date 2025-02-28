@@ -1,38 +1,36 @@
 import { ServiceBroker } from "moleculer";
 const broker = new ServiceBroker({
-  nodeID: "joji",
-  namespace: "Keus-199786d6-cf1f-47a7-87d9-af7f2a3ab9b0",
-  transporter: {
-    type: "NATS",
-    options: {
-      url: "nats://10.1.4.238:9769",
-      token: "keus-iot-platform",
-    },
-  }, //add auth token of keus-iot-platform
-  logLevel: "debug",
-  requestTimeout: 1 * 1000, //5 seconds,
-  metadata: {
-    region: "eu-west-1",
-  },
-  retryPolicy: {
-    enabled: true,
-  },
+    logger: true,
 });
-broker
-  .start()
-  .then(async () => {
+
+broker.createService({
+    name: "test",
+    actions: {
+        fail: {
+            retryPolicy: {
+                enabled: true,   // Enable retries
+                retries: 3,      // Max retries
+                delay: 1000,     // Delay (1 second) between retries
+                maxDelay: 5000,  // Maximum delay (5 seconds)
+                factor: 2,       // Exponential backoff (1s, 2s, 4s)
+                check: (err) => err.retryable !== false, // Only retry retryable errors
+            },
+            async handler(ctx) {
+                console.log("Executing action...");
+                throw new Error("Temporary error, will retry!");
+            }
+        }
+    }
+});
+
+async function main() {
+    await broker.start();
     try {
-      broker
-        .ping()
-        .then((res) => broker.logger.info(res))
-        .catch((err) => {
-          broker.logger.error(err);
-        });
-    } catch (error) {}
-  })
-  .catch((err) => {
-    console.log("Error during starting the broker=>", err);
-  })
-  .finally(() => {
-    console.log("Final execution done");
-  });
+        await broker.call("test.fail");
+    } catch (err) {
+        console.error("Final Error After Retries:", err.message);
+    }
+}
+
+main();
+
