@@ -90,5 +90,6 @@
     "format": "cpp",
     "stacktrace": "cpp"
   },
-  "C_Cpp.errorSquiggles": "enabled"
+  "C_Cpp.errorSquiggles": "enabled",
+  "java.compile.nullAnalysis.mode": "automatic"
 }
