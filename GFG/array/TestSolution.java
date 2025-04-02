@@ -1,6 +1,6 @@
 import java.util.*;
 
-class secondLargestElement {
+class Solution {
     // Changed return type to Integer to handle null cases
     public Integer getSecondLargestElement(int[] arr) {
         if (arr == null || arr.length < 2) {
@@ -25,6 +25,9 @@ class secondLargestElement {
         
         return minHeap.poll();
     }
+}
+
+public class TestSolution {
     public static void main(String[] args) {
         Solution solution = new Solution();
         
@@ -74,5 +77,4 @@ class secondLargestElement {
         
         System.out.println("All tests passed!");
     }
-
 }
