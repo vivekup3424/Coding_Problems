@@ -1,0 +1,30 @@
+version: '3.3'
+services: 
+  main: 
+    image: nats
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    command: "-c /app/nats-main.conf"
+  leaf1:
+    image: nats
+    volumes:
+      - .:/app
+    ports:
+      - 6969:6969
+    command: "-c /app/nats-leaf1.conf"
+  leaf2:
+    image: nats
+    volumes:
+      - .:/app
+    ports:
+      - 6970:6969
+    command: "-c /app/nats-leaf2.conf"
+  leaf3:
+    image: nats
+    volumes:
+      - .:/app
+    ports:
+      - 6971:6969
+    command: "-c /app/nats-leaf3.conf"
