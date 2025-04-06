@@ -21,7 +21,5 @@ public:
             minSum = currentSum;
             minIdx = i;
         }
-        vector<int> temp;
-        for(int i = 0 ; i)
     }
 };
