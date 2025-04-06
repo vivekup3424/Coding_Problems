@@ -11,30 +11,36 @@ struct TreeNode
 class Solution
 {
 public:
-    void dfs(TreeNode *root, TreeNode *source, stack<int> &stk)
+    bool dfs(TreeNode *root, TreeNode *source, deque<TreeNode*> &dq)
     {
         if (root == nullptr)
         {
-            return;
+            return false;
         }
-        stk.push(root->val);
+        dq.push_back(root);
         if (root->val == source->val)
         {
-            return;
+            return true;
         }
-        dfs(root->left, source, stk);
-        dfs(root->right, source, stk);
-        stk.pop();
-        return;
+        if (dfs(root->left, source, dq) || dfs(root->right, source, dq))
+        {
+            return true;
+        }
+        dq.pop_back();
+        return false;
     }
-    TreeNode *lowestcommonancestor(TreeNode *root, TreeNode *p, TreeNode *q)
+    TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
     {
-        stack<int> stk;
-        dfs(root,p,stk);
-        printf("path from %d to %d is:\t",root->val,p->val);
-        while(!stk.empty()){
-            printf("%d, ",stk.top());
-            stk.pop();
+        deque<TreeNode*> dq1;
+        dfs(root, p, dq1);
+        deque<TreeNode*> dq2;
+        dfs(root, q, dq2);
+        TreeNode* answerNode = nullptr;
+        while(dq1.front()==dq2.front()){
+            answerNode = dq1.front();
+            dq1.pop_front();
+            dq2.pop_front();
         }
+        return answerNode;
     }
 };
