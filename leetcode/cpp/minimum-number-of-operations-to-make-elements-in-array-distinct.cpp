@@ -32,9 +32,28 @@ public:
         for(int num : nums){
             freq[num]++;
         }
-        int i = 0, n = nums.size();
+        int i = 0, n = nums.size(), count = 0;
         while(i<n and freq.size()<(n-i)){
-            for(int j = 0; j < )
+            count++;
+            for(int j = 0; j < 3; j++){
+                if(i<n){
+                    freq[nums[i]]--;
+                    if(freq[nums[i]]==0){
+                        freq.erase(nums[i]);
+                    }
+                }
+                i++;
+            }
         }
+        return count;
     }
 };
+int main(){
+    vector<int> v = {1,2,3,4,2,3,3,5,7};
+    auto ans = Solution().minimumOperations(v);
+    for(auto num : v){
+        cout<<num<<" ";
+    }
+    cout<<endl;
+    cout<<ans<<endl;
+}
