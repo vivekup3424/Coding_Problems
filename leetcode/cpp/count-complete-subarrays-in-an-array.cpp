@@ -12,6 +12,7 @@ public:
         int l = 0, r = 0;
         while(r<n){
             subarray_freq[nums[r]]++;
+            r++;
             while(l<=r && subarray_freq.size()>freq.size()){
                 subarray_freq[nums[l]]--;
                 if(subarray_freq[nums[l]]==0){
