@@ -7,15 +7,20 @@ public:
         for(auto num : nums){
             freq[num]++;
         }
-        int numberOfDistinctElements = freq.size();
         int count = 0, n = nums.size();
-        for(int i = 0; i < n; i++){
-            map<int,int> subarray_freq;
-            for(int j = i; j < n; j++){
-                subarray_freq[nums[i]]++;
-                if(subarray_freq.size()==numberOfDistinctElements){
-                    count++;
+        map<int,int> subarray_freq;
+        int l = 0, r = 0;
+        while(r<n){
+            subarray_freq[nums[r]]++;
+            while(l<=r && subarray_freq.size()>freq.size()){
+                subarray_freq[nums[l]]--;
+                if(subarray_freq[nums[l]]==0){
+                    subarray_freq.erase(nums[l]);
                 }
+                l++;
+            }
+            if(subarray_freq.size()==freq.size()){
+                count++;
             }
         }
         return count;
