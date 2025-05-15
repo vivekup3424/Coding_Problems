@@ -1,0 +1,41 @@
+version: '3'
+services:
+  docker1:
+    image: docker:dind
+    hostname: worker1
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    ports:
+      - 3000:3000
+      - 80:80
+    volumes:
+      - docker-certs:/certs/client
+      - ./c1/docker-volumes:/var/lib/docker
+
+  docker2:
+    image: docker:dind
+    hostname: worker2
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    ports:
+      - 3001:3000
+    volumes:
+      - docker-certs:/certs/client
+      - ./c2/docker-volumes:/var/lib/docker
+
+  docker3:
+    image: docker:dind
+    hostname: worker3
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    ports:
+      - 3002:3000
+    volumes:
+      - docker-certs:/certs/client
+      - ./c3/docker-volumes:/var/lib/docker
+
+volumes:
+  docker-certs:
