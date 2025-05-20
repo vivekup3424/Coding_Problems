@@ -14,11 +14,6 @@ public:
         for(int i = 1; i <n; i++){
             freq[i] += freq[i-1];
         }
-        cout<<"frequency map:-"<<endl;
-        for(auto f : freq){
-            cout<<f<<"=>";
-        }
-        cout<<endl;
         for(int i = 0; i < n; i++){
             if(nums[i]>freq[i]){
                 return false;
