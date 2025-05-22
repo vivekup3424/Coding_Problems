@@ -55,12 +55,34 @@ For detailed architecture documentation, see [CLEAN_ARCHITECTURE.md](./CLEAN_ARC
 - **Services**: `NotificationApplicationService`, `TopicApplicationService`, etc.
 
 ### Infrastructure Components
-- **Repositories**: In-memory implementations of repository interfaces
+- **Repositories**: MongoDB and In-memory implementations of repository interfaces
 - **Adapters**: Notification provider adapters, event adapters
 - **DI Container**: Dependency injection management
+- **Database**: MongoDB connection and schemas
 
 ### Interface Components
 - **Controllers**: `NotificationController`, `SubscriberController`, `TopicController`
+
+## Data Storage
+
+The service supports two storage options:
+
+### In-Memory Storage
+By default, the service uses in-memory repositories for development and testing.
+
+### MongoDB Storage
+For production use, the service can be configured to use MongoDB:
+
+1. Configure your MongoDB connection in the `.env` file:
+```
+MONGODB_URI=mongodb://localhost:27017/notification-service
+USE_IN_MEMORY_DB=false
+```
+
+2. Run the MongoDB example:
+```bash
+bun run mongodb-example.ts
+```
 
 ## Development
 
@@ -70,6 +92,9 @@ bun run check
 
 # Run tests
 bun run test
+
+# Run with MongoDB
+bun run start
 ```
 
 This project was built with [Bun](https://bun.sh), a fast all-in-one JavaScript runtime.

@@ -4,6 +4,11 @@ import { InMemoryNotificationRepository } from "./repositories/InMemoryNotificat
 import { InMemoryTemplateRepository } from "./repositories/InMemoryTemplateRepository";
 import { InMemoryTopicRepository } from "./repositories/InMemoryTopicRepository";
 import { InMemorySubscriberRepository } from "./repositories/InMemorySubscriberRepository";
+import { MongoNotificationRepository } from "./repositories/MongoNotificationRepository";
+import { MongoTemplateRepository } from "./repositories/MongoTemplateRepository";
+import { MongoTopicRepository } from "./repositories/MongoTopicRepository";
+import { MongoSubscriberRepository } from "./repositories/MongoSubscriberRepository";
+import { MongoConnection } from "./database/MongoConnection";
 import { NotificationDomainService } from "../domain/services/NotificationDomainService";
 import { SendNotificationUseCase } from "../application/useCases/SendNotificationUseCase";
 import { MarkNotificationAsReadUseCase } from "../application/useCases/MarkNotificationAsReadUseCase";
@@ -24,7 +29,8 @@ import {
 import type { EmailConfig } from "./adapters/providers/EmailProviderAdapter";
 import type { SMSConfig } from "./adapters/providers/SMSProviderAdapter";
 import type { PushConfig } from "./adapters/providers/PushProviderAdapter";
-import type { INotificationProvider } from "../domain/ports/INotificationProvider"; // Added import
+import type { INotificationProvider } from "../domain/ports/INotificationProvider";
+import { loadConfig, type AppConfig } from "../config/config";
 import 'dotenv/config';
 
 export const SERVICE_IDENTIFIERS = {
@@ -49,9 +55,13 @@ export const SERVICE_IDENTIFIERS = {
   NotificationController: "NotificationController",
   TopicController: "TopicController",
   SubscriberController: "SubscriberController",
+  Database: "Database"
 };
 
-export interface AppConfig {
+/**
+ * Configuration props are now moved to config.ts
+ */
+export interface BootstrapConfig {
   smsConfig: SMSConfig;
   pushConfig: PushConfig;
   emailConfig: EmailConfig;
@@ -61,10 +71,13 @@ export interface AppConfig {
 /**
  * Bootstrap the application with all dependencies
  */
-export async function bootstrap(config: AppConfig): Promise<{
+export async function bootstrap(config: BootstrapConfig): Promise<{
   broker: ServiceBroker;
   container: Container;
 }> {
+  // Load application configuration
+  const appConfig = loadConfig();
+  
   // Create service broker
   const broker = new ServiceBroker({ 
     logLevel: process.env.NODE_ENV === "production" ? "info" : "debug"
@@ -73,22 +86,59 @@ export async function bootstrap(config: AppConfig): Promise<{
   // Create container
   const container = new Container();
   
+  // Register config
+  container.register(SERVICE_IDENTIFIERS.AppConfig, appConfig);
+  
   // Register domain event publisher
   const eventPublisher = new MoleculerEventAdapter(broker);
   container.register(SERVICE_IDENTIFIERS.DomainEventPublisher, eventPublisher);
   
-  // Register repositories
-  const notificationRepository = new InMemoryNotificationRepository();
-  container.register(SERVICE_IDENTIFIERS.NotificationRepository, notificationRepository);
+  // Initialize MongoDB connection if not using in-memory database
+  if (!appConfig.database.useInMemory) {
+    try {
+      console.log(`Attempting to connect to MongoDB at ${appConfig.database.uri}...`);
+      const mongoConnection = MongoConnection.getInstance();
+      await mongoConnection.connect(appConfig.database.uri);
+      console.log('Connected to MongoDB database successfully');
+    } catch (error) {
+      console.error('Failed to connect to MongoDB. Falling back to in-memory database', error);
+      // Force using in-memory database if MongoDB connection fails
+      appConfig.database.useInMemory = true;
+    }
+  } else {
+    console.log('Using in-memory database as configured');
+  }
+  
+  // Register repositories based on configuration
+  if (appConfig.database.useInMemory) {
+    console.log('Using in-memory repositories');
+    
+    const notificationRepository = new InMemoryNotificationRepository();
+    container.register(SERVICE_IDENTIFIERS.NotificationRepository, notificationRepository);
 
-  const templateRepository = new InMemoryTemplateRepository();
-  container.register(SERVICE_IDENTIFIERS.TemplateRepository, templateRepository);
+    const templateRepository = new InMemoryTemplateRepository();
+    container.register(SERVICE_IDENTIFIERS.TemplateRepository, templateRepository);
 
-  const topicRepository = new InMemoryTopicRepository();
-  container.register(SERVICE_IDENTIFIERS.TopicRepository, topicRepository);
+    const topicRepository = new InMemoryTopicRepository();
+    container.register(SERVICE_IDENTIFIERS.TopicRepository, topicRepository);
 
-  const subscriberRepository = new InMemorySubscriberRepository();
-  container.register(SERVICE_IDENTIFIERS.SubscriberRepository, subscriberRepository);
+    const subscriberRepository = new InMemorySubscriberRepository();
+    container.register(SERVICE_IDENTIFIERS.SubscriberRepository, subscriberRepository);
+  } else {
+    console.log('Using MongoDB repositories');
+    
+    const notificationRepository = new MongoNotificationRepository();
+    container.register(SERVICE_IDENTIFIERS.NotificationRepository, notificationRepository);
+
+    const templateRepository = new MongoTemplateRepository();
+    container.register(SERVICE_IDENTIFIERS.TemplateRepository, templateRepository);
+
+    const topicRepository = new MongoTopicRepository();
+    container.register(SERVICE_IDENTIFIERS.TopicRepository, topicRepository);
+
+    const subscriberRepository = new MongoSubscriberRepository();
+    container.register(SERVICE_IDENTIFIERS.SubscriberRepository, subscriberRepository);
+  }
   
   // Register domain services
   const notificationDomainService = new NotificationDomainService();
@@ -118,15 +168,15 @@ export async function bootstrap(config: AppConfig): Promise<{
   // Register use cases
   const sendNotificationUseCase = new SendNotificationUseCase(
     { providers: providersRecord, mediumRetryCount: config.mediumRetryCount }, // Corrected providers format
-    notificationRepository,
-    templateRepository,
+    container.get(SERVICE_IDENTIFIERS.NotificationRepository),
+    container.get(SERVICE_IDENTIFIERS.TemplateRepository),
     notificationDomainService,
     eventPublisher
   );
   container.register(SERVICE_IDENTIFIERS.SendNotificationUseCase, sendNotificationUseCase);
 
   const markNotificationAsReadUseCase = new MarkNotificationAsReadUseCase(
-    notificationRepository,
+    container.get(SERVICE_IDENTIFIERS.NotificationRepository),
     eventPublisher
   );
   container.register(SERVICE_IDENTIFIERS.MarkNotificationAsReadUseCase, markNotificationAsReadUseCase);

@@ -1,6 +1,3 @@
-/**
- * Base class for all domain events
- */
 export abstract class DomainEvent {
   readonly occurredOn: Date;
   
@@ -11,9 +8,6 @@ export abstract class DomainEvent {
   abstract get eventName(): string;
 }
 
-/**
- * Event when a notification is created
- */
 export class NotificationCreatedEvent extends DomainEvent {
   constructor(
     readonly notificationId: string, 
@@ -29,9 +23,6 @@ export class NotificationCreatedEvent extends DomainEvent {
   }
 }
 
-/**
- * Event when a notification is sent
- */
 export class NotificationSentEvent extends DomainEvent {
   constructor(
     readonly notificationId: string, 
@@ -46,9 +37,6 @@ export class NotificationSentEvent extends DomainEvent {
   }
 }
 
-/**
- * Event when a notification fails to send
- */
 export class NotificationFailedEvent extends DomainEvent {
   constructor(
     readonly notificationId: string, 
@@ -64,9 +52,6 @@ export class NotificationFailedEvent extends DomainEvent {
   }
 }
 
-/**
- * Event when a notification is marked as read
- */
 export class NotificationReadEvent extends DomainEvent {
   constructor(
     readonly notificationId: string, 

@@ -8,6 +8,7 @@
     "firebase-admin": "^11.0.0",
     "jest": "^29.7.0",
     "moleculer": "^0.14.35",
+    "mongoose": "^8.15.0",
     "nodemailer": "^6.9.0",
     "uuid": "^9.0.0"
   },
@@ -25,6 +26,7 @@
     "start": "bun run index.ts",
     "start:broker": "bun run broker.ts",
     "check": "bun tsc --noEmit",
-    "test": "bun test"
+    "test": "bun test",
+    "start:mongo": "bun run mongodb-example.ts"
   }
 }
