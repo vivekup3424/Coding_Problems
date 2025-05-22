@@ -24,7 +24,32 @@ import {
 import type { EmailConfig } from "./adapters/providers/EmailProviderAdapter";
 import type { SMSConfig } from "./adapters/providers/SMSProviderAdapter";
 import type { PushConfig } from "./adapters/providers/PushProviderAdapter";
+import type { INotificationProvider } from "../domain/ports/INotificationProvider"; // Added import
 import 'dotenv/config';
+
+export const SERVICE_IDENTIFIERS = {
+  AppConfig: "AppConfig",
+  ServiceBroker: "ServiceBroker",
+  Container: "Container",
+  DomainEventPublisher: "DomainEventPublisher",
+  NotificationRepository: "NotificationRepository",
+  TemplateRepository: "TemplateRepository",
+  TopicRepository: "TopicRepository",
+  SubscriberRepository: "SubscriberRepository",
+  NotificationDomainService: "NotificationDomainService",
+  SendNotificationUseCase: "SendNotificationUseCase",
+  MarkNotificationAsReadUseCase: "MarkNotificationAsReadUseCase",
+  NotificationApplicationService: "NotificationApplicationService",
+  TopicApplicationService: "TopicApplicationService",
+  SubscriberApplicationService: "SubscriberApplicationService",
+  ProviderRegistry: "ProviderRegistry",
+  EmailProviderAdapter: "EmailProviderAdapter",
+  SMSProviderAdapter: "SMSProviderAdapter",
+  PushProviderAdapter: "PushProviderAdapter",
+  NotificationController: "NotificationController",
+  TopicController: "TopicController",
+  SubscriberController: "SubscriberController",
+};
 
 export interface AppConfig {
   smsConfig: SMSConfig;
@@ -50,144 +75,144 @@ export async function bootstrap(config: AppConfig): Promise<{
   
   // Register domain event publisher
   const eventPublisher = new MoleculerEventAdapter(broker);
-  container.register("domainEventPublisher", eventPublisher);
+  container.register(SERVICE_IDENTIFIERS.DomainEventPublisher, eventPublisher);
   
   // Register repositories
   const notificationRepository = new InMemoryNotificationRepository();
+  container.register(SERVICE_IDENTIFIERS.NotificationRepository, notificationRepository);
+
   const templateRepository = new InMemoryTemplateRepository();
+  container.register(SERVICE_IDENTIFIERS.TemplateRepository, templateRepository);
+
   const topicRepository = new InMemoryTopicRepository();
+  container.register(SERVICE_IDENTIFIERS.TopicRepository, topicRepository);
+
   const subscriberRepository = new InMemorySubscriberRepository();
-  container.register("notificationRepository", notificationRepository);
-  container.register("templateRepository", templateRepository);
-  container.register("topicRepository", topicRepository);
-  container.register("subscriberRepository", subscriberRepository);
-  
-  // Register clean architecture providers
-  const smsProviderAdapter = new SMSProviderAdapter(config.smsConfig);
-  const pushProviderAdapter = new PushProviderAdapter(config.pushConfig);
-  const emailProviderAdapter = new EmailProviderAdapter(config.emailConfig);
-  
-  // Create and configure provider registry
-  const providerRegistry = new ProviderRegistry();
-  providerRegistry.registerProvider(smsProviderAdapter);
-  providerRegistry.registerProvider(pushProviderAdapter);
-  providerRegistry.registerProvider(emailProviderAdapter);
-  container.register("providerRegistry", providerRegistry);
-  
-  // Create legacy notification provider adapters for backward compatibility
-  const notificationProviderSMS = new NotificationProviderAdapter(smsProviderAdapter);
-  const notificationProviderPush = new NotificationProviderAdapter(pushProviderAdapter);
-  const notificationProviderEmail = new NotificationProviderAdapter(emailProviderAdapter);
-  
-  // Register provider adapters
-  container.register("provider.sms", notificationProviderSMS);
-  container.register("provider.push", notificationProviderPush);
-  container.register("provider.email", notificationProviderEmail);
+  container.register(SERVICE_IDENTIFIERS.SubscriberRepository, subscriberRepository);
   
   // Register domain services
   const notificationDomainService = new NotificationDomainService();
-  container.register("notificationDomainService", notificationDomainService);
+  container.register(SERVICE_IDENTIFIERS.NotificationDomainService, notificationDomainService);
   
-  // Configure use cases
+  // Register provider registry and providers
+  const providerRegistry = new ProviderRegistry();
+  const emailProvider = new EmailProviderAdapter(config.emailConfig);
+  providerRegistry.registerProvider(emailProvider);
+  container.register(SERVICE_IDENTIFIERS.EmailProviderAdapter, emailProvider);
+
+  const smsProvider = new SMSProviderAdapter(config.smsConfig);
+  providerRegistry.registerProvider(smsProvider);
+  container.register(SERVICE_IDENTIFIERS.SMSProviderAdapter, smsProvider);
+
+  const pushProvider = new PushProviderAdapter(config.pushConfig);
+  providerRegistry.registerProvider(pushProvider);
+  container.register(SERVICE_IDENTIFIERS.PushProviderAdapter, pushProvider);
+  container.register(SERVICE_IDENTIFIERS.ProviderRegistry, providerRegistry);
+  
+  // Prepare providers for SendNotificationUseCase config
+  const providersRecord: Record<string, INotificationProvider> = {};
+  providerRegistry.getAllProviders().forEach(p => {
+    providersRecord[p.getChannel()] = p;
+  });
+
+  // Register use cases
   const sendNotificationUseCase = new SendNotificationUseCase(
-    {
-      providers: {
-        sms: notificationProviderSMS,
-        push: notificationProviderPush,
-        email: notificationProviderEmail
-      },
-      mediumRetryCount: config.mediumRetryCount
-    },
+    { providers: providersRecord, mediumRetryCount: config.mediumRetryCount }, // Corrected providers format
     notificationRepository,
     templateRepository,
     notificationDomainService,
     eventPublisher
   );
-  container.register("sendNotificationUseCase", sendNotificationUseCase);
-  
-  const markAsReadUseCase = new MarkNotificationAsReadUseCase(
+  container.register(SERVICE_IDENTIFIERS.SendNotificationUseCase, sendNotificationUseCase);
+
+  const markNotificationAsReadUseCase = new MarkNotificationAsReadUseCase(
     notificationRepository,
     eventPublisher
   );
-  container.register("markAsReadUseCase", markAsReadUseCase);
+  container.register(SERVICE_IDENTIFIERS.MarkNotificationAsReadUseCase, markNotificationAsReadUseCase);
   
   // Register application services
   const notificationApplicationService = new NotificationApplicationService(
-    sendNotificationUseCase,
-    markAsReadUseCase,
-    notificationRepository,
-    templateRepository
+    container.get(SERVICE_IDENTIFIERS.SendNotificationUseCase),
+    container.get(SERVICE_IDENTIFIERS.MarkNotificationAsReadUseCase),
+    container.get(SERVICE_IDENTIFIERS.NotificationRepository),
+    container.get(SERVICE_IDENTIFIERS.DomainEventPublisher) // Corrected: pass event publisher
   );
-  container.register("notificationApplicationService", notificationApplicationService);
+  container.register(SERVICE_IDENTIFIERS.NotificationApplicationService, notificationApplicationService);
   
-  // Register Topic and Subscriber application services
   const topicApplicationService = new TopicApplicationService(
-    topicRepository,
-    subscriberRepository
+    container.get(SERVICE_IDENTIFIERS.TopicRepository),
+    container.get(SERVICE_IDENTIFIERS.SubscriberRepository)
   );
-  container.register("topicApplicationService", topicApplicationService);
+  container.register(SERVICE_IDENTIFIERS.TopicApplicationService, topicApplicationService);
   
   const subscriberApplicationService = new SubscriberApplicationService(
-    subscriberRepository,
-    topicRepository
+    container.get(SERVICE_IDENTIFIERS.SubscriberRepository),
+    container.get(SERVICE_IDENTIFIERS.DomainEventPublisher) // Corrected: added event publisher
   );
-  container.register("subscriberApplicationService", subscriberApplicationService);
+  container.register(SERVICE_IDENTIFIERS.SubscriberApplicationService, subscriberApplicationService);
   
-  // Register controllers
-  const notificationController = new NotificationController(
-    broker, 
-    sendNotificationUseCase,
-    markAsReadUseCase,
-    notificationRepository,
-    templateRepository
-  );
-  container.register("notificationController", notificationController);
-  
-  const topicController = new TopicController(topicApplicationService);
-  container.register("topicController", topicController);
-  
-  const subscriberController = new SubscriberController(subscriberApplicationService);
-  container.register("subscriberController", subscriberController);
-  
-  // Define broker handlers for job processing
+  // Register controllers (if they were to be resolved from container, which they are not in current setup)
+  // but for completeness, if they were:
+  // const notificationController = new NotificationController(notificationApplicationService, topicApplicationService);
+  // container.register(SERVICE_IDENTIFIERS.NotificationController, notificationController);
+  // const topicController = new TopicController(topicApplicationService);
+  // container.register(SERVICE_IDENTIFIERS.TopicController, topicController);
+  // const subscriberController = new SubscriberController(subscriberApplicationService);
+  // container.register(SERVICE_IDENTIFIERS.SubscriberController, subscriberController);
+
+  // Start broker
+  await broker.start();
+
+  // Create API service for controllers
+  broker.createService({
+    name: "notification-api",
+    mixins: [
+      NotificationController,
+      TopicController,
+      SubscriberController,
+    ],
+    settings: {
+      container, // Provide container to services if needed for DI within Moleculer services
+      // Pass specific services if preferred over passing the whole container
+      notificationApplicationService,
+      topicApplicationService,
+      subscriberApplicationService
+    },
+    // If your controllers are classes, you might need to instantiate them or adapt them to Moleculer's service schema.
+    // The current structure of controllers seems to be objects with methods, which should be compatible.
+  });
+
+  // Create worker service (example, if you have background tasks)
   broker.createService({
     name: "notification-workers",
-    actions: {
-      sendHigh: {
-        handler: async (ctx: any) => {
-          const { notification } = ctx.params;
-          return sendNotificationUseCase.execute({
-            templateId: notification.templateId,
-            subscriberId: notification.subscriberId,
-            topicId: notification.topicId,
-            provider: notification.provider,
-            payload: notification.payload,
-            criticality: notification.criticality
-          });
-        },
-      }
-    },
+    // actions, events, methods for worker tasks
+    // e.g., listening to domain events and processing them
     events: {
-      "notification.sendLow": async (ctx: any) => {
-        const { notification } = ctx.params;
-        try {
-          await sendNotificationUseCase.execute({
-            templateId: notification.templateId,
-            subscriberId: notification.subscriberId,
-            topicId: notification.topicId,
-            provider: notification.provider,
-            payload: notification.payload,
-            criticality: notification.criticality
-          });
-        } catch (err) {
-          broker.logger.error("Error sending low priority notification:", err);
+      "domain.notification.created": {
+        group: "notification-processing",
+        async handler(ctx: any) {
+          console.log(`[Worker] Received notification.created event for notification ID: ${ctx.params.notificationId}`);
+          // Example: Trigger further processing, like attempting to send via SendNotificationUseCase
+          // This is a simplified example; in a real app, you'd avoid re-triggering the same use case directly from an event it emits
+          // unless there's a clear state distinction (e.g., created -> pending_dispatch -> dispatched)
+        }
+      },
+      "domain.notification.sent": {
+        group: "notification-logging",
+        async handler(ctx: any) {
+          console.log(`[Worker] Notification ID ${ctx.params.notificationId} sent successfully via ${ctx.params.provider}.`);
+        }
+      },
+      "domain.notification.failed": {
+        group: "notification-failure-handling",
+        async handler(ctx: any) {
+          console.log(`[Worker] Notification ID ${ctx.params.notificationId} failed to send. Reason: ${ctx.params.error}`);
+          // Example: Log failure, schedule retry, notify admin, etc.
         }
       }
     }
   });
-  
-  // Start the broker
-  await broker.start();
-  
+
   return { broker, container };
 }

@@ -26,10 +26,14 @@ export class SMSProviderAdapter implements INotificationProvider {
    * Validate if the content is valid for SMS
    */
   validateContent(content: NotificationContent): boolean {
-    const payload = content.getPayload();
-    return Boolean(
-      payload && 
-      typeof payload.to === "string" && 
+    console.log(
+      "[SMSProviderAdapter] Validating content.payload:",
+      JSON.stringify(content.getPayload())
+    ); // Changed to getPayload()
+    const payload = content.getPayload(); // Changed to getPayload()
+    return (
+      typeof payload.to === "string" &&
+      payload.to.length > 0 &&
       typeof payload.message === "string"
     );
   }

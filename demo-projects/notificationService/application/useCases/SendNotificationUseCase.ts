@@ -66,6 +66,8 @@ export class SendNotificationUseCase {
         payload: input.payload,
         criticality: input.criticality
       });
+      console.log('[SendNotificationUseCase] Initial notification payload:', JSON.stringify(notification.payload));
+      console.log('[SendNotificationUseCase] Input templateId:', input.templateId);
       
       // 2. Save notification
       await this.notificationRepository.save(notification);
@@ -128,6 +130,8 @@ export class SendNotificationUseCase {
     if (!provider) {
       throw new Error(`Provider not found: ${notification.provider}`);
     }
+
+    console.log(`[SendNotificationUseCase/sendBasedOnCriticality] Provider: ${notification.provider}, Payload for NotificationContent:`, JSON.stringify(notification.payload));
 
     const criticality = notification.criticality;
     
