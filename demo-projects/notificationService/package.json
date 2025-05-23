@@ -25,6 +25,8 @@
     "start": "bun run index.ts",
     "start:broker": "bun run broker.ts",
     "check": "bun tsc --noEmit",
-    "test": "bun test"
+    "test": "bun test",
+    "example:combined": "bun run combined-example.ts",
+    "example:combined:memory": "bun run combined-example.ts --in-memory"
   }
 }
