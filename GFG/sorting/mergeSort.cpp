@@ -15,6 +15,8 @@
 /* C program for Merge Sort */
 #include <stdio.h>
 #include <stdlib.h>
+#include <vector>
+using namespace std;
 
 // Merges two subarrays of arr[].
 // First subarray is arr[l..m]
@@ -25,8 +27,7 @@ void merge(int arr[], int l, int m, int r)
 	int n1 = m - l + 1;
 	int n2 = r - m;
 
-	/* create temp arrays */
-	int L[n1], R[n2];
+	vector<int> L(n1), R(n2);
 
 	/* Copy data to temp arrays L[] and R[] */
 	for (i = 0; i < n1; i++)

@@ -1,5 +1,0 @@
-podman run --name mongo -d \
-  --restart always \
-  -p 27017:27017 \
-  --network kiotp-network \
-  docker.io/library/mongo:6
