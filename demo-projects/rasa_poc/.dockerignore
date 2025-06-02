@@ -1,0 +1,75 @@
+# Git files
+.git
+.gitignore
+
+# Documentation (keep essential docs)
+*.md
+!README.md
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+
+# Models and logs (will be mounted as volumes)
+models/
+logs/
+results/
+
+# Development and testing files
+tests/
+.pytest_cache/
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker files (not needed inside container)
+docker-compose.yml
+Dockerfile
+
+# Scripts (not needed inside container)
+setup.sh
+run.sh
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git
+.mypy_cache
+.pytest_cache
+.hypothesis
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/

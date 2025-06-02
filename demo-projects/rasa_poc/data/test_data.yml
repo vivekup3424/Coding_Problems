@@ -1,0 +1,89 @@
+version: "3.1"
+
+nlu:
+  # Test data for fan control
+  - intent: turn_on_fan
+    examples: |
+      - switch the fan on in the bedroom
+      - activate fan in living area
+      - start the ceiling fan please
+
+  - intent: turn_off_fan
+    examples: |
+      - switch the fan off in the bedroom
+      - deactivate all fans
+      - stop the table fan
+
+  - intent: adjust_fan_speed
+    examples: |
+      - make the fan faster in kitchen
+      - set bedroom fan to speed 2
+      - slow down the living room fan
+
+  # Test data for AC control
+  - intent: turn_on_ac
+    examples: |
+      - switch on air conditioning in bedroom
+      - activate cooling in living room
+      - start the AC unit
+
+  - intent: turn_off_ac
+    examples: |
+      - switch off air conditioning
+      - deactivate cooling system
+      - stop all AC units
+
+  - intent: adjust_temperature
+    examples: |
+      - make it 21 degrees
+      - set the temperature to 25
+      - adjust temp to 20 degrees celsius
+
+  - intent: change_ac_mode
+    examples: |
+      - switch to heating mode
+      - set AC to automatic
+      - change to dry mode
+
+  # Test data for lighting control
+  - intent: turn_on_lights
+    examples: |
+      - illuminate the bathroom
+      - switch on bedroom lighting
+      - activate lights in study room
+
+  - intent: turn_off_lights
+    examples: |
+      - switch off all lighting
+      - turn off bathroom lights
+      - deactivate bedroom lamps
+
+  - intent: adjust_brightness
+    examples: |
+      - make lights 80 percent bright
+      - set brightness to half
+      - adjust bedroom lights to 25%
+
+  - intent: change_light_color
+    examples: |
+      - make lights pink
+      - change to cool white lighting
+      - set bedroom lights to purple
+
+  - intent: change_light_mode
+    examples: |
+      - switch to study lighting
+      - set party mode
+      - change to relaxation mode
+
+  - intent: dim_lights
+    examples: |
+      - make it darker
+      - reduce light intensity
+      - dim the bedroom lighting
+
+  - intent: brighten_lights
+    examples: |
+      - make it more bright
+      - increase light intensity
+      - brighten the kitchen lighting

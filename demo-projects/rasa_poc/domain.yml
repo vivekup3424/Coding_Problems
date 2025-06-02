@@ -1,0 +1,190 @@
+version: "3.1"
+
+# Domain definition for Home Automation Assistant
+config:
+  store_entities_as_slots: true
+
+# Intents
+intents:
+  # General conversation
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - thank_you
+  - bot_challenge
+  
+  # Fan control
+  - turn_on_fan
+  - turn_off_fan
+  - adjust_fan_speed
+  
+  # AC control
+  - turn_on_ac
+  - turn_off_ac
+  - adjust_temperature
+  - change_ac_mode
+  - adjust_ac_speed
+  
+  # Lighting control
+  - turn_on_lights
+  - turn_off_lights
+  - adjust_brightness
+  - change_light_color
+  - change_light_mode
+  - dim_lights
+  - brighten_lights
+  
+  # Fallback
+  - nlu_fallback
+
+# Entities
+entities:
+  - device_location
+  - device_name
+  - fan_speed
+  - temperature
+  - ac_mode
+  - ac_speed
+  - brightness_level
+  - light_color
+  - light_mode
+
+# Slots
+slots:
+  device_location:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: device_location
+      
+  device_name:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: device_name
+      
+  fan_speed:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: fan_speed
+      
+  temperature:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: temperature
+      
+  ac_mode:
+    type: categorical
+    values:
+      - cool
+      - heat
+      - auto
+      - dry
+      - fan_only
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: ac_mode
+      
+  ac_speed:
+    type: categorical
+    values:
+      - low
+      - medium
+      - high
+      - auto
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: ac_speed
+      
+  brightness_level:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: brightness_level
+      
+  light_color:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: light_color
+      
+  light_mode:
+    type: categorical
+    values:
+      - reading
+      - party
+      - romantic
+      - sleep
+      - work
+      - normal
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: light_mode
+
+# Responses
+responses:
+  utter_greet:
+    - text: "Hello! I'm your home automation assistant. How can I help you control your smart devices today?"
+    - text: "Hi there! I can help you manage your fans, AC, and lights. What would you like to do?"
+
+  utter_goodbye:
+    - text: "Goodbye! Have a great day!"
+    - text: "See you later! Your smart home is ready when you are."
+
+  utter_thank_you:
+    - text: "You're welcome! Is there anything else I can help you with?"
+    - text: "Happy to help! Let me know if you need anything else."
+
+  utter_bot_challenge:
+    - text: "I am your home automation assistant, built with Rasa. I can help you control your smart devices!"
+
+  utter_default:
+    - text: "I'm sorry, I didn't understand that. Could you please rephrase? I can help you control fans, AC, and lights."
+    - text: "I'm not sure what you mean. Try asking me to turn on/off devices, adjust temperature, or change lighting."
+
+  utter_please_rephrase:
+    - text: "I'm sorry, I didn't quite get that. Could you rephrase your request?"
+    - text: "Could you please say that differently? I want to make sure I understand correctly."
+
+  utter_device_controlled:
+    - text: "Done! I've updated your {device_type} settings."
+    - text: "All set! Your {device_type} has been adjusted."
+
+  utter_confirm_action:
+    - text: "I'll {action} the {device_name} in the {device_location} for you."
+    - text: "Okay, I'm {action} the {device_name} in the {device_location}."
+
+# Actions
+actions:
+  - action_turn_on_fan
+  - action_turn_off_fan
+  - action_adjust_fan_speed
+  - action_turn_on_ac
+  - action_turn_off_ac
+  - action_adjust_temperature
+  - action_change_ac_mode
+  - action_adjust_ac_speed
+  - action_turn_on_lights
+  - action_turn_off_lights
+  - action_adjust_brightness
+  - action_change_light_color
+  - action_change_light_mode
+  - action_dim_lights
+  - action_brighten_lights
+
+# Session configuration
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,277 @@
+version: "3.1"
+
+nlu:
+  # General conversation intents
+  - intent: greet
+    examples: |
+      - hey
+      - hello
+      - hi
+      - hello there
+      - good morning
+      - good evening
+      - moin
+      - hey there
+      - let's go
+      - hey dude
+      - goodmorning
+      - goodevening
+      - good afternoon
+
+  - intent: goodbye
+    examples: |
+      - cu
+      - good by
+      - cee you later
+      - good night
+      - bye
+      - goodbye
+      - have a nice day
+      - see you around
+      - bye bye
+      - see you later
+      - thank you goodbye
+      - bye for now
+      - catch you later
+
+  - intent: affirm
+    examples: |
+      - yes
+      - y
+      - indeed
+      - of course
+      - that sounds good
+      - correct
+      - yes please
+      - yep
+      - yeah
+      - sure
+      - absolutely
+      - right
+      - ok
+      - okay
+
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - never
+      - I don't think so
+      - don't like that
+      - no way
+      - not really
+      - nope
+      - not at all
+      - cancel
+      - stop
+
+  - intent: thank_you
+    examples: |
+      - thank you
+      - thanks
+      - thank you very much
+      - thanks a lot
+      - awesome, thanks
+      - cool, thanks
+      - thanks for your help
+      - appreciate it
+
+  - intent: bot_challenge
+    examples: |
+      - are you a bot?
+      - are you a human?
+      - am I talking to a bot?
+      - am I talking to a human?
+      - what are you?
+      - who are you?
+
+  # Fan control intents
+  - intent: turn_on_fan
+    examples: |
+      - turn on the fan
+      - switch on the [bedroom](device_location) fan
+      - turn on [living room](device_location) fan
+      - start the fan in the [kitchen](device_location)
+      - turn on the [ceiling fan](device_name)
+      - switch on [table fan](device_name)
+      - can you turn on the fan in [study](device_location)
+      - please turn on the [master bedroom](device_location) fan
+      - turn the [dining room](device_location) fan on
+      - switch the fan on in [guest room](device_location)
+
+  - intent: turn_off_fan
+    examples: |
+      - turn off the fan
+      - switch off the [bedroom](device_location) fan
+      - turn off [living room](device_location) fan
+      - stop the fan in the [kitchen](device_location)
+      - turn off the [ceiling fan](device_name)
+      - switch off [table fan](device_name)
+      - can you turn off the fan in [study](device_location)
+      - please turn off the [master bedroom](device_location) fan
+      - turn the [dining room](device_location) fan off
+      - switch the fan off in [guest room](device_location)
+      - turn off all fans
+
+  - intent: adjust_fan_speed
+    examples: |
+      - set fan speed to [high](fan_speed)
+      - adjust [living room](device_location) fan to [medium](fan_speed)
+      - change fan speed to [low](fan_speed)
+      - set the [bedroom](device_location) fan to [high](fan_speed) speed
+      - increase fan speed in [kitchen](device_location)
+      - decrease the fan speed
+      - make the fan faster
+      - slow down the fan
+      - set fan to [1](fan_speed)
+      - change [ceiling fan](device_name) to [5](fan_speed)
+      - adjust [table fan](device_name) to [3](fan_speed)
+
+  # AC control intents
+  - intent: turn_on_ac
+    examples: |
+      - turn on the ac
+      - switch on the [bedroom](device_location) ac
+      - turn on air conditioning
+      - start the ac in [living room](device_location)
+      - turn on the [split ac](device_name)
+      - switch on air conditioner
+      - can you turn on the ac in [master bedroom](device_location)
+      - please turn on the [guest room](device_location) ac
+      - turn the ac on in [study](device_location)
+      - switch the air conditioning on
+
+  - intent: turn_off_ac
+    examples: |
+      - turn off the ac
+      - switch off the [bedroom](device_location) ac
+      - turn off air conditioning
+      - stop the ac in [living room](device_location)
+      - turn off the [split ac](device_name)
+      - switch off air conditioner
+      - can you turn off the ac in [master bedroom](device_location)
+      - please turn off the [guest room](device_location) ac
+      - turn the ac off in [study](device_location)
+      - turn off all ac units
+
+  - intent: adjust_temperature
+    examples: |
+      - set temperature to [22](temperature) degrees
+      - adjust temperature to [24](temperature)
+      - change temperature to [18](temperature) degrees celsius
+      - set the [bedroom](device_location) ac to [20](temperature) degrees
+      - make it [25](temperature) degrees
+      - set ac temperature [26](temperature)
+      - adjust [living room](device_location) temperature to [23](temperature)
+      - change the temperature to [19](temperature)
+      - set temp to [27](temperature)
+      - make it cooler
+      - make it warmer
+      - increase temperature
+      - decrease temperature
+
+  - intent: change_ac_mode
+    examples: |
+      - set ac to [cool](ac_mode) mode
+      - change ac mode to [heat](ac_mode)
+      - switch to [auto](ac_mode) mode
+      - set the [bedroom](device_location) ac to [dry](ac_mode) mode
+      - change [living room](device_location) ac to [fan_only](ac_mode)
+      - switch ac to cooling mode
+      - set heating mode
+      - turn on auto mode
+      - change to dry mode
+      - set fan only mode
+
+  - intent: adjust_ac_speed
+    examples: |
+      - set ac fan speed to [high](ac_speed)
+      - adjust ac speed to [medium](ac_speed)
+      - change ac fan speed to [low](ac_speed)
+      - set the [bedroom](device_location) ac speed to [auto](ac_speed)
+      - make ac fan faster
+      - slow down ac fan
+      - increase ac speed
+      - decrease ac fan speed
+
+  # Lighting control intents
+  - intent: turn_on_lights
+    examples: |
+      - turn on the lights
+      - switch on the [bedroom](device_location) lights
+      - turn on [living room](device_location) lights
+      - turn on lighting in [kitchen](device_location)
+      - switch on the [chandelier](device_name)
+      - turn on [bedside lamp](device_name)
+      - can you turn on the lights in [study](device_location)
+      - please turn on the [dining room](device_location) lights
+      - switch the lights on in [guest room](device_location)
+      - illuminate the [bathroom](device_location)
+
+  - intent: turn_off_lights
+    examples: |
+      - turn off the lights
+      - switch off the [bedroom](device_location) lights
+      - turn off [living room](device_location) lights
+      - turn off lighting in [kitchen](device_location)
+      - switch off the [chandelier](device_name)
+      - turn off [bedside lamp](device_name)
+      - can you turn off the lights in [study](device_location)
+      - please turn off the [dining room](device_location) lights
+      - switch the lights off in [guest room](device_location)
+      - turn off all lights
+
+  - intent: adjust_brightness
+    examples: |
+      - set brightness to [50](brightness_level) percent
+      - adjust [bedroom](device_location) lights to [75](brightness_level)%
+      - change brightness to [30](brightness_level)
+      - set the [living room](device_location) lights to [bright](brightness_level)
+      - make lights [dim](brightness_level)
+      - set brightness [medium](brightness_level)
+      - adjust [chandelier](device_name) to [60](brightness_level)%
+      - change [bedside lamp](device_name) brightness to [20](brightness_level)
+
+  - intent: change_light_color
+    examples: |
+      - change lights to [blue](light_color)
+      - set [bedroom](device_location) lights to [red](light_color)
+      - change [living room](device_location) lights to [green](light_color)
+      - set lights [warm white](light_color)
+      - change color to [cool white](light_color)
+      - make lights [yellow](light_color)
+      - set [chandelier](device_name) to [purple](light_color)
+      - change [bedside lamp](device_name) to [orange](light_color)
+
+  - intent: change_light_mode
+    examples: |
+      - switch to [reading](light_mode) mode
+      - set [party](light_mode) mode
+      - change to [romantic](light_mode) lighting
+      - switch [study](device_location) to [work](light_mode) mode
+      - set [bedroom](device_location) to [sleep](light_mode) mode
+      - change lighting mode to [normal](light_mode)
+      - switch to study mode
+      - set relaxing mode
+
+  - intent: dim_lights
+    examples: |
+      - dim the lights
+      - dim [bedroom](device_location) lights
+      - make the lights dimmer
+      - reduce brightness
+      - turn down the lights
+      - dim [living room](device_location) lighting
+      - make it darker
+      - reduce light intensity
+
+  - intent: brighten_lights
+    examples: |
+      - brighten the lights
+      - brighten [bedroom](device_location) lights
+      - make the lights brighter
+      - increase brightness
+      - turn up the lights
+      - brighten [living room](device_location) lighting
+      - make it brighter
+      - increase light intensity

@@ -1,0 +1,58 @@
+# Configuration for Rasa NLU and Core.
+recipe: default.v1
+
+# Language of the model
+language: en
+
+# Pipeline for NLU
+pipeline:
+  # Tokenization
+  - name: SpacyNLP
+    model: "en_core_web_md"
+  - name: SpacyTokenizer
+  - name: SpacyFeaturizer
+    pooling: mean
+  
+  # Feature extraction
+  - name: RegexFeaturizer
+  - name: LexicalSyntacticFeaturizer
+  - name: CountVectorsFeaturizer
+  - name: CountVectorsFeaturizer
+    analyzer: char_wb
+    min_ngram: 1
+    max_ngram: 4
+  
+  # Intent classification and entity extraction
+  - name: DIETClassifier
+    epochs: 100
+    constrain_similarities: true
+    model_confidence: softmax
+    
+  # Entity synonyms
+  - name: EntitySynonymMapper
+  
+  # Response selection for FAQs/chitchat
+  - name: ResponseSelector
+    epochs: 100
+    
+  # Fallback handling
+  - name: FallbackClassifier
+    threshold: 0.3
+    ambiguity_threshold: 0.1
+
+# Configuration for Rasa Core.
+policies:
+  - name: MemoizationPolicy
+  - name: RulePolicy
+    core_fallback_threshold: 0.4
+    enable_fallback_prediction: True
+  - name: UnexpecTEDIntentPolicy
+    max_history: 5
+    epochs: 100
+  - name: TEDPolicy
+    max_history: 5
+    epochs: 100
+    constrain_similarities: true
+
+# Configuration for the assistant
+assistant_id: home_automation_assistant

@@ -1,0 +1,20 @@
+# Endpoints for the various services used by the assistant.
+
+# Action server endpoint
+action_endpoint:
+  url: "http://localhost:5055/webhook"
+
+# Tracker store (optional - using in-memory by default)
+# tracker_store:
+#   type: InMemoryTrackerStore
+
+# Event broker (optional)
+# event_broker:
+#   type: pika
+#   url: localhost
+#   username: admin
+#   password: admin
+
+# Model server (optional)
+# model_endpoints:
+#   url: "http://localhost:5000"

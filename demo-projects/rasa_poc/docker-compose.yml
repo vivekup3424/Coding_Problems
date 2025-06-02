@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # RASA Training Service
+  rasa-train:
+    build: .
+    container_name: rasa-home-automation-train
+    volumes:
+      - .:/app
+      - ./models:/app/models
+    command: rasa train
+    profiles:
+      - train
+
+  # RASA Action Server
+  rasa-actions:
+    build: .
+    container_name: rasa-home-automation-actions
+    ports:
+      - "5055:5055"
+    volumes:
+      - .:/app
+    command: rasa run actions --port 5055
+    profiles:
+      - run
+
+  # RASA API Server
+  rasa-server:
+    build: .
+    container_name: rasa-home-automation-server
+    ports:
+      - "5005:5005"
+    volumes:
+      - .:/app
+      - ./models:/app/models
+    command: rasa run --enable-api --cors "*" --port 5005
+    depends_on:
+      - rasa-actions
+    profiles:
+      - run
+
+  # RASA Shell (Interactive)
+  rasa-shell:
+    build: .
+    container_name: rasa-home-automation-shell
+    volumes:
+      - .:/app
+      - ./models:/app/models
+    command: rasa shell
+    stdin_open: true
+    tty: true
+    depends_on:
+      - rasa-actions
+    profiles:
+      - shell
+
+networks:
+  default:
+    name: rasa-home-automation
