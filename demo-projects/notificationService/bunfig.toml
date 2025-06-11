@@ -1,3 +1,0 @@
-[test]
-# Configure which files are included in test runs
-include = ["**/*.test.ts", "**/*.spec.ts"]
