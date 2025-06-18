@@ -1,0 +1,6 @@
+<!-- Placeholder SVG icon - replace with actual PNG files -->
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="512" height="512" rx="64" fill="#007bff"/>
+<path d="M256 85.3C208.8 85.3 170.7 123.4 170.7 170.7V256L128 298.7V341.3H384V298.7L341.3 256V170.7C341.3 123.4 303.2 85.3 256 85.3ZM256 128C281.6 128 298.7 145.1 298.7 170.7V264.5L341.3 307.2V298.7H170.7V307.2L213.3 264.5V170.7C213.3 145.1 230.4 128 256 128ZM213.3 384C213.3 409.6 230.4 426.7 256 426.7C281.6 426.7 298.7 409.6 298.7 384H213.3Z" fill="white"/>
+<circle cx="384" cy="128" r="42.7" fill="#ff4757"/>
+</svg>
