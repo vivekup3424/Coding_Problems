@@ -1,0 +1,184 @@
+version: "3.1"
+
+stories:
+  - story: simple greeting
+    steps:
+      - intent: greet
+      - action: utter_greet
+
+  - story: say goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - story: user thanks bot
+    steps:
+      - intent: thank
+      - action: utter_thank_you
+
+  - story: user asks for help
+    steps:
+      - intent: ask_help
+      - action: utter_help
+
+  # Home automation stories - complete information
+  - story: execute scene with complete information
+    steps:
+      - intent: execute_scene
+        entities:
+          - scene_id: "scene123"
+          - room: "living room"
+      - action: action_execute_scene
+
+  - story: execute scene with scene name and room
+    steps:
+      - intent: execute_scene
+        entities:
+          - scene_name: "movie mode"
+          - room: "living room"
+      - action: action_execute_scene
+
+  # Home automation stories - missing information requiring clarification
+  - story: execute scene missing room - bot asks for room
+    steps:
+      - intent: execute_scene
+        entities:
+          - scene_name: "bright"
+      - action: action_execute_scene
+      - action: utter_ask_which_room
+      - intent: execute_scene
+        entities:
+          - room: "bedroom"
+      - action: action_execute_scene
+
+  - story: execute scene missing scene - bot asks for scene
+    steps:
+      - intent: execute_scene
+        entities:
+          - room: "living room"
+      - action: action_execute_scene
+      - action: utter_ask_which_scene
+      - intent: execute_scene
+        entities:
+          - scene_name: "relax"
+      - action: action_execute_scene
+
+  - story: execute scene with no entities - bot asks for details
+    steps:
+      - intent: execute_scene
+      - action: action_execute_scene
+      - action: utter_ask_scene_details
+      - intent: execute_scene
+        entities:
+          - scene_name: "bright"
+          - room: "kitchen"
+      - action: action_execute_scene
+
+  # Conversation flow for clarification
+  - story: user confirms room suggestion
+    steps:
+      - intent: execute_scene
+        entities:
+          - scene_name: "relax"
+      - action: action_execute_scene
+      - action: utter_ask_which_room
+      - intent: affirm
+      - action: action_execute_scene
+
+  - story: user denies room suggestion and provides different room
+    steps:
+      - intent: execute_scene
+        entities:
+          - scene_name: "bright"
+      - action: action_execute_scene
+      - action: utter_ask_which_room
+      - intent: deny
+      - action: utter_ask_which_room
+      - intent: execute_scene
+        entities:
+          - room: "office"
+      - action: action_execute_scene
+
+  # Contextual scenes
+  - story: good night triggers night scene
+    steps:
+      - intent: good_night
+      - action: action_contextual_scene
+
+  - story: good morning triggers bright scene
+    steps:
+      - intent: good_morning
+      - action: action_contextual_scene
+
+  - story: want to relax triggers relax scene
+    steps:
+      - intent: want_relax
+      - action: action_contextual_scene
+
+  - story: leaving home turns everything off
+    steps:
+      - intent: leaving_home
+      - action: action_contextual_scene
+
+  - story: greet then control home
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: execute_scene
+        entities:
+          - scene_name: "welcome home"
+      - action: action_execute_scene
+
+  # Information requests
+  - story: list available scenes
+    steps:
+      - intent: ask_scenes
+      - action: action_list_scenes
+
+  - story: list available rooms
+    steps:
+      - intent: ask_rooms
+      - action: action_list_rooms
+
+  # Follow-up conversations
+  - story: scene executed then user asks for more info
+    steps:
+      - intent: execute_scene
+        entities:
+          - scene_name: "bright"
+          - room: "living room"
+      - action: action_execute_scene
+      - intent: ask_scenes
+      - action: action_list_scenes
+
+  - story: user gets help then executes scene
+    steps:
+      - intent: ask_help
+      - action: utter_help
+      - intent: execute_scene
+        entities:
+          - scene_name: "relax"
+          - room: "bedroom"
+      - action: action_execute_scene
+
+  # Contextual greeting flows
+  - story: greet then good night
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: good_night
+      - action: action_contextual_scene
+
+  - story: greet then good morning
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: good_morning
+      - action: action_contextual_scene
+
+  - story: greet then want to relax
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: want_relax
+      - action: action_contextual_scene

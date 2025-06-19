@@ -1,0 +1,314 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - hello
+      - hi
+      - hey
+      - good evening
+      - hey there
+      - hi there
+      - hello there
+      - greetings
+      - what's up
+      - howdy
+      - hiya
+      - good afternoon
+
+  - intent: affirm
+    examples: |
+      - yes
+      - yeah
+      - yep
+      - of course
+      - that sounds good
+      - correct
+      - yes please
+      - absolutely
+      - sure
+      - definitely
+      - indeed
+      - that's right
+      - exactly
+      - for sure
+      - ok
+      - okay
+      - right
+      - sounds good
+
+  - intent: deny
+    examples: |
+      - no
+      - nope
+      - no thanks
+      - not really
+      - I don't think so
+      - definitely not
+      - absolutely not
+      - nah
+      - no way
+      - not at all
+      - cancel
+      - nevermind
+
+  - intent: goodbye
+    examples: |
+      - goodbye
+      - bye
+      - see you later
+      - see you
+      - talk to you later
+      - catch you later
+      - farewell
+      - take care
+      - until next time
+      - have a good day
+      - gotta go
+      - I have to go
+      - bye bye
+      - ciao
+      - adios
+
+  - intent: thank
+    examples: |
+      - thank you
+      - thanks
+      - thank you so much
+      - thanks a lot
+      - appreciate it
+      - much appreciated
+      - thanks for that
+      - thank you very much
+      - I appreciate that
+      - cheers
+      - awesome thanks
+      - perfect thanks
+  - intent: execute_scene
+    examples: |
+      - execute scene [scene123](scene_id) in [living room](room)
+      - run scene [scene456](scene_id) in the [bedroom](room)
+      - turn on [living room](room) lights
+      - turn off [bedroom](room) lights
+      - dim the [kitchen](room) lights
+      - set [movie mode](scene_name) in [living room](room)
+      - activate [sleep mode](scene_name) in [bedroom](room)
+      - turn on [party lights](scene_name)
+      - execute [scene789](scene_id)
+      - run scene [scene123](scene_id)
+      - start scene [sc001](scene_id) in [bathroom](room)
+      - activate scene [home_theater](scene_name) in [basement](room)
+      - turn on [kitchen](room) scene
+      - execute [dining room](room) scene
+      - run [morning routine](scene_name)
+      - start [bedtime](scene_name) scene
+      - activate [welcome home](scene_name)
+      - turn on the lights in [living room](room)
+      - turn off lights in [bedroom](room)
+      - set [romantic mood](scene_name) in [dining room](room)
+      - activate [reading mode](scene_name) in [study](room)
+      - turn on [relax](scene_name) scene in [Work Station](room)
+      - activate [bright](scene_name) in [Testing Room](room)
+      - turn on [night](scene_name) scene in [Conference Room](room)
+      - set [all off](scene_name) in [Hardware room](room)
+      - run [relax](scene_name) in [Work Station 2](room)
+      - turn on lights
+      - turn off lights
+      - dim lights
+      - brighten lights
+      - set lights
+      - activate [relax](scene_name)
+      - set [bright](scene_name)
+      - run [night](scene_name)
+      - execute [all off](scene_name)
+      - I want [bright lights](scene_name)
+      - make it [darker](scene_name)
+      - set [mood lighting](scene_name)
+      - control the lights
+      - change lighting
+      - adjust lights
+
+  - intent: ask_scenes
+    examples: |
+      - what scenes can I run
+      - show me available scenes
+      - list all scenes
+      - what scenes do you have
+      - what can I control
+      - show scenes
+      - list scenes
+      - what scenes are available
+      - help with scenes
+      - what can you do with scenes
+      - show me all scenes
+      - what are all the scenes
+      - tell me all scenes
+      - what lighting options do I have
+      - what scene types are there
+      - show available lighting modes
+
+  - intent: ask_rooms
+    examples: |
+      - what rooms can I control
+      - show me available rooms
+      - list all rooms
+      - what rooms do you have
+      - which rooms are available
+      - show rooms
+      - list rooms
+      - what rooms can I manage
+      - help with rooms
+      - show me all rooms
+      - what are all the rooms
+      - tell me all rooms
+      - what areas can you control
+      - which spaces do you manage
+      - tell me all scenes
+
+  - intent: ask_rooms
+    examples: |
+      - what rooms can I control
+      - show me available rooms
+      - list all rooms
+      - what rooms do you have
+      - which rooms are available
+      - show rooms
+      - list rooms
+      - what rooms can I manage
+      - help with rooms
+      - show me all rooms
+      - what are all the rooms
+      - tell me all rooms
+
+  - intent: good_night
+    examples: |
+      - good night
+      - goodnight
+      - night
+      - sweet dreams
+      - time for bed
+      - going to sleep
+      - see you tomorrow
+      - nighty night
+      - sleep tight
+
+  - intent: good_morning
+    examples: |
+      - good morning
+      - morning
+      - wake up
+      - time to get up
+      - rise and shine
+      - start the day
+      - let's begin the day
+      - morning time
+      - wakey wakey
+      - dawn
+
+  - intent: want_relax
+    examples: |
+      - I want to relax
+      - I need to unwind
+      - help me relax
+      - I'm stressed
+      - I need to chill
+      - time to relax
+      - let me unwind
+      - I want to chill out
+      - help me destress
+      - I need some calm
+
+  - intent: leaving_home
+    examples: |
+      - I'm leaving
+      - I'm going out
+      - heading out
+      - leaving home
+      - going away
+      - I'll be back later
+      - see you later home
+      - time to go
+      - I'm off
+      - departure time
+
+  - intent: coming_home
+    examples: |
+      - I'm home
+      - I'm back
+      - just got home
+      - arrived home
+      - back from work
+      - home sweet home
+      - I've returned
+      - finally home
+      - made it home
+      - I'm here
+
+  - intent: going_to_bed
+    examples: |
+      - I'm going to bed
+      - time to sleep
+      - bedtime
+      - off to bed
+      - ready for sleep
+      - sleepy time
+      - hitting the hay
+      - calling it a night
+      - time to rest
+      - sleep time
+
+  - intent: movie_time
+    examples: |
+      - let's watch a movie
+      - movie time
+      - time for a film
+      - watching something
+      - cinema mode
+      - let's watch TV
+      - entertainment time
+      - screen time
+      - showtime
+      - film night
+
+  - intent: work_mode
+    examples: |
+      - time to work
+      - work mode
+      - I need to focus
+      - work time
+      - productivity mode
+      - study time
+      - need bright lights
+      - working now
+      - focus time
+      - concentration mode
+
+  - intent: turn_off_everything
+    examples: |
+      - turn everything off
+      - shut it all down
+      - turn all lights off
+      - power down everything
+      - all off
+      - shut everything down
+      - turn off all devices
+      - everything off
+      - kill all lights
+      - power off all
+
+  - intent: ask_help
+    examples: |
+      - how can you help me
+      - what can you do
+      - help me
+      - what can you help with
+      - how do you work
+      - what are your capabilities
+      - what can I ask you
+      - help
+      - how does this work
+      - what do you do
+      - guide me
+      - show me what you can do
+      - how to use this
+      - what commands do you know
