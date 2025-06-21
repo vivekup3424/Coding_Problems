@@ -10,6 +10,7 @@ intents:
   - execute_scene
   - ask_scenes
   - ask_rooms
+  - ask_scenes_in_room
   - good_night
   - good_morning
   - want_relax
@@ -150,6 +151,7 @@ actions:
   - action_execute_scene
   - action_list_scenes
   - action_list_rooms
+  - action_list_scenes_in_room
   - action_contextual_scene
   - action_ask_clarification
 

@@ -79,11 +79,19 @@ class ActionExecuteScene(Action):
         scenes = load_scenes_data()
         matches = [s for s in scenes if s["sceneName"].lower() ==
                    scene_name.lower()]
+        print(
+            f"DEBUG find_scene: Looking for '{scene_name}', found {len(matches)} matches")
         if not matches:
             return None
         if room:
+            # Convert room name to room ID for proper matching
+            room_id = find_room_id(room)
+            print(
+                f"DEBUG find_scene: Looking in room '{room}' (ID: {room_id})")
             for s in matches:
-                if room.lower() in s["sceneRoom"].lower():
+                print(
+                    f"DEBUG find_scene: Checking scene room {s['sceneRoom']} vs {room_id}")
+                if s["sceneRoom"] == room_id:
                     return s
         return matches[0]
 
@@ -109,16 +117,25 @@ class ActionExecuteScene(Action):
                 matching_scenes = [
                     s for s in scenes if s["sceneName"].lower() == scene_name.lower()]
 
+                print(
+                    f"DEBUG: Found {len(matching_scenes)} matching scenes for '{scene_name}'")
+
                 if len(matching_scenes) > 1:
-                    rooms = list(set([s["sceneRoom"]
-                                 for s in matching_scenes]))
+                    # Get friendly room names
+                    room_names = []
+                    for s in matching_scenes:
+                        room_name = get_room_name(s["sceneRoom"])
+                        if room_name not in room_names:
+                            room_names.append(room_name)
+
                     dispatcher.utter_message(
-                        text=f"I found '{scene_name}' in multiple rooms: {', '.join(rooms)}. Which room did you mean?"
+                        text=f"I found '{scene_name}' in multiple rooms: {', '.join(room_names)}. Which room did you mean?"
                     )
                     return [SlotSet("scene_name", scene_name)]
                 elif len(matching_scenes) == 1:
                     # Use the only available room
                     room = matching_scenes[0]["sceneRoom"]
+                    print(f"DEBUG: Using room {room} for single match")
                 else:
                     dispatcher.utter_message(response="utter_scene_not_found")
                     return []
@@ -128,13 +145,16 @@ class ActionExecuteScene(Action):
 
         scene_data = None
         if scene_name:
+            print(f"DEBUG: Looking for scene '{scene_name}' in room '{room}'")
             scene_data = self.find_scene(scene_name, room)
             if scene_data:
                 scene_id = str(scene_data["sceneId"])
                 room = room or scene_data["sceneRoom"]
+                print(f"DEBUG: Found scene data: {scene_data}")
             else:
+                room_name = get_room_name(room) if room else "unknown room"
                 dispatcher.utter_message(
-                    text=f"I couldn't find the scene '{scene_name}' in {room}. Would you like to see available scenes?"
+                    text=f"I couldn't find the scene '{scene_name}' in {room_name}. Would you like to see available scenes?"
                 )
                 return [SlotSet("scene_name", None)]
 
@@ -143,16 +163,18 @@ class ActionExecuteScene(Action):
             return []
 
         try:
+            # Ensure we have the room ID for the NATS payload
+            room_id = find_room_id(room) if room else room
+            room_name = get_room_name(room_id)
+
             print(
-                f"DEBUG: Executing scene - sceneId: {scene_id}, sceneRoom: {room}")
+                f"DEBUG: Executing scene - sceneId: {scene_id}, sceneRoom: {room} (ID: {room_id})")
 
             # Publish to NATS
             nc = await nats.connect(f"nats://{NATS_TOKEN}@{NATS_HOST}:{NATS_PORT}")
             payload = {"action": "EXECUTE_SCENE", "data": {
-                "sceneId": int(scene_id), "sceneRoom": room}}
-            if scene_data:
-                payload["data"].update(
-                    {"sceneName": scene_data["sceneName"], "sceneType": scene_data["sceneType"]})
+                "sceneId": int(scene_id), "sceneRoom": room_id}}
+            print(payload)
 
             print(f"DEBUG: NATS payload: {json.dumps(payload, indent=2)}")
             await nc.publish(f"{SITE_ID}-KIOTP-RPC", json.dumps(payload).encode())
@@ -161,9 +183,10 @@ class ActionExecuteScene(Action):
             name = scene_data["sceneName"] if scene_data else scene_id
             dispatcher.utter_message(response="utter_scene_executed")
             dispatcher.utter_message(
-                text=f"✅ '{name}' is now active in {room}! Anything else I can help with?"
+                text=f"✅ '{name}' is now active in {room_name}! Anything else I can help with?"
             )
-            return [SlotSet("scene_id", None), SlotSet("room", None), SlotSet("scene_name", None)]
+            # Set the room context for future commands instead of clearing it
+            return [SlotSet("scene_id", None), SlotSet("requested_room", room_name), SlotSet("scene_name", None)]
 
         except Exception as e:
             print(f"DEBUG: Error executing scene: {str(e)}")
@@ -171,7 +194,7 @@ class ActionExecuteScene(Action):
             dispatcher.utter_message(
                 text="I'm having trouble connecting to your smart home system. Please try again in a moment."
             )
-            return [SlotSet("scene_id", None), SlotSet("room", None), SlotSet("scene_name", None)]
+            return [SlotSet("scene_id", None), SlotSet("scene_name", None)]
 
 
 class ActionListScenes(Action):
@@ -265,27 +288,37 @@ class ActionContextualScene(Action):
             room_id = find_room_id(room)
             room_name = get_room_name(room_id)
         else:
-            # No room specified - use intelligent defaults based on intent
-            default_rooms = {
-                "good_night": "Testing Room",  # Bedroom-like
-                "good_morning": "Testing Room",  # Bedroom-like
-                "going_to_bed": "Testing Room",  # Bedroom-like
-                "want_relax": "Testing Room",  # Living room-like
-                "movie_time": "Testing Room",  # Living room-like
-                "work_mode": "Work Station",  # Office
-                "leaving_home": "all",  # All rooms
-                "coming_home": "Work Station",  # Main area
-                "turn_off_everything": "all"  # All rooms
-            }
+            # No room specified - check if we have room context from recent conversation
+            # Look for recent room mentions in the conversation
+            recent_room = tracker.get_slot("requested_room")
 
-            default_room = default_rooms.get(intent, "Work Station")
-
-            if default_room == "all":
-                # Handle multi-room scenarios
-                return await self.handle_all_rooms(dispatcher, intent)
+            if recent_room:
+                room_id = find_room_id(recent_room)
+                room_name = get_room_name(room_id)
+                print(f"DEBUG: Using recent room context: {room_name}")
             else:
-                room_id = find_room_id(default_room)
-                room_name = default_room
+                # No room specified and no recent context - use Work Station as sensible default
+                # This covers cases where user says "I want to relax" without room context
+                default_rooms = {
+                    "good_night": "Testing Room",  # Bedroom-like
+                    "good_morning": "Work Station",  # Start day in main area
+                    "going_to_bed": "Testing Room",  # Bedroom-like
+                    "want_relax": "Work Station",  # Default to main workspace
+                    "movie_time": "Testing Room",  # Entertainment room
+                    "work_mode": "Work Station",  # Office
+                    "leaving_home": "all",  # All rooms
+                    "coming_home": "Work Station",  # Main area
+                    "turn_off_everything": "all"  # All rooms
+                }
+
+                default_room = default_rooms.get(intent, "Work Station")
+
+                if default_room == "all":
+                    # Handle multi-room scenarios
+                    return await self.handle_all_rooms(dispatcher, intent)
+                else:
+                    room_id = find_room_id(default_room)
+                    room_name = default_room
 
         scene_mapping = {
             "good_night": {"scene_id": "154", "scene_name": "Night", "message": "Good night! Sweet dreams! 🌙 Your night lighting is now set."},
@@ -324,7 +357,8 @@ class ActionContextualScene(Action):
 
                 dispatcher.utter_message(text=message)
 
-                return []
+                # Set room context for future commands
+                return [SlotSet("requested_room", room_name)]
 
             except Exception as e:
                 dispatcher.utter_message(
@@ -392,4 +426,62 @@ class ActionAskClarification(Action):
         else:
             dispatcher.utter_message(response="utter_default")
 
+        return []
+
+
+class ActionListScenesInRoom(Action):
+    """List all available scenes for a specific room"""
+
+    def name(self) -> Text:
+        return "action_list_scenes_in_room"
+
+    async def run(self, dispatcher, tracker, domain):
+        # Get the room from entity or slot
+        room = next(tracker.get_latest_entity_values(
+            "room"), None) or tracker.get_slot("room")
+
+        if not room:
+            dispatcher.utter_message(
+                text="Which room would you like to see scenes for? I can show you scenes for any of your rooms."
+            )
+            return []
+
+        # Find room ID
+        room_id = find_room_id(room)
+        room_name = get_room_name(room_id)
+
+        if not room_id:
+            dispatcher.utter_message(
+                text=f"I couldn't find a room called '{room}'. Try asking 'what rooms can I control?' to see available rooms."
+            )
+            return []
+
+        # Load scenes and filter by room
+        scenes = load_scenes_data()
+        room_scenes = [s for s in scenes if s["sceneRoom"] == room_id]
+
+        if not room_scenes:
+            dispatcher.utter_message(
+                text=f"I don't see any scenes configured for {room_name}. You might want to check your smart home setup."
+            )
+            return []
+
+        # Group scenes by name (remove duplicates)
+        unique_scenes = {}
+        for scene in room_scenes:
+            scene_name = scene["sceneName"]
+            if scene_name not in unique_scenes:
+                unique_scenes[scene_name] = scene
+
+        # Create response message
+        scene_names = list(unique_scenes.keys())
+        scene_list = "• " + "\n• ".join(scene_names)
+
+        message = f"🎭 **Available scenes in {room_name}:**\n{scene_list}"
+        message += f"\n\n💡 You can say things like:\n• 'Turn on {scene_names[0].lower()} in {room_name}'"
+        if len(scene_names) > 1:
+            message += f"\n• 'Set {scene_names[1].lower()} mode in {room_name}'"
+        message += f"\n• 'Activate {scene_names[0].lower()}' (if you're already talking about {room_name})"
+
+        dispatcher.utter_message(text=message)
         return []

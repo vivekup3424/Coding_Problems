@@ -28,6 +28,11 @@ rules:
       - intent: ask_rooms
       - action: action_list_rooms
 
+  - rule: List scenes in specific room when asked
+    steps:
+      - intent: ask_scenes_in_room
+      - action: action_list_scenes_in_room
+
   # Contextual scene rules - these trigger specific scenes based on natural language
   - rule: Good night triggers night scene
     steps:

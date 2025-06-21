@@ -21,8 +21,8 @@ async def send_nats_message():
         message = {
             "action": "EXECUTE_SCENE",
             "data": {
-                "sceneId": "151",  # Replace with actual sceneId
-                "sceneRoom": "Home"     # Replace with actual sceneRoom
+                "sceneId": "152",  # Replace with actual sceneId
+                "sceneRoom": "Work Station"     # Replace with actual sceneRoom
             }
         }
 
