@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Four</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Connect Four</h1>
+    <div class="game-options">
+        <input type="radio" id="pvp" name="gameMode" value="pvp" checked>
+        <label for="pvp">Player vs Player</label>
+        <input type="radio" id="pvai" name="gameMode" value="pvai">
+        <label for="pvai">Player vs AI</label>
+    </div>
+    <h2 id="current-player">Player 1's Turn</h2>
+    <div id="commentary"></div>
+    <div id="game-board"></div>
+    <button id="reset-button">Reset Game</button>
+
+    <div id="game-over-modal" class="hidden">
+        <div class="modal-content">
+            <h2 id="modal-message"></h2>
+            <button id="modal-reset-button">Play Again</button>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="dropSound" src="sounds/drop.mp3" preload="auto"></audio>
+    <audio id="winSound" src="sounds/win.mp3" preload="auto"></audio>
+    <audio id="drawSound" src="sounds/draw.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
