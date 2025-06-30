@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:5.0
+    container_name: home-auth-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: home_automation_auth
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+      - home-auth-network
+
+  # NATS Message Broker
+  nats:
+    image: nats:2.10-alpine
+    container_name: home-auth-nats
+    restart: unless-stopped
+    command: ["--cluster_name", "home-auth", "--port", "4222", "--http_port", "8222"]
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    networks:
+      - home-auth-network
+
+  # Authentication Service
+  auth-service:
+    build: .
+    container_name: home-auth-service
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+      - nats
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      MONGODB_URI: mongodb://admin:password123@mongodb:27017/home_automation_auth?authSource=admin
+      DB_NAME: home_automation_auth
+      NATS_URL: nats://nats:4222
+      JWT_SECRET: change-this-super-secret-jwt-key-in-production
+      JWT_EXPIRES_IN: 24h
+      EMERGENCY_AUTH_CODE: HOME911
+      LOG_LEVEL: info
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - home-auth-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  home-auth-network:
+    driver: bridge
