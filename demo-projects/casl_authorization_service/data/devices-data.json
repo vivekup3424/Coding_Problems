@@ -1,0 +1,213 @@
+{
+  "devices": [
+    {
+      "id": "device_001",
+      "name": "Living Room Smart Light",
+      "type": "smart_light",
+      "homeId": "home_001",
+      "roomId": "room_001",
+      "status": "online",
+      "properties": {
+        "brightness": 80,
+        "color": "#FFFFFF",
+        "isOn": true
+      },
+      "capabilities": ["brightness", "color", "on_off"],
+      "manufacturer": "Philips",
+      "model": "Hue White and Color",
+      "lastUpdated": "2024-01-20T14:30:00Z"
+    },
+    {
+      "id": "device_002",
+      "name": "Main Thermostat",
+      "type": "smart_thermostat",
+      "homeId": "home_001",
+      "roomId": "room_001",
+      "status": "online",
+      "properties": {
+        "currentTemp": 22.5,
+        "targetTemp": 23.0,
+        "mode": "heat",
+        "isOn": true
+      },
+      "capabilities": ["temperature_control", "mode_setting", "scheduling"],
+      "manufacturer": "Nest",
+      "model": "Learning Thermostat",
+      "lastUpdated": "2024-01-20T14:25:00Z"
+    },
+    {
+      "id": "device_003",
+      "name": "Kitchen Smart Speaker",
+      "type": "smart_speaker",
+      "homeId": "home_001",
+      "roomId": "room_002",
+      "status": "online",
+      "properties": {
+        "volume": 60,
+        "isPlaying": false,
+        "currentTrack": null
+      },
+      "capabilities": ["audio_playback", "voice_control", "smart_home_hub"],
+      "manufacturer": "Amazon",
+      "model": "Echo Dot",
+      "lastUpdated": "2024-01-20T14:20:00Z"
+    },
+    {
+      "id": "device_004",
+      "name": "Front Door Smart Lock",
+      "type": "door_lock",
+      "homeId": "home_001",
+      "roomId": "room_005",
+      "status": "online",
+      "properties": {
+        "isLocked": true,
+        "batteryLevel": 85,
+        "lastAccess": "2024-01-20T13:45:00Z"
+      },
+      "capabilities": ["lock_unlock", "access_logging", "battery_status"],
+      "manufacturer": "August",
+      "model": "Smart Lock Pro",
+      "lastUpdated": "2024-01-20T14:35:00Z"
+    },
+    {
+      "id": "device_005",
+      "name": "Security Camera - Front Yard",
+      "type": "security_camera",
+      "homeId": "home_001",
+      "roomId": "room_005",
+      "status": "online",
+      "properties": {
+        "isRecording": true,
+        "motionDetection": true,
+        "nightVision": true,
+        "resolution": "1080p"
+      },
+      "capabilities": ["video_recording", "motion_detection", "night_vision", "live_stream"],
+      "manufacturer": "Ring",
+      "model": "Spotlight Cam",
+      "lastUpdated": "2024-01-20T14:32:00Z"
+    },
+    {
+      "id": "device_006",
+      "name": "Master Bedroom Light Switch",
+      "type": "smart_switch",
+      "homeId": "home_001",
+      "roomId": "room_003",
+      "status": "online",
+      "properties": {
+        "isOn": false,
+        "dimLevel": 0
+      },
+      "capabilities": ["on_off", "dimming"],
+      "manufacturer": "TP-Link",
+      "model": "Kasa Smart Switch",
+      "lastUpdated": "2024-01-20T14:28:00Z"
+    },
+    {
+      "id": "device_007",
+      "name": "Main Alarm System",
+      "type": "alarm_system",
+      "homeId": "home_001",
+      "roomId": "room_001",
+      "status": "online",
+      "properties": {
+        "armed": true,
+        "mode": "home",
+        "batteryBackup": true,
+        "lastTriggered": null
+      },
+      "capabilities": ["arm_disarm", "mode_selection", "zone_monitoring", "emergency_alert"],
+      "manufacturer": "ADT",
+      "model": "Command Panel",
+      "lastUpdated": "2024-01-20T14:40:00Z"
+    },
+    {
+      "id": "device_008",
+      "name": "Living Room Motion Sensor",
+      "type": "motion_sensor",
+      "homeId": "home_001",
+      "roomId": "room_001",
+      "status": "online",
+      "properties": {
+        "motionDetected": false,
+        "batteryLevel": 92,
+        "sensitivity": "medium",
+        "lastMotion": "2024-01-20T12:15:00Z"
+      },
+      "capabilities": ["motion_detection", "battery_status", "sensitivity_adjustment"],
+      "manufacturer": "SmartThings",
+      "model": "Motion Sensor",
+      "lastUpdated": "2024-01-20T14:15:00Z"
+    },
+    {
+      "id": "device_009",
+      "name": "Kitchen Smart Light",
+      "type": "smart_light",
+      "homeId": "home_001",
+      "roomId": "room_002",
+      "status": "online",
+      "properties": {
+        "brightness": 100,
+        "color": "#FFFFFF",
+        "isOn": true
+      },
+      "capabilities": ["brightness", "color", "on_off"],
+      "manufacturer": "LIFX",
+      "model": "Color Bulb",
+      "lastUpdated": "2024-01-20T14:22:00Z"
+    },
+    {
+      "id": "device_010",
+      "name": "Bathroom Smart Light",
+      "type": "smart_light",
+      "homeId": "home_001",
+      "roomId": "room_004",
+      "status": "online",
+      "properties": {
+        "brightness": 60,
+        "color": "#FFFFFF",
+        "isOn": false
+      },
+      "capabilities": ["brightness", "on_off"],
+      "manufacturer": "Philips",
+      "model": "Hue White",
+      "lastUpdated": "2024-01-20T14:18:00Z"
+    },
+    {
+      "id": "device_011",
+      "name": "Garage Door Sensor",
+      "type": "motion_sensor",
+      "homeId": "home_001",
+      "roomId": "room_006",
+      "status": "online",
+      "properties": {
+        "motionDetected": false,
+        "batteryLevel": 78,
+        "sensitivity": "high",
+        "lastMotion": "2024-01-20T08:30:00Z"
+      },
+      "capabilities": ["motion_detection", "battery_status"],
+      "manufacturer": "SmartThings",
+      "model": "Multipurpose Sensor",
+      "lastUpdated": "2024-01-20T14:12:00Z"
+    },
+    {
+      "id": "device_012",
+      "name": "Emergency Light - Hallway",
+      "type": "smart_light",
+      "homeId": "home_001",
+      "roomId": "room_007",
+      "status": "online",
+      "properties": {
+        "brightness": 0,
+        "color": "#FF0000",
+        "isOn": false,
+        "emergency": true
+      },
+      "capabilities": ["brightness", "color", "on_off", "emergency_mode"],
+      "manufacturer": "Emergency Systems Inc",
+      "model": "Emergency LED",
+      "lastUpdated": "2024-01-20T14:05:00Z"
+    }
+  ]
+}

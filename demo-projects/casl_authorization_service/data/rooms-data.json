@@ -1,0 +1,301 @@
+{
+  "rooms": [
+    {
+      "id": "room_001",
+      "name": "Living Room",
+      "homeId": "home_001",
+      "type": "living_room",
+      "floor": 1,
+      "area": 35.5,
+      "description": "Main living area with entertainment center",
+      "devices": ["device_001", "device_002", "device_007", "device_008"],
+      "scenes": ["scene_001", "scene_002", "scene_005"],
+      "automations": ["automation_001", "automation_003"],
+      "properties": {
+        "hasWindows": true,
+        "naturalLight": "high",
+        "primaryFunction": "entertainment"
+      },
+      "createdAt": "2024-01-15T10:00:00Z",
+      "lastUpdated": "2024-01-20T14:30:00Z"
+    },
+    {
+      "id": "room_002",
+      "name": "Kitchen",
+      "homeId": "home_001",
+      "type": "kitchen",
+      "floor": 1,
+      "area": 20.0,
+      "description": "Modern kitchen with smart appliances",
+      "devices": ["device_003", "device_009"],
+      "scenes": ["scene_003", "scene_006"],
+      "automations": ["automation_002"],
+      "properties": {
+        "hasWindows": true,
+        "naturalLight": "medium",
+        "primaryFunction": "cooking"
+      },
+      "createdAt": "2024-01-15T10:00:00Z",
+      "lastUpdated": "2024-01-20T14:25:00Z"
+    },
+    {
+      "id": "room_003",
+      "name": "Master Bedroom",
+      "homeId": "home_001",
+      "type": "bedroom",
+      "floor": 2,
+      "area": 25.0,
+      "description": "Primary bedroom with ensuite",
+      "devices": ["device_006"],
+      "scenes": ["scene_004", "scene_007"],
+      "automations": ["automation_004"],
+      "properties": {
+        "hasWindows": true,
+        "naturalLight": "medium",
+        "primaryFunction": "sleeping"
+      },
+      "createdAt": "2024-01-15T10:00:00Z",
+      "lastUpdated": "2024-01-20T14:20:00Z"
+    },
+    {
+      "id": "room_004",
+      "name": "Main Bathroom",
+      "homeId": "home_001",
+      "type": "bathroom",
+      "floor": 1,
+      "area": 8.5,
+      "description": "Guest bathroom with smart lighting",
+      "devices": ["device_010"],
+      "scenes": ["scene_008"],
+      "automations": ["automation_005"],
+      "properties": {
+        "hasWindows": false,
+        "naturalLight": "low",
+        "primaryFunction": "hygiene"
+      },
+      "createdAt": "2024-01-15T10:00:00Z",
+      "lastUpdated": "2024-01-20T14:18:00Z"
+    },
+    {
+      "id": "room_005",
+      "name": "Front Entrance",
+      "homeId": "home_001",
+      "type": "entrance",
+      "floor": 1,
+      "area": 12.0,
+      "description": "Main entrance with security features",
+      "devices": ["device_004", "device_005"],
+      "scenes": ["scene_009", "scene_010"],
+      "automations": ["automation_006", "automation_007"],
+      "properties": {
+        "hasWindows": true,
+        "naturalLight": "high",
+        "primaryFunction": "security"
+      },
+      "createdAt": "2024-01-15T10:00:00Z",
+      "lastUpdated": "2024-01-20T14:35:00Z"
+    },
+    {
+      "id": "room_006",
+      "name": "Garage",
+      "homeId": "home_001",
+      "type": "garage",
+      "floor": 1,
+      "area": 40.0,
+      "description": "Two-car garage with storage",
+      "devices": ["device_011"],
+      "scenes": [],
+      "automations": ["automation_008"],
+      "properties": {
+        "hasWindows": false,
+        "naturalLight": "low",
+        "primaryFunction": "storage"
+      },
+      "createdAt": "2024-01-15T10:00:00Z",
+      "lastUpdated": "2024-01-20T14:12:00Z"
+    },
+    {
+      "id": "room_007",
+      "name": "Hallway",
+      "homeId": "home_001",
+      "type": "hallway",
+      "floor": 1,
+      "area": 15.0,
+      "description": "Main hallway connecting rooms",
+      "devices": ["device_012"],
+      "scenes": ["scene_011"],
+      "automations": ["automation_009"],
+      "properties": {
+        "hasWindows": false,
+        "naturalLight": "low",
+        "primaryFunction": "transit"
+      },
+      "createdAt": "2024-01-15T10:00:00Z",
+      "lastUpdated": "2024-01-20T14:05:00Z"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene_001",
+      "name": "Movie Night",
+      "type": "entertainment",
+      "homeId": "home_001",
+      "roomIds": ["room_001"],
+      "description": "Dim lights for movie watching"
+    },
+    {
+      "id": "scene_002",
+      "name": "Bright Living",
+      "type": "lighting",
+      "homeId": "home_001",
+      "roomIds": ["room_001"],
+      "description": "Full brightness for reading"
+    },
+    {
+      "id": "scene_003",
+      "name": "Cooking Mode",
+      "type": "lighting",
+      "homeId": "home_001",
+      "roomIds": ["room_002"],
+      "description": "Optimal lighting for cooking"
+    },
+    {
+      "id": "scene_004",
+      "name": "Sleep Mode",
+      "type": "lighting",
+      "homeId": "home_001",
+      "roomIds": ["room_003"],
+      "description": "Dim lights for bedtime"
+    },
+    {
+      "id": "scene_005",
+      "name": "Party Mode",
+      "type": "entertainment",
+      "homeId": "home_001",
+      "roomIds": ["room_001"],
+      "description": "Colorful lighting for parties"
+    },
+    {
+      "id": "scene_006",
+      "name": "Dinner Time",
+      "type": "lighting",
+      "homeId": "home_001",
+      "roomIds": ["room_002"],
+      "description": "Warm lighting for dining"
+    },
+    {
+      "id": "scene_007",
+      "name": "Wake Up",
+      "type": "lighting",
+      "homeId": "home_001",
+      "roomIds": ["room_003"],
+      "description": "Gradual morning lighting"
+    },
+    {
+      "id": "scene_008",
+      "name": "Bathroom Night",
+      "type": "lighting",
+      "homeId": "home_001",
+      "roomIds": ["room_004"],
+      "description": "Dim lighting for night use"
+    },
+    {
+      "id": "scene_009",
+      "name": "Welcome Home",
+      "type": "lighting",
+      "homeId": "home_001",
+      "roomIds": ["room_005"],
+      "description": "Bright entrance lighting"
+    },
+    {
+      "id": "scene_010",
+      "name": "Security Alert",
+      "type": "security",
+      "homeId": "home_001",
+      "roomIds": ["room_005"],
+      "description": "Alert lighting for security events"
+    },
+    {
+      "id": "scene_011",
+      "name": "Emergency Lighting",
+      "type": "emergency_lighting",
+      "homeId": "home_001",
+      "roomIds": ["room_007"],
+      "description": "Emergency lighting for power outages"
+    }
+  ],
+  "automations": [
+    {
+      "id": "automation_001",
+      "name": "Motion Light Control",
+      "type": "lighting",
+      "homeId": "home_001",
+      "roomIds": ["room_001"],
+      "description": "Turn on lights when motion detected"
+    },
+    {
+      "id": "automation_002",
+      "name": "Kitchen Timer Lights",
+      "type": "lighting",
+      "homeId": "home_001",
+      "roomIds": ["room_002"],
+      "description": "Auto lights during cooking hours"
+    },
+    {
+      "id": "automation_003",
+      "name": "Evening Routine",
+      "type": "lighting",
+      "homeId": "home_001",
+      "roomIds": ["room_001"],
+      "description": "Automatic evening lighting schedule"
+    },
+    {
+      "id": "automation_004",
+      "name": "Sleep Schedule",
+      "type": "lighting",
+      "homeId": "home_001",
+      "roomIds": ["room_003"],
+      "description": "Automated sleep and wake lighting"
+    },
+    {
+      "id": "automation_005",
+      "name": "Bathroom Motion",
+      "type": "lighting",
+      "homeId": "home_001",
+      "roomIds": ["room_004"],
+      "description": "Motion-activated bathroom lighting"
+    },
+    {
+      "id": "automation_006",
+      "name": "Door Lock Security",
+      "type": "security",
+      "homeId": "home_001",
+      "roomIds": ["room_005"],
+      "description": "Auto-lock door after entry"
+    },
+    {
+      "id": "automation_007",
+      "name": "Camera Motion Alert",
+      "type": "security",
+      "homeId": "home_001",
+      "roomIds": ["room_005"],
+      "description": "Alert when camera detects motion"
+    },
+    {
+      "id": "automation_008",
+      "name": "Garage Security",
+      "type": "security",
+      "homeId": "home_001",
+      "roomIds": ["room_006"],
+      "description": "Monitor garage door status"
+    },
+    {
+      "id": "automation_009",
+      "name": "Emergency Path",
+      "type": "emergency",
+      "homeId": "home_001",
+      "roomIds": ["room_007"],
+      "description": "Emergency evacuation lighting"
+    }
+  ]
+}

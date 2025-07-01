@@ -1,0 +1,144 @@
+{
+  "users": [
+    {
+      "id": "user_001",
+      "username": "raj_sharma",
+      "email": "raj@example.com",
+      "passwordHash": "$2b$10$XqCHnLFKZxPd8MQjdgXpA.BzVf2JqKmVr4TYkLs9AiFn3QZmK1LwG",
+      "status": "active",
+      "createdAt": "2024-01-15T10:30:00Z",
+      "lastLogin": "2024-01-20T14:22:00Z",
+      "profile": {
+        "firstName": "Raj",
+        "lastName": "Sharma",
+        "homeId": "home_001"
+      }
+    },
+    {
+      "id": "user_002",
+      "username": "priya_patel",
+      "email": "priya@example.com",
+      "passwordHash": "$2b$10$YrDInMGKAyQe9NRkehYqB.CaWg3KrLnWs5UZlNt0BjGo4RAoL2MxH",
+      "status": "active",
+      "createdAt": "2024-01-10T09:15:00Z",
+      "lastLogin": "2024-01-20T16:45:00Z",
+      "profile": {
+        "firstName": "Priya",
+        "lastName": "Patel",
+        "homeId": "home_001"
+      }
+    },
+    {
+      "id": "user_003",
+      "username": "arjun_singh",
+      "email": "arjun@example.com",
+      "passwordHash": "$2b$10$ZsEJoNHLBzRf0ORlfhZrC.DbXh4LsMoXt6VAlOu1CkHp5SBpM3NyI",
+      "status": "active",
+      "createdAt": "2024-01-12T11:20:00Z",
+      "lastLogin": "2024-01-19T08:30:00Z",
+      "profile": {
+        "firstName": "Arjun",
+        "lastName": "Singh",
+        "homeId": "home_001"
+      }
+    },
+    {
+      "id": "user_004",
+      "username": "kavya_reddy",
+      "email": "kavya@example.com",
+      "passwordHash": "$2b$10$AtFKpOIMCaRg1PSmbIasD.EcYi5MtNoYu7WBmPv2DlIq6TCqN4OzJ",
+      "status": "active",
+      "createdAt": "2024-01-08T14:45:00Z",
+      "lastLogin": "2024-01-20T12:15:00Z",
+      "profile": {
+        "firstName": "Kavya",
+        "lastName": "Reddy",
+        "homeId": "home_001"
+      }
+    },
+    {
+      "id": "user_005",
+      "username": "vikram_gupta",
+      "email": "vikram@example.com",
+      "passwordHash": "$2b$10$BuGLqPJNDbSh2QTncJbtE.FdZj6NuOpZv8XCnQw3EmJr7UDrO5PaK",
+      "status": "active",
+      "createdAt": "2024-01-14T16:10:00Z",
+      "lastLogin": "2024-01-18T19:45:00Z",
+      "profile": {
+        "firstName": "Vikram",
+        "lastName": "Gupta",
+        "homeId": "home_001"
+      }
+    },
+    {
+      "id": "user_006",
+      "username": "ananya_nair",
+      "email": "ananya@example.com",
+      "passwordHash": "$2b$10$CvHMrQKOEcTi3RUodKcuF.GeAk7OvPqAw9YDoRx4FnKs8VEsP6QbL",
+      "status": "active",
+      "createdAt": "2024-01-11T13:25:00Z",
+      "lastLogin": "2024-01-20T10:20:00Z",
+      "profile": {
+        "firstName": "Ananya",
+        "lastName": "Nair",
+        "homeId": "home_001"
+      }
+    },
+    {
+      "id": "user_007",
+      "username": "rohit_kumar",
+      "email": "rohit@example.com",
+      "passwordHash": "$2b$10$DwINsRLPFdUj4SVpeLetG.HfBl8PwQrBx0ZEpSy5GoLt9WFtQ7RcM",
+      "status": "active",
+      "createdAt": "2024-01-09T12:00:00Z",
+      "lastLogin": "2024-01-19T15:30:00Z",
+      "profile": {
+        "firstName": "Rohit",
+        "lastName": "Kumar",
+        "homeId": "home_001"
+      }
+    },
+    {
+      "id": "user_008",
+      "username": "meera_iyer",
+      "email": "meera@example.com",
+      "passwordHash": "$2b$10$ExJOtSMQGeVk5TWqfMfvH.IgCm9QxSsByCjFqTz6HpMu0XGuR8SdN",
+      "status": "active",
+      "createdAt": "2024-01-13T15:40:00Z",
+      "lastLogin": "2024-01-20T11:10:00Z",
+      "profile": {
+        "firstName": "Meera",
+        "lastName": "Iyer",
+        "homeId": "home_001"
+      }
+    },
+    {
+      "id": "user_009",
+      "username": "aditya_verma",
+      "email": "aditya@example.com",
+      "passwordHash": "$2b$10$FyKPuTNRHfWl6UXrgNgwI.JhDn0RySuCzAkGrUa7IqNv1YHvS9TeO",
+      "status": "active",
+      "createdAt": "2024-01-07T10:15:00Z",
+      "lastLogin": "2024-01-19T13:25:00Z",
+      "profile": {
+        "firstName": "Aditya",
+        "lastName": "Verma",
+        "homeId": "home_001"
+      }
+    },
+    {
+      "id": "user_010",
+      "username": "sneha_joshi",
+      "email": "sneha@example.com",
+      "passwordHash": "$2b$10$GzLQuUOSIgXm7VYshOhxJ.KiEo1SzTvDzBlHsVb8JrOw2ZIwT0UfP",
+      "status": "active",
+      "createdAt": "2024-01-16T09:30:00Z",
+      "lastLogin": "2024-01-20T17:50:00Z",
+      "profile": {
+        "firstName": "Sneha",
+        "lastName": "Joshi",
+        "homeId": "home_001"
+      }
+    }
+  ]
+}
