@@ -4,49 +4,49 @@
       "action": ["read", "write", "configure", "control"],
       "subject": "device",
       "conditions": {
-        "homeId": "${user.profile.homeId}"
+        "homeId": { "$eq": "${user.profile.homeId}" }
       }
     },
     {
       "action": ["read", "write", "configure"],
       "subject": "room",
       "conditions": {
-        "homeId": "${user.profile.homeId}"
+        "homeId": { "$eq": "${user.profile.homeId}" }
       }
     },
     {
       "action": ["read", "control"],
       "subject": "automation",
       "conditions": {
-        "homeId": "${user.profile.homeId}"
+        "homeId": { "$eq": "${user.profile.homeId}" }
       }
     },
     {
       "action": ["read", "control"],
       "subject": "scene",
       "conditions": {
-        "homeId": "${user.profile.homeId}"
+        "homeId": { "$eq": "${user.profile.homeId}" }
       }
     },
     {
       "action": ["read", "write"],
       "subject": "local_settings",
       "conditions": {
-        "homeId": "${user.profile.homeId}"
+        "homeId": { "$eq": "${user.profile.homeId}" }
       }
     },
     {
       "action": ["read", "control"],
       "subject": "security_system",
       "conditions": {
-        "homeId": "${user.profile.homeId}"
+        "homeId": { "$eq": "${user.profile.homeId}" }
       }
     },
     {
       "action": "read",
       "subject": "sensor_data",
       "conditions": {
-        "homeId": "${user.profile.homeId}"
+        "homeId": { "$eq": "${user.profile.homeId}" }
       }
     }
   ],
@@ -55,12 +55,12 @@
       "action": ["read", "control"],
       "subject": "device",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "type": ["smart_light", "smart_thermostat", "smart_speaker"],
-        "roomId": ["room_001", "room_002"],
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "type": { "$in": ["smart_light", "smart_thermostat", "smart_speaker"] },
+        "roomId": { "$in": ["room_001", "room_002"] },
         "timeRestrictions": {
-          "startTime": "07:00",
-          "endTime": "23:00"
+          "startTime": { "$gte": "07:00" },
+          "endTime": { "$lte": "23:00" }
         }
       }
     },
@@ -68,16 +68,15 @@
       "action": "read",
       "subject": "room",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "id": ["room_001", "room_002", "room_004"]
+        "id": { "$in": ["room_001", "room_002", "room_004"] }
       }
     },
     {
       "action": "control",
       "subject": "scene",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "type": ["lighting", "entertainment"]
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "type": { "$in": ["lighting", "entertainment"] }
       }
     }
   ],
@@ -86,12 +85,12 @@
       "action": ["read", "control"],
       "subject": "device",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "type": ["smart_light", "smart_switch"],
-        "roomId": ["room_001", "room_003"],
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "type": { "$in": ["smart_light", "smart_switch"] },
+        "roomId": { "$in": ["room_001", "room_003"] },
         "timeRestrictions": {
-          "startTime": "18:00",
-          "endTime": "22:00"
+          "startTime": { "$gte": "18:00" },
+          "endTime": { "$lte": "22:00" }
         }
       }
     },
@@ -99,17 +98,17 @@
       "action": "read",
       "subject": "room",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "id": ["room_001", "room_003"]
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "id": { "$in": ["room_001", "room_003"] }
       }
     },
     {
       "action": "control",
       "subject": "scene",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "type": ["lighting"],
-        "roomIds": ["room_001", "room_003"]
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "type": { "$in": ["lighting"] },
+        "roomIds": { "$in": ["room_001", "room_003"] }
       }
     }
   ],
@@ -118,11 +117,11 @@
       "action": ["read", "control"],
       "subject": "device",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "type": ["smart_light", "smart_thermostat", "smart_speaker", "smart_switch"],
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "type": { "$in": ["smart_light", "smart_thermostat", "smart_speaker", "smart_switch"] },
         "timeRestrictions": {
-          "startTime": "06:00",
-          "endTime": "24:00"
+          "startTime": { "$gte": "06:00" },
+          "endTime": { "$lte": "24:00" }
         }
       }
     },
@@ -130,24 +129,24 @@
       "action": "read",
       "subject": "room",
       "conditions": {
-        "homeId": "${user.profile.homeId}"
+        "homeId": { "$eq": "${user.profile.homeId}" }
       }
     },
     {
       "action": "control",
       "subject": "scene",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "type": ["lighting", "entertainment"]
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "type": { "$in": ["lighting", "entertainment"] }
       }
     },
     {
       "action": "read",
       "subject": "sensor_data",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "type": ["motion_sensor"],
-        "roomId": ["room_001", "room_002"]
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "type": { "$in": ["motion_sensor"] },
+        "roomId": { "$in": ["room_001", "room_002"] }
       }
     }
   ],
@@ -156,12 +155,12 @@
       "action": ["read", "control"],
       "subject": "device",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "type": ["smart_light"],
-        "roomId": ["room_002"],
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "type": { "$in": ["smart_light"] },
+        "roomId": { "$in": ["room_002"] },
         "timeRestrictions": {
-          "startTime": "08:00",
-          "endTime": "20:00"
+          "startTime": { "$gte": "08:00" },
+          "endTime": { "$lte": "20:00" }
         }
       }
     },
@@ -169,17 +168,17 @@
       "action": "read",
       "subject": "room",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "id": ["room_002"]
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "id": { "$in": ["room_002"] }
       }
     },
     {
       "action": "control",
       "subject": "scene",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "type": ["lighting"],
-        "roomIds": ["room_002"]
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "type": { "$in": ["lighting"] },
+        "roomIds": { "$in": ["room_002"] }
       }
     }
   ],
@@ -188,12 +187,12 @@
       "action": ["read", "control"],
       "subject": "device",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "type": ["smart_light", "smart_speaker"],
-        "roomId": ["room_001", "room_004"],
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "type": { "$in": ["smart_light", "smart_speaker"] },
+        "roomId": { "$in": ["room_001", "room_004"] },
         "timeRestrictions": {
-          "startTime": "09:00",
-          "endTime": "21:00"
+          "startTime": { "$gte": "09:00" },
+          "endTime": { "$lte": "21:00" }
         }
       }
     },
@@ -201,17 +200,17 @@
       "action": "read",
       "subject": "room",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "id": ["room_001", "room_004"]
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "id": { "$in": ["room_001", "room_004"] }
       }
     },
     {
       "action": "control",
       "subject": "scene",
       "conditions": {
-        "homeId": "${user.profile.homeId}",
-        "type": ["lighting", "entertainment"],
-        "roomIds": ["room_001"]
+        "homeId": { "$eq": "${user.profile.homeId}" },
+        "type": { "$in": ["lighting", "entertainment"] },
+        "roomIds": { "$in": ["room_001"] }
       }
     }
   ],
@@ -220,15 +219,15 @@
       "action": ["read", "control"],
       "subject": "device",
       "conditions": {
-        "type": ["alarm_system", "door_lock", "smart_light"],
-        "emergency": true
+        "type": { "$in": ["alarm_system", "door_lock", "smart_light"] },
+        "emergency": { "$eq": true }
       }
     },
     {
       "action": "control",
       "subject": "scene",
       "conditions": {
-        "type": ["emergency_lighting", "emergency_unlock"]
+        "type": { "$in": ["emergency_lighting", "emergency_unlock"] }
       }
     }
   ]
