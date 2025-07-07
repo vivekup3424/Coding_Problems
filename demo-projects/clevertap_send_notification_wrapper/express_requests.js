@@ -1,0 +1,32 @@
+require("dotenv").config();
+const axios = require("axios");
+
+const eventData = {
+	d: [
+		{
+			type: "event",
+			identity: process.env.CLEVERTAP_ACCOUNT_ID,
+			evtName: "Charged",
+			evtData: {
+				a: "789",
+				b: "6",
+			},
+		},
+	],
+};
+
+const headers = {
+	"X-CleverTap-Account-Id": process.env.CLEVERTAP_ACCOUNT_ID,
+	"X-CleverTap-Passcode": process.env.CLEVERTAP_ACCOUNT_PASSCODE,
+	"Content-Type": "application/json",
+};
+
+axios
+	.post("https://api.clevertap.com/1/upload", eventData, { headers })
+	.then((res) => {
+		console.log("Success:", res.data);
+	})
+	.catch((err) => {
+		console.error("Error:", err.response?.data || err.message);
+	});
+
