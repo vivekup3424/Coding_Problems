@@ -6,10 +6,11 @@ const eventData = {
 		{
 			type: "event",
 			identity: process.env.CLEVERTAP_ACCOUNT_ID,
-			evtName: "Charged",
+			evtName: "Security_Tab_Viewed",
 			evtData: {
-				a: "789",
-				b: "6",
+				"timestamp": "12:46",
+				"screen_name": "some_screen",
+				"tab": "12RET",
 			},
 		},
 	],
