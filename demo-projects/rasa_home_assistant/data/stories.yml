@@ -189,7 +189,7 @@ stories:
       - intent: ask_scenes_in_room
         entities:
           - room: "Work Station"
-      - action: action_list_scenes_in_room
+      - action: action_list_scenes
 
   - story: user explores room capabilities
     steps:
@@ -198,14 +198,14 @@ stories:
       - intent: ask_scenes_in_room
         entities:
           - room: "Testing Room"
-      - action: action_list_scenes_in_room
+      - action: action_list_scenes
 
   - story: user asks about room scenes then executes one
     steps:
       - intent: ask_scenes_in_room
         entities:
           - room: "Conference Room"
-      - action: action_list_scenes_in_room
+      - action: action_list_scenes
       - intent: execute_scene
         entities:
           - scene_name: "bright"
