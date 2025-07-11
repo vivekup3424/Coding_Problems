@@ -22,8 +22,9 @@ class Assistant(Agent):
 async def entrypoint(ctx: agents.JobContext):
     session = AgentSession(
         stt=deepgram.STT(model="nova-3", language="multi"),
-        
-        tts=deepgram.TTS(model="aura-asteria-en"),
+        llm=openai.LLM.with_ollama(model="llama3.1-8b", base_url="http://10.1.4.43:8000/"),
+        tts=cartesia.TTS(model="sonic-2", voice="f786b574-daa5-4673-aa0c-cbe3e8534c02"),
+        vad=silero.VAD.load(),
         turn_detection=MultilingualModel(),
     )
 
