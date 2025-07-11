@@ -1,6 +1,7 @@
 # Original patterns
 *.txt
 node_modules/
+.cache
 
 # JavaScript/Node.js specific
 npm-debug.log*
