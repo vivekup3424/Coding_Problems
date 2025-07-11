@@ -1,0 +1,17 @@
+name: "fluentd-load-testin"
+services:
+  fluentd:
+    image: fluent/fluentd:v1.16-1
+    ports:
+      - "24225:24224"
+      - "24225/udp:24224/udp"
+    volumes:
+      - ./fluentd:/etc/fluentd
+
+  fluentbit:
+    image: fluent/fluent-bit:3.1.4
+    volumes:
+      - ./fluentbit-conf:/fluent-bit/etc/fluent-bit
+    deploy:
+      mode: replicated
+      replicas: 10
