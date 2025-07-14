@@ -7,6 +7,8 @@ services:
       - ./fluentd/fluentd.conf:/fluentd/etc/fluent.conf
     networks:
       - fluentd-network
+    depends_on:
+      - webhook
 
   fluentbit:
     build:
@@ -31,8 +33,31 @@ services:
     command: sh -c "pip install -r requirements.txt && python webhook_server.py"
     networks:
       - fluentd-network
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
+    environment:
+      - discovery.type="single-node"
+      - xpack.security.enabled=false
+      - ELASTICPASSWORD="123456"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - fluentd-network
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.7.1
+    environment:
+    - ELASTICSEARCH_URL=http://elasticsearch:9200
+    - KIBANAPASSWORD="123456"
+    ports:
+      - "5601:5601"
+    networks:
+      - fluentd-network
     depends_on:
-      - fluentd
-      
+      - elasticsearch
 networks:
   fluentd-network:
+
+#STACK_VERSION=8.7.1
