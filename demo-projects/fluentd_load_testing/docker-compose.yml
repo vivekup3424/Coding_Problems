@@ -1,17 +1,38 @@
-name: "fluentd-load-testin"
 services:
   fluentd:
     image: fluent/fluentd:v1.16-1
     ports:
-      - "24225:24224"
-      - "24225/udp:24224/udp"
+      - "24224:24224"
     volumes:
-      - ./fluentd:/etc/fluentd
+      - ./fluentd/fluentd.conf:/fluentd/etc/fluent.conf
+    networks:
+      - fluentd-network
 
   fluentbit:
-    image: fluent/fluent-bit:3.1.4
-    volumes:
-      - ./fluentbit-conf:/fluent-bit/etc/fluent-bit
+    build:
+      context: .
+      dockerfile: fluentbit-custom/Dockerfile
+    # ports:
+    #   - "8080-8089:8080"  # Map ports for monitoring endpoints (health, metrics, stats)
+    depends_on:
+      - fluentd
+    networks:
+      - fluentd-network
     deploy:
-      mode: replicated
       replicas: 10
+
+  webhook:
+    image: python:3.9-slim-bookworm
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./webhook:/app
+    working_dir: /app
+    command: sh -c "pip install -r requirements.txt && python webhook_server.py"
+    networks:
+      - fluentd-network
+    depends_on:
+      - fluentd
+      
+networks:
+  fluentd-network:
