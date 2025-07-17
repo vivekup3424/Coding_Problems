@@ -1,0 +1,59 @@
+{
+  "d": [
+    {
+      "identity": "alpha@yahoo.com",       
+      "type": "profile",
+      "profileData": {
+        "Name": "Alpha",
+        "Email": "alpha@yahoo.com",
+        "Phone": "+14155551234",
+        "GatewayId":"Home1Gateway1",
+        "SiteId":"Home1"
+      }
+    },
+    {
+      "identity": "bravo@yahoo.com",       
+      "type": "profile",
+      "profileData": {
+        "Name": "Bravo",
+        "Email": "bravo@yahoo.com",
+        "Phone": "+916747294867",
+        "GatewayId":"Home1Gateway1",
+        "SiteId":"Home1"
+      }
+    },
+    {
+      "identity": "charlie@yahoo.com",       
+      "type": "profile",
+      "profileData": {
+        "Name": "Charlie",
+        "Email": "charlie@yahoo.com",
+        "Phone": "+919878898990",
+        "GatewayId":"Home1Gateway1",
+        "SiteId":"Home1"
+      }
+    },
+    {
+      "identity": "john@gmail.com",       
+      "type": "profile",
+      "profileData": {
+        "Name": "John Doe",
+        "Email": "john@gmail.com",
+        "Phone": "+17856385678",
+        "GatewayId":"Home2Gateway1",
+        "SiteId":"Home2"
+      }
+    },
+    {
+      "identity": "jane@gmail.com",       
+      "type": "profile",
+      "profileData": {
+        "Name": "Jane Doe",
+        "Email": "jane@gmail.com",
+        "Phone": "+18589453889",
+        "GatewayId":"Home2Gateway1",
+        "SiteId":"Home2"
+      }
+    }
+  ]
+}

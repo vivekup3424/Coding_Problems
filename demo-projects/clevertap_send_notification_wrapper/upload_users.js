@@ -1,21 +1,8 @@
 require("dotenv").config();
+const fs = require("fs")
 const axios = require("axios");
 
-const eventData = {
-	d: [
-		{
-			type: "event",
-			identity: "alpha@yahoo.com",
-			evtName: "Security_Tab_Viewed",
-			evtData: {
-				"timestamp": "12:46",
-				"screen_name": "some_screen",
-				"tab": "12RET",
-			},
-		},
-	],
-};
-
+const value = fs.readFileSync("./new_users_payload.json", "utf-8")
 const headers = {
 	"X-CleverTap-Account-Id": process.env.CLEVERTAP_ACCOUNT_ID,
 	"X-CleverTap-Passcode": process.env.CLEVERTAP_ACCOUNT_PASSCODE,
@@ -23,7 +10,7 @@ const headers = {
 };
 
 axios
-	.post("https://api.clevertap.com/1/upload", eventData, { headers })
+	.post("https://eu1.api.clevertap.com/1/upload", value, { headers })
 	.then((res) => {
 		console.log("Success:", res.data);
 	})
