@@ -1,0 +1,1 @@
+rasa run server --port 5005 --cors "*"
