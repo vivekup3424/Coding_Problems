@@ -1,12 +1,12 @@
 import { MongoClient } from "mongodb";
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017";
 
-class MongoClientAdapter {
+export class MongoClientAdapter {
     client: MongoClient;
     constructor() {
         this.client = new MongoClient(MONGO_URI)
     }
-    start() {
+    async init() {
         return this.client.connect().then(() => {
             console.log("MongoDB connected successfully");
         }).catch((error) => {
@@ -15,5 +15,3 @@ class MongoClientAdapter {
         });
     }
 }
-
-export const mongoClientAdapter = new MongoClientAdapter();

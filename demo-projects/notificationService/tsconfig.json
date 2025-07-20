@@ -30,7 +30,7 @@
       "@domain/*": ["domain/*"],
       "@infrastructure/*": ["infrastructure/*"], 
       "@application/*": ["application/*"],
-      "@di/":["di/*"],
+      "@di/*":["di/*"],
     }
   }
 }

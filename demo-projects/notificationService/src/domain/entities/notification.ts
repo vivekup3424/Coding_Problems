@@ -21,17 +21,40 @@ interface NotificationContent {
     body: string;
     [key: string]: any; // Allow extension for channel-specific fields
 }
-
-interface Notification {
-    id: string;
+interface NotificationInboxInfo{
+    inboxId: string;
     status: NotificationStatus;
+}
+class Notification {
+    _id: string;
+    notificationId: string;
+    inboxes: NotificationInboxInfo[];
     createdAt: Date;
     expiresAt?: Date;
     deliveredAt?: Date;
     readAt?: Date;
     userIdentifier: string; // Unique identifier for the user (for clevertap purpose)
     event?: EVENT;
-    content: NotificationContent;
+    type: NotificationType;
+    deliveryStatus: NotificationStatus;
+    content: EmailContent | WhatsAppContent | SMSContent | PushContent; // Channel-specific content
+    constructor(
+        notificationId: string,
+        userIdentifier: string,
+        type: NotificationType,
+        content: EmailContent | WhatsAppContent | SMSContent | PushContent){
+            this._id = notificationId; // Assuming notificationId is unique
+            this.notificationId = notificationId;
+            this.inboxes = [];
+            this.createdAt = new Date();
+            this.userIdentifier = userIdentifier;
+            this.type = type;
+            this.deliveryStatus = NotificationStatus.PENDING;
+            this.content = content;
+            this.expiresAt = undefined; // Optional, can be set later
+            this.deliveredAt = undefined; // Optional, can be set later
+            this.readAt = undefined; // Optional, can be set later
+        }
 }
 
 
@@ -94,11 +117,13 @@ export type {
     SMSNotification,
     PushNotification,
     NotificationType,
-    NotificationStatus,
-    EVENT,
     NotificationContent,
     EmailContent,
     WhatsAppContent,
     SMSContent,
     PushContent
+}
+export {
+    NotificationStatus,
+    EVENT
 }

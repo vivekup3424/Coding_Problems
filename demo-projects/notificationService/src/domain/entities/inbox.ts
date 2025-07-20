@@ -1,13 +1,22 @@
-interface Inbox {
+// Entity: Inbox
+export class Inbox {
     id: string;
-    notiticationCleanupInterval: number; // in days
-    addNotification(message: string): void;
-    getNotifications(offset: number, batchSize: number): string[];
-    clearNotifications(): void;
-    markNotificationAsRead(messageId: string): void;
-    archiveNotification(messageId: string): void;
-}
+    notificationCleanupInterval: number; // in days
+    userId: string;
+    constructor(id: string, userId: string, notificationCleanupInterval: number) {
+        this.id = id;
+        this.userId = userId;
+        this.notificationCleanupInterval = notificationCleanupInterval;
+    }
 
-export type {
-    Inbox
+    getId(): string {
+        return this.id;
+    }
+
+    getNotificationCleanupInterval(): number {
+        return this.notificationCleanupInterval;
+    }
+    getUserId(): string{
+        return this.userId;
+    }
 }

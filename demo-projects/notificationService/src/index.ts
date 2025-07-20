@@ -1,3 +1,3 @@
 import { config } from "dotenv";
-config();
-console.log(process.env.MONGO_URI);
+import { diContainer } from "./di/index";
+diContainer.cradle.logger.info("Starting Notification Service...")

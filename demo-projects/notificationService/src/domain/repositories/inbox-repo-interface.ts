@@ -2,13 +2,15 @@ import type { Inbox } from "@domain/entities/inbox";
 
 export interface InboxOperationResult {
     success: boolean;
-    error ?: string;
-    data ?: string;
+    error?: string;
+    data?: string;
 }
-export interface InboxRepositoryInterface {
+
+export interface IInboxRepository {
     getInboxById(inboxId: string): Promise<Inbox | null>;
+    getInboxesByUserId(userId: string): Promise<Inbox[]>;
     createInbox(inbox: Inbox): Promise<Inbox>;
-    AddNotificationToInbox(inboxId: string, notificationId: string): Promise<InboxOperationResult>;
-    MarkNotificationAsRead(inboxId: string, notificationId: string): Promise<InboxOperationResult>;
+    updateInbox(inboxId: string, update: Partial<Inbox>): Promise<Inbox | null>;
+    deleteInbox(inboxId: string): Promise<boolean>;
     clearInbox(inboxId: string): Promise<InboxOperationResult>;
 }
