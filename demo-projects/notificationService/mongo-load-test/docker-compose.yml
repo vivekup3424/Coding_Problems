@@ -1,0 +1,8 @@
+services:
+  mongodb:
+    image: mongo:6
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    cpus: 0.1
+    mem_limit: 60M

@@ -1,22 +1,33 @@
+import { NotificationStatus } from "./notification";
+
 // Entity: Inbox
-export class Inbox {
-    id: string;
-    notificationCleanupInterval: number; // in days
+export class Inbox{
+    inboxId: string;
+    notificationId: string;
     userId: string;
-    constructor(id: string, userId: string, notificationCleanupInterval: number) {
-        this.id = id;
+    status: NotificationStatus;
+    createdAt: Date;
+    readAt?: Date;
+    expiresAt: Date;
+    constructor(inboxId: string, userId: string, notificationId: string, status: NotificationStatus, createdAt: Date, readAt: Date | undefined, expiresAt: Date) {
+        this.inboxId = inboxId;
         this.userId = userId;
-        this.notificationCleanupInterval = notificationCleanupInterval;
+        this.notificationId = notificationId;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.readAt = readAt;
+        this.expiresAt = expiresAt;
     }
 
     getId(): string {
-        return this.id;
+        return this.inboxId;
     }
 
-    getNotificationCleanupInterval(): number {
-        return this.notificationCleanupInterval;
+    getNotificationId(): string {
+        return this.notificationId;
     }
-    getUserId(): string{
+
+    getUserId(): string {
         return this.userId;
     }
 }

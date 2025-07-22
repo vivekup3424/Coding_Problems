@@ -25,32 +25,19 @@ interface NotificationInboxInfo{
     inboxId: string;
     status: NotificationStatus;
 }
-class Notification {
+interface Notification {
     _id: string;
     notificationId: string;
-    userId: string; // Unique identifier for the user (for clevertap purpose)
+    inboxes: NotificationInboxInfo[];
     createdAt: Date;
     expiresAt?: Date;
     deliveredAt?: Date;
+    readAt?: Date;
+    userIdentifier: string; // Unique identifier for the user (for clevertap purpose)
     event?: EVENT;
     type: NotificationType;
     deliveryStatus: NotificationStatus;
     content: EmailContent | WhatsAppContent | SMSContent | PushContent; // Channel-specific content
-    constructor(
-        notificationId: string,
-        userIdentifier: string,
-        type: NotificationType,
-        content: EmailContent | WhatsAppContent | SMSContent | PushContent){
-            this._id = notificationId; // Assuming notificationId is unique
-            this.notificationId = notificationId;
-            this.createdAt = new Date();
-            this.userId = userIdentifier;
-            this.type = type;
-            this.deliveryStatus = NotificationStatus.PENDING;
-            this.content = content;
-            this.expiresAt = undefined; // Optional, can be set later
-            this.deliveredAt = undefined; // Optional, can be set later
-        }
 }
 
 

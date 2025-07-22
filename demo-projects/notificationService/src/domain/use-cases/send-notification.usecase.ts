@@ -9,10 +9,12 @@ export namespace ISendNotificationUsecase{
 }
 export class SendNotificationUsecase{
     private logger: Logger;
+    private NotificationRepository: INotificationRepository;
+    private 
     constructor(logger: Logger){
         this.logger = logger;
     }
-    execute(notification: Notification): Promise<ISendNotificationUsecase.Response> {
+    execute(notification: Notification, saveToInboxId: string): Promise<ISendNotificationUsecase.Response> {
         this.logger.info(JSON.stringify(notification));
         return Promise.resolve({
             success: true,

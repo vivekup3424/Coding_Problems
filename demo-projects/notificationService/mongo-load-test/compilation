@@ -1,0 +1,5 @@
+🏁 Load test completed. Latency summary:
+- notificationCreated: avg 8.57 ms | p95 32.82 ms | count 18844
+- inboxAdded        : avg 6.24 ms | p95 12.81 ms | count 18844
+- expiredCleaned    : avg 7.57 ms | p95 15.58 ms | count 1991
+- unreadFetched     : avg 12.32 ms | p95 21.13 ms | count 3796
