@@ -12,5 +12,6 @@ class Solution {
                 dfs(rooms, visited, key);
             }
         }
+        return;
     }
 }
