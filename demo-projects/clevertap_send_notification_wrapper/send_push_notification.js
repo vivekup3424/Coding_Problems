@@ -4,7 +4,9 @@ const axios = require("axios");
 const endpoint = "https://api.clevertap.com/1/send/push.json";
 const payload = {
   to: {
-    Identity: ["+916260863371"]
+    Identity: ["+919740303762"]
+    // Identity: ["+919553014924"]
+    // Identity: ["+918247781785"]
   },
   content: {
     title: "Hello!",

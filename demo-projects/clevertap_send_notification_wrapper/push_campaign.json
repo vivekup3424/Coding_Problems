@@ -1,0 +1,39 @@
+{
+    "name": "My API Campaign",
+    "estimate_only": true,
+    "target_mode": "push",
+    "where": {
+        "event_name": "Charged",
+        "from": 20250707,
+        "to": 20350303
+    },
+    "respect_frequency_caps": false,
+    "ttl": {
+        "ttl_type": "absolute",
+        "value": 202207200000
+    },
+    "content": {
+        "title": "Hi!",
+        "body": "How are you doing today?",
+        "platform_specific": {
+            "android": {
+                "enable_rendermax": true,
+                "wzrk_cid": "Marketing",
+                "background_image": "https://static.vecteezy.com/system/resources/thumbnails/001/971/264/small_2x/beautiful-cherry-blossom-with-bokeh-lights-background-concept-free-vector.jpg",
+                "default_sound": true,
+                "deep_link": "example.com",
+                "large_icon": "http://example.png",
+                "Key": "Value_android"
+            }
+        }
+    },
+    "devices": [
+        "android"
+    ],
+    "users_limit_overall": 101,
+    "when": {
+        "type": "now",
+        "delivery_timezone": "user",
+        "user_timezone_wrap_around": true
+    }
+}

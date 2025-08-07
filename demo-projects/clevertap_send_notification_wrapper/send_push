@@ -1,0 +1,15 @@
+curl -X POST https://api.clevertap.com/1/send/push.json \
+  -H "X-CleverTap-Account-Id: 449-R46-R57Z" \
+  -H "X-CleverTap-Passcode: AAS-IAY-MPEL" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": {
+      "Identity": ["+919740303762"]
+    },
+    "content": {
+      "title": "Hello!",
+      "body": "This is a push notification.",
+      "locale": "en",
+      "button": {}
+    }
+  }'
