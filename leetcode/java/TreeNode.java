@@ -10,14 +10,3 @@ public class TreeNode {
         this.right = right;
     }
 }
-class Solution {
-    public int maxDepth(TreeNode root) {
-        var maxdepth = 0;
-        depthFirstSearch(root, 0, maxdepth);
-        return maxdepth;
-        int ma
-    }
-    public void depthFirstSearch(TreeNode root,int currentDepth, int maxDepth){
-        return 0;
-    }
-}
