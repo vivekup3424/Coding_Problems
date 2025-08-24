@@ -1,7 +1,7 @@
 public class NextPermutation {
     public void nextPermutation(int[] nums) {
         int pivot_idx = -1;
-        for(int i = nums.length-1; i > 0; i++){
+        for(int i = nums.length-1; i > 0; i--){
             if(nums[i-1]<nums[i]){
                 pivot_idx = i;
                 break;
@@ -16,9 +16,14 @@ public class NextPermutation {
             l++;
             r--;
         }
-        if(pivot_idx!=-1){
+        if(pivot_idx-1!=-1){
             for(int i = pivot_idx; i < nums.length; i++){
-                if(nums[i]>nums[pivot_idx-1])
+                if(nums[i]>nums[pivot_idx-1]){
+                    int temp = nums[i];
+                    nums[i] = nums[pivot_idx-1];
+                    nums[pivot_idx-1] = temp;
+                    break;
+                }
             }
         }
         return ;
