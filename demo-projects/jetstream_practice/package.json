@@ -1,0 +1,24 @@
+{
+  "name": "jetstream_practice",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "watch": "tsx watch src/index.ts",
+    "clean": "rm -rf dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["nats", "jetstream", "typescript"],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "tsx": "^4.20.5"
+  },
+  "dependencies": {
+    "@types/node": "^24.3.0"
+  }
+}
