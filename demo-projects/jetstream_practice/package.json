@@ -10,15 +10,24 @@
     "clean": "rm -rf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["nats", "jetstream", "typescript"],
+  "keywords": [
+    "nats",
+    "jetstream",
+    "typescript"
+  ],
+  "type": "module",
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "typescript": "^5.9.2",
-    "tsx": "^4.20.5"
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
   },
   "dependencies": {
-    "@types/node": "^24.3.0"
+    "@nats-io/nats-core": "^3.1.0",
+    "@nats-io/transport-node": "^3.1.0",
+    "@types/node": "^24.3.0",
+    "pino": "^9.9.0",
+    "pino-pretty": "^13.1.1"
   }
 }
