@@ -1,0 +1,23 @@
+{
+  "name": "websocket-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@types/ws": "^8.18.1",
+    "tsc": "^2.0.4",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}
