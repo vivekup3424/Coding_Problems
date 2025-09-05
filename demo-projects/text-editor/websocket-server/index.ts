@@ -7,12 +7,11 @@ wss.on("connection", (ws) => {
 
   ws.on("message", (message) => {
     try {
-      const msgObj = message;
-      console.log(message);
-      // console.log(`Received from ${msgObj.user}: ${msgObj.text}`);
+      const messageObject = JSON.parse(message.toString());
+      console.log(messageObject);
       wss.clients.forEach(client => {
         if (client != ws && client.readyState === WebSocket.OPEN) {
-          client.send(JSON.stringify(msgObj));
+          client.send(JSON.stringify(messageObject));
         }
       });
     } catch (err) {
