@@ -11,6 +11,6 @@ class Solution{
             }
             maxProfit = max(maxProfit,currentProfit);
         }
-        return currentProfit;
+        return maxProfit;
     }
 };
