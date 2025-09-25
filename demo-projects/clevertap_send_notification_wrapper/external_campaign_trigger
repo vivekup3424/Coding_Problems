@@ -1,0 +1,15 @@
+curl --location 'https://eu1.api.clevertap.com/1/send/externaltrigger.json' \
+--header 'X-CleverTap-Account-Id: 449-R46-R57Z' \
+--header 'X-CleverTap-Passcode: AAS-IAY-MPEL' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "to": {
+        "Identity":["+918247781785"]
+    },
+    "campaign_id": "1695721550",
+    "ExternalTrigger": {
+        "properties":{
+            "order_id" : 1234
+        }
+    }
+}'
