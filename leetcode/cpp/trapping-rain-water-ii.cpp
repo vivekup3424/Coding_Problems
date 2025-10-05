@@ -10,13 +10,13 @@ typedef struct node{
 }Node;
 
 class Solution {
-    public:
+public:
     int trapRainWater(vector<vector<int>> &heightMap){
         int rows = heightMap.size();
         int cols = heightMap[0].size();
         if(rows < 3 || cols < 3) return 0;
         vector<vector<bool>> visited(rows, vector<bool>(cols, false));
-        priority_queue<Node, vector<Node>, greater<Node>> minHeap;
+        priority_queue<Node> minHeap;
         int totalWater = 0;
         for(int i = 0; i < rows; i++){
             minHeap.push(Node(i, 0, heightMap[i][0]));
@@ -35,22 +35,27 @@ class Solution {
         while(!minHeap.empty()){
             auto node = minHeap.top();
             minHeap.pop();
-            for(int i = 0; i < 4; i++){
-                auto neighborX = node.x + dirX[i];
-                auto neighboxY = node.y + dirY[i];
-                if(0 < neighborX && neighborX < rows &&
-                    0 < neighboxY && neighboxY < cols && 
-                    !visited[neighborX][neighboxY]){
-                        auto neighborHeight = heightMap[neighborX][neighboxY];
-                        if(neighborHeight < node.h){
-                            totalWater += (node.h - neighborHeight);
-                        }
-                        auto newHeight = max(node.h, neighborHeight);
-                        visited[neighborX][neighboxY] = true;
-                        minHeap.push({neighborX,neighboxY,neighborHeight});
+
+            for (int i = 0; i < 4; i++) {
+                int neighborX = node.x + dirX[i];
+                int neighborY = node.y + dirY[i];
+
+                if (0 <= neighborX  && neighborX < rows &&
+                    0 <= neighborY && neighborY < cols &&
+                    !visited[neighborX][neighborY]) {
+
+                    int neighborHeight = heightMap[neighborX][neighborY];
+                    if (neighborHeight < node.h) {
+                        totalWater += (node.h - neighborHeight);
                     }
+
+                    int newHeight = max(node.h, neighborHeight);
+                    visited[neighborX][neighborY] = true;
+                    minHeap.push(Node(neighborX, neighborY, newHeight));
+                }
             }
         }
+
         return totalWater;
     }
 };
