@@ -9,7 +9,7 @@ struct node{
 };
 class comparator{
 public:
-    bool ()(pair<int,node*> &a, pair<int,node*> &b){
+    bool operator()(pair<int,node*> &a, pair<int,node*> &b){
         return a->first > b->first;
     }
 };
