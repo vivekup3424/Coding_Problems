@@ -44,7 +44,7 @@ int main()
         ll n,k;
         cin>>n>>k;
         string s;
-        s;
+        cin>>s;
         map<char,int> freq;
         for(char c: s){
             freq[c]++;
@@ -52,18 +52,8 @@ int main()
         //count the number of characters with odd frequencies
         ll odd_count = 0;
         for(auto it: freq){
-            if(it.second & 1 and (odd_count==0))odd_count = 1;
-            else if(it.second&1 and k > 0){
-                it.second -= 1;
-                k--;
-            }
-            else{
-                return false
-            }
+            if(it.second & 1)odd_count++;
         }
-
-        //decreasing the odd_count till it is one
-        while(odd_count > 1 ){
-        }
+        cout<<(odd_count<=k+1 ? "YES" : "NO")<<endl;
     }
 }
