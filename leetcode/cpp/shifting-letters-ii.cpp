@@ -24,7 +24,7 @@ public:
         {
             int val = s[j] - 'a';
             totalShift[j] = (totalShift[j] + 26) % 26; // normalize the neg vals
-            s[j] = s[j]+totalShift[j];
+            s[j] = (((s[j] - 'a') + totalShift[j] + 26 ) % 26) + 'a';
         }
         return s;
     }
