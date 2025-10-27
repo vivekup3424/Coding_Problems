@@ -9,7 +9,9 @@ from livekit.plugins import (
     noise_cancellation,
     silero,
 )
-from livekit.plugins.turn_detector.multilingual import MultilingualModel
+# Uncomment the line below if you want to enable turn detection later
+# from livekit.plugins.turn_detector.multilingual import MultilingualModel
+
 load_dotenv()
 
 class Assistant(Agent):
@@ -17,12 +19,15 @@ class Assistant(Agent):
         super().__init__(instructions="You are a helpful voice AI assistant.")
 
 async def entrypoint(ctx: agents.JobContext):
+    # Configuration without turn detection (avoids ML framework dependencies)
     session = AgentSession(
         stt=deepgram.STT(model="nova-3", language="multi"),
         llm=openai.LLM.with_ollama(model="llama3.1-8b", base_url="http://localhost:8881/"), 
         tts=cartesia.TTS(model="sonic-2", voice="f786b574-daa5-4673-aa0c-cbe3e8534c02"),
         vad=silero.VAD.load(),
-        turn_detection=MultilingualModel(),
+        # Turn detection is disabled - the agent will rely on VAD (Voice Activity Detection) only
+        # To enable turn detection, uncomment the line below and install PyTorch/TensorFlow:
+        # turn_detection=MultilingualModel(),
     )
     
     await session.start(
