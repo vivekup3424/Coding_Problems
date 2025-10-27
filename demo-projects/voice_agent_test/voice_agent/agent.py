@@ -9,8 +9,6 @@ from livekit.plugins import (
     noise_cancellation,
     silero,
 )
-# Uncomment the line below if you want to enable turn detection later
-# from livekit.plugins.turn_detector.multilingual import MultilingualModel
 
 load_dotenv()
 
@@ -25,9 +23,6 @@ async def entrypoint(ctx: agents.JobContext):
         llm=openai.LLM.with_ollama(model="llama3.1-8b", base_url="http://localhost:8881/"), 
         tts=cartesia.TTS(model="sonic-2", voice="f786b574-daa5-4673-aa0c-cbe3e8534c02"),
         vad=silero.VAD.load(),
-        # Turn detection is disabled - the agent will rely on VAD (Voice Activity Detection) only
-        # To enable turn detection, uncomment the line below and install PyTorch/TensorFlow:
-        # turn_detection=MultilingualModel(),
     )
     
     await session.start(
