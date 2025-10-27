@@ -7,4 +7,4 @@ token = api.AccessToken() \
     .with_grants(api.VideoGrants(
         room_join=True,
         room="my-room"
-    ))
+    )).to_jwt()
