@@ -62,8 +62,18 @@ python --version
 # Return to original directory
 cd "$CURRENT_DIR"
 
-echo "Setup completed!"
 echo "Python 3.9.10 is configured for: $CURRENT_DIR/rasa_home_assistant"
 echo "Python 3.11.2 is configured for: $CURRENT_DIR/voice_agent"
-echo ""
-echo "To verify, navigate to each directory and run 'python --version'"
+
+echo "Starting RASA Home Assistant setup..."
+cd "$CURRENT_DIR/rasa_home_assistant"
+pip install -r requirements.txt
+python -m spacy download en_core_web_sm
+echo "RASA Home Assistant setup completed."
+
+echo "Starting Voice Agent setup..."
+cd "$CURRENT_DIR/voice_agent"
+pip install -r requirements.txt
+python agent.py download_files
+
+echo "Voice Agent setup completed."
