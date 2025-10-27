@@ -1,4 +1,4 @@
-from typing import Text
+from typing import Text, Optional
 import nats
 import json
 from rasa_sdk import Action, Tracker
@@ -20,7 +20,7 @@ class ActionExecuteScene(Action):
         return "action_execute_scene"
 
     # before calling this action, ensure that this room_name actually exists
-    def find_scene(self, scene_name: str, room_name: str) -> Scene | None:
+    def find_scene(self, scene_name: str, room_name: str) -> Optional[Scene]:
         """Find a scene by name, optionally filtered by room. Returns exact match or None."""
         scenes = load_scenes_data()
         scene_matches = [
