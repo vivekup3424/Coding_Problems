@@ -1,0 +1,159 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - thank
+  - ask_help
+  - execute_scene
+  - ask_scenes
+  - ask_rooms
+  - ask_scenes_in_room
+  - good_night
+  - good_morning
+  - want_relax
+  - leaving_home
+  - coming_home
+  - going_to_bed
+  - movie_time
+  - work_mode
+  - turn_off_everything
+
+entities:
+  - scene_id
+  - room
+  - scene_name
+
+slots:
+  scene_id:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: scene_id
+  room:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: room
+  scene_name:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: scene_name
+  requested_room:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: room
+  requested_scene:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: scene_name
+
+responses:
+  utter_greet:
+    - text: "Hello! I'm your smart home assistant. How can I help you today? 🏠"
+    - text: "Hi there! I can help you control your home. What would you like to do? 💡"
+    - text: "Hey! Ready to make your home more comfortable? What can I do for you? ✨"
+
+  utter_goodbye:
+    - text: "Goodbye! Have a wonderful day! 😊"
+    - text: "See you later! Let me know if you need anything! ✨"
+    - text: "Bye! Your home is in good hands! 🏠"
+
+  utter_thank_you:
+    - text: "You're very welcome! Happy to help! 😊"
+    - text: "Anytime! That's what I'm here for! 🤖"
+    - text: "My pleasure! Let me know if you need anything else!"
+
+  utter_help:
+    - text: |
+        I'm your smart home assistant! Here's what I can do:
+
+        🏠 **Quick Commands:**
+        • "Good morning" / "Good night" 
+        • "I'm leaving" / "I'm home"
+        • "Movie time" / "Work mode"
+        • "Turn everything off"
+
+        💡 **Scene Control:**
+        • "Turn on living room lights"
+        • "Set relax mode in bedroom"
+        • "Execute scene 123 in kitchen"
+
+        📋 **Information:**
+        • "Show me all scenes"
+        • "What rooms can I control?"
+
+        Just tell me what you want naturally - I'll ask if I need more details!
+
+  utter_ask_which_room:
+    - text: "Which room would you like me to control? 🏠"
+    - text: "In which room should I do that? I can control multiple rooms."
+    - text: "What room are we talking about? Say 'all rooms' if you want everywhere."
+
+  utter_ask_which_scene:
+    - text: "What scene would you like me to set? You can say things like 'bright', 'relax', or 'night mode'."
+    - text: "Which scene should I activate? I have options like bright, relax, night, and all off."
+    - text: "What lighting mood are you looking for? Try 'bright', 'dim', 'relax', or tell me the scene name."
+
+  utter_ask_scene_details:
+    - text: "I need a bit more information. Which scene and which room? 🤔"
+    - text: "Could you be more specific? What scene would you like and in which room?"
+    - text: "I want to help! Can you tell me the scene name and room?"
+
+  utter_scene_executed:
+    - text: "✅ Done! Your scene is now active."
+    - text: "✅ Perfect! The scene has been set."
+    - text: "✅ All set! Your lighting is now configured."
+
+  utter_scene_error:
+    - text: "❌ Sorry, I couldn't execute that scene. Please try again or ask for help."
+    - text: "❌ Something went wrong. Could you try rephrasing your request?"
+    - text: "❌ I'm having trouble with that. Can you check the scene name and room?"
+
+  utter_clarify_room:
+    - text: "I found that scene in multiple rooms: {rooms}. Which room did you mean?"
+    - text: "That scene is available in: {rooms}. Please specify which room."
+    - text: "I see that scene in {rooms}. Which one would you like?"
+
+  utter_scene_not_found:
+    - text: "I couldn't find that scene. Would you like to see all available scenes?"
+    - text: "That scene doesn't exist. Say 'show scenes' to see what's available."
+    - text: "I don't recognize that scene name. Try 'list scenes' to see your options."
+
+  utter_default:
+    - text: "I'm not sure I understand. Could you try rephrasing? Or say 'help' for examples! 🤔"
+    - text: "Hmm, I didn't catch that. Try saying something like 'turn on living room lights' or ask for help!"
+    - text: "I'm a bit confused. Can you try a different way? Or ask me what I can do!"
+
+actions:
+  - utter_greet
+  - utter_thank_you
+  - utter_goodbye
+  - utter_help
+  - utter_ask_which_room
+  - utter_ask_which_scene
+  - utter_ask_scene_details
+  - utter_scene_executed
+  - utter_scene_error
+  - utter_clarify_room
+  - utter_scene_not_found
+  - utter_default
+  - action_execute_scene
+  - action_list_scenes
+  - action_list_rooms
+  - action_contextual_scene
+  - action_ask_clarification
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
