@@ -37,10 +37,10 @@ libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-d
 
 # Install Python versions
 echo "Installing Python 3.9..."
-pyenv install 3.9.19
+pyenv install 3.9.10
 
 echo "Installing Python 3.11..."
-pyenv install 3.11.9
+pyenv install 3.11.2
 
 # Get the current directory
 CURRENT_DIR=$(pwd)
@@ -48,22 +48,22 @@ CURRENT_DIR=$(pwd)
 # Setup Python 3.9 for rasa_home_assistant
 echo "Setting up Python 3.9 for rasa_home_assistant directory..."
 cd "$CURRENT_DIR/rasa_home_assistant"
-pyenv local 3.9.19
-echo "Python 3.9.19 set for rasa_home_assistant directory"
+pyenv local 3.9.10
+echo "Python 3.9.10 set for rasa_home_assistant directory"
 python --version
 
 # Setup Python 3.11 for voice_agent
 echo "Setting up Python 3.11 for voice_agent directory..."
 cd "$CURRENT_DIR/voice_agent"
-pyenv local 3.11.9
-echo "Python 3.11.9 set for voice_agent directory"
+pyenv local 3.11.2
+echo "Python 3.11.2 set for voice_agent directory"
 python --version
 
 # Return to original directory
 cd "$CURRENT_DIR"
 
 echo "Setup completed!"
-echo "Python 3.9.19 is configured for: $CURRENT_DIR/rasa_home_assistant"
-echo "Python 3.11.9 is configured for: $CURRENT_DIR/voice_agent"
+echo "Python 3.9.10 is configured for: $CURRENT_DIR/rasa_home_assistant"
+echo "Python 3.11.2 is configured for: $CURRENT_DIR/voice_agent"
 echo ""
 echo "To verify, navigate to each directory and run 'python --version'"
