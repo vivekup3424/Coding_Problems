@@ -27,3 +27,15 @@ Get help and discover capabilities:
 - **Hello** / **Hi** / **Hey** - Greet the bot
 - **Thank you** / **Thanks** - Express gratitude
 - **Goodbye** / **Bye** - End the conversation
+
+
+## Instructions for how to set up the voice-agent
+1. **Run the setup script**: Downloads all the necessary python versions and subsequent dependencies in requirements.txt.
+2. **Configure Rasa**: Move into rasa_home_assistant directory
+    - Train the model, if no model is present in models subdirectory, using `rasa train`
+    - Start the Rasa server using `rasa run --enable-api --cors "*" --port 5005`
+    - Start the action server using `rasa run actions` in a separate terminal.
+    - Start the middleware server using `python openai_wrapper.py` in another terminal.
+3. **Configure the livekit voice agent**: Move into voice_agent directory
+    - Start the agent using `python agent.py dev` script
+4. Open the livekit playground in `https://agents-playground.livekit.io/`

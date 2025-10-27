@@ -68,7 +68,7 @@ echo "Python 3.11.2 is configured for: $CURRENT_DIR/voice_agent"
 echo "Starting RASA Home Assistant setup..."
 cd "$CURRENT_DIR/rasa_home_assistant"
 pip install -r requirements.txt
-python -m spacy download en_core_web_sm
+python -m spacy download en_core_web_md
 echo "RASA Home Assistant setup completed."
 
 echo "Starting Voice Agent setup..."
