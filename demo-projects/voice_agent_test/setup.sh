@@ -8,9 +8,9 @@ fi
 
 SHELL_NAME=$(basename "$SHELL")
 echo "Detected shell: $SHELL_NAME"
-if [ "$SHELL_NAME" == "zsh" ]; then
+if [ "$SHELL_NAME" = "zsh" ]; then
     SHELL_CONFIG="$HOME/.zshrc"
-elif [ "$SHELL_NAME" == "bash" ]; then
+elif [ "$SHELL_NAME" = "bash" ]; then
     SHELL_CONFIG="$HOME/.bashrc"
 else
     echo "Unsupported shell: $SHELL_NAME"
@@ -28,3 +28,42 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - $SHELL_NAME)"
 
+# Install python build dependencies
+echo "Installing Python build dependencies..."
+sudo apt update
+sudo apt install -y make build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev curl git \
+libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+
+# Install Python versions
+echo "Installing Python 3.9..."
+pyenv install 3.9.19
+
+echo "Installing Python 3.11..."
+pyenv install 3.11.9
+
+# Get the current directory
+CURRENT_DIR=$(pwd)
+
+# Setup Python 3.9 for rasa_home_assistant
+echo "Setting up Python 3.9 for rasa_home_assistant directory..."
+cd "$CURRENT_DIR/rasa_home_assistant"
+pyenv local 3.9.19
+echo "Python 3.9.19 set for rasa_home_assistant directory"
+python --version
+
+# Setup Python 3.11 for voice_agent
+echo "Setting up Python 3.11 for voice_agent directory..."
+cd "$CURRENT_DIR/voice_agent"
+pyenv local 3.11.9
+echo "Python 3.11.9 set for voice_agent directory"
+python --version
+
+# Return to original directory
+cd "$CURRENT_DIR"
+
+echo "Setup completed!"
+echo "Python 3.9.19 is configured for: $CURRENT_DIR/rasa_home_assistant"
+echo "Python 3.11.9 is configured for: $CURRENT_DIR/voice_agent"
+echo ""
+echo "To verify, navigate to each directory and run 'python --version'"
