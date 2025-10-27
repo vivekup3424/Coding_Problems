@@ -1,0 +1,33 @@
+[Unit]
+Description=Raspberry Pi Voice Assistant
+After=network-online.target sound.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/voice_agent_test/raspberry_pi
+Environment="PATH=/home/pi/voice_agent_test/raspberry_pi/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+# Load environment variables from .env file
+EnvironmentFile=/home/pi/voice_agent_test/raspberry_pi/.env
+
+# Start the voice assistant
+ExecStart=/home/pi/voice_agent_test/raspberry_pi/venv/bin/python /home/pi/voice_agent_test/raspberry_pi/voice_assistant_client.py
+
+# Restart on failure
+Restart=on-failure
+RestartSec=10
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=voice-assistant
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

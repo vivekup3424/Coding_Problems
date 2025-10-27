@@ -1,0 +1,27 @@
+# Python virtual environment
+venv/
+env/
+*.pyc
+__pycache__/
+
+# Environment files
+.env
+
+# Audio test files
+*.wav
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# openWakeWord cache
+.openwakeword/
