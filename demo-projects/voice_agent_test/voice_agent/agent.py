@@ -11,7 +11,7 @@ from livekit.plugins import (
 )
 import os
 import signal
-import time
+from datetime import datetime, timedelta
 import asyncio
 
 load_dotenv()
@@ -27,28 +27,34 @@ INACTIVITY_TIMEOUT = 10 #10 seconds
 class Assistant(Agent):
     def __init__(self) -> None:
         super().__init__(instructions="You are a helpful voice AI assistant.")
-        self.last_activity_time = None
 
 async def entrypoint(ctx: agents.JobContext):
-    # Configuration without turn detection (avoids ML framework dependencies)
+    last_activity = datetime.now()
+    inactivity_task = None
+
+    async def monitor_inactivity():
+        nonlocal last_activity
+        while True:
+            await asyncio.sleep(1)
+            print("Checking for inactivity...")
+            elapsed = (datetime.now() - last_activity).total_seconds()
+            if elapsed > INACTIVITY_TIMEOUT:
+                print("Inactivity timeout reached. Shutting down the session.")
+                os.kill(os.getpid(), signal.SIGINT)
     session = AgentSession(
         stt=deepgram.STT(model="nova-3", language="multi"),
         llm=openai.LLM.with_ollama(model="llama3.1-8b", base_url="http://localhost:8881/"), 
         tts=cartesia.TTS(model="sonic-2", voice="f786b574-daa5-4673-aa0c-cbe3e8534c02"),
         vad=silero.VAD.load(),
     )
-    async def monitor_inactivity():
-        while True:
-            await asyncio.sleep(1)
-            
-    
+
     @session.on("conversation_item_added")
     def on_conversation_item_added(event: ConversationItemAddedEvent):
+        nonlocal last_activity
+        last_activity = datetime.now()
         print(f"New conversation item added: {event.item.content}")
-        last_activity_time = time.time()
         for content_item in event.item.content:
             for phrase in GOODBYE_PHRASES:
-                # Strip whitespace and compare (case-insensitive)
                 if phrase.strip().lower() in content_item.strip().lower():
                     print(f"Goodbye phrase detected: '{phrase}'. Shutting down the session.")
                     os.kill(os.getpid(), signal.SIGINT)
@@ -61,7 +67,7 @@ async def entrypoint(ctx: agents.JobContext):
             noise_cancellation=noise_cancellation.BVC(),
         ),
     )
-    
+    inactivity_task = asyncio.create_task(monitor_inactivity()) 
     await ctx.connect()
     await session.generate_reply(
         instructions="Greet the user and offer your assistance."
