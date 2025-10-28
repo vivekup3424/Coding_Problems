@@ -35,7 +35,15 @@ source .venv/bin/activate  # or activate your venv
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Download wake word models
+python download_models.py
 ```
+
+The model download script will:
+- Detect your OpenWakeWord installation
+- Show available models (hey_mycroft, alexa, hey_jarvis)
+- Download your selected models to the correct location
 
 ### Environment Variables
 

@@ -50,14 +50,20 @@ class WakeWordDetector:
         try:
             self.model = Model(
                 wakeword_models=[WAKE_WORD],
-                inference_framework="onnx"
+                inference_framework="tflite"
             )
             print(f"✓ Loaded wake word model: {WAKE_WORD}")
         except Exception as e:
             print(f"✗ Error loading wake word model: {e}")
-            print("Available models will be loaded instead...")
-            self.model = Model(inference_framework="onnx")
-            print(f"Available wake words: {list(self.model.models.keys())}")
+            print("\n" + "="*60)
+            print("Wake word models not found!")
+            print("="*60)
+            print("\nPlease download the models first by running:")
+            print("  python download_models.py")
+            print("\nAlternatively, download manually from:")
+            print("  https://github.com/dscripka/openWakeWord/releases")
+            print("="*60)
+            sys.exit(1)
         
         # Initialize PyAudio
         self.audio = pyaudio.PyAudio()
