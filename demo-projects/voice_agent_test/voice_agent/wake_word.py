@@ -55,17 +55,6 @@ class WakeWordDetector:
                 inference_framework="onnx"
             )
             print(f"✓ Loaded wake word model: {WAKE_WORD}")
-        except Exception as e:
-            print(f"✗ Error loading wake word model: {e}")
-            print("\n" + "="*60)
-            print("Wake word models not found!")
-            print("="*60)
-            print("\nPlease download the models first by running:")
-            print("  python download_models.py")
-            print("\nAlternatively, download manually from:")
-            print("  https://github.com/dscripka/openWakeWord/releases")
-            print("="*60)
-            sys.exit(1)
         
         # Initialize PyAudio
         self.audio = pyaudio.PyAudio()
