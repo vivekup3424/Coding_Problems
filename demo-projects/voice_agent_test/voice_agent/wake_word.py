@@ -48,15 +48,25 @@ class WakeWordDetector:
         
         # Initialize OpenWakeWord model
         # By default, it includes pre-trained models like "hey_mycroft"
-        openwakeword.utils.download_models()
-        self.model = Model(
-            wakeword_models=[WAKE_WORD],
-            inference_framework="onnx"
-        )
-        print(f"✓ Loaded wake word model: {WAKE_WORD}")
+        try:
+            openwakeword.utils.download_models()
+            self.model = Model(
+                wakeword_models=[WAKE_WORD],
+                inference_framework="onnx"
+            )
+            print(f"✓ Loaded wake word model: {WAKE_WORD}")
         
+        # Initialize PyAudio
         self.audio = pyaudio.PyAudio()
-
+        
+        # List available audio devices (helpful for debugging)
+        print("\nAvailable audio input devices:")
+        for i in range(self.audio.get_device_count()):
+            info = self.audio.get_device_info_by_index(i)
+            if info['maxInputChannels'] > 0:
+                print(f"  [{i}] {info['name']}")
+        
+        # Open audio stream
         try:
             self.stream = self.audio.open(
                 format=AUDIO_FORMAT,
