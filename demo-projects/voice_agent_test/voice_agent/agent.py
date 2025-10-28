@@ -22,6 +22,7 @@ async def entrypoint(ctx: agents.JobContext):
         stt=deepgram.STT(model="nova-3", language="multi"),
         llm=openai.LLM.with_ollama(model="llama3.1-8b", base_url="http://localhost:8881/"), 
         tts=cartesia.TTS(model="sonic-2", voice="f786b574-daa5-4673-aa0c-cbe3e8534c02"),
+        turn_detection="sst",
         vad=silero.VAD.load(),
     )
     
