@@ -65,13 +65,13 @@ responses:
     - text: "Hey! Ready to make your home more comfortable? What can I do for you?"
 
   utter_goodbye:
-    - text: "Goodbye! Have a wonderful day! 😊"
-    - text: "See you later! Let me know if you need anything! ✨"
-    - text: "Bye! Your home is in good hands! 🏠"
+    - text: "Goodbye! Have a wonderful day!"
+    - text: "See you later! Let me know if you need anything!"
+    - text: "Bye! Your home is in good hands!"
 
   utter_thank_you:
-    - text: "You're very welcome! Happy to help! 😊"
-    - text: "Anytime! That's what I'm here for! 🤖"
+    - text: "You're very welcome! Happy to help!"
+    - text: "Anytime! That's what I'm here for!"
     - text: "My pleasure! Let me know if you need anything else!"
 
   utter_help:
