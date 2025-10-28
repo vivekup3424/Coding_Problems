@@ -34,8 +34,11 @@ async def entrypoint(ctx: agents.JobContext):
     
     @session.on("conversation_item_added")
     def on_conversation_item_added(event: ConversationItemAddedEvent):
-        print(f"New conversation item added: {event.item}")
-        if 
+        print(f"New conversation item added: {event.item.content}")
+        for phrase in GOODBYE_PHRASES:
+            if phrase in event.item.content:
+                print("Goodbye phrase detected. Shutting down the session.")
+                session.shutdown()
         
     
     await session.start(
