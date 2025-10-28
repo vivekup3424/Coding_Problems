@@ -163,14 +163,24 @@ class WakeWordDetector:
         try:
             while self.running:
                 if self.detect_wake_word():
-                    # Pause the audio stream while agent is running
-                    self.stream.stop_stream()
+                    # Close the audio stream completely to release the microphone
+                    if self.stream:
+                        self.stream.stop_stream()
+                        self.stream.close()
+                        self.stream = None
                     
                     # Start the agent
                     self.start_agent()
                     
-                    # Resume listening for wake word
-                    self.stream.start_stream()
+                    # Reopen the audio stream for wake word detection
+                    if self.audio:
+                        self.stream = self.audio.open(
+                            format=AUDIO_FORMAT,
+                            channels=CHANNELS,
+                            rate=SAMPLE_RATE,
+                            input=True,
+                            frames_per_buffer=CHUNK_SIZE
+                        )
                     print("🎤 Listening for wake word again...")
                 
                 # Small delay to prevent CPU overuse
