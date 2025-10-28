@@ -131,10 +131,14 @@ class WakeWordDetector:
         agent_script = os.path.join(script_dir, "agent.py")
         
         try:
-            # Start the agent as a subprocess
+            # Start the agent as a subprocess with inherited stdin/stdout/stderr
+            # This allows the console mode to work properly
             self.agent_process = subprocess.Popen(
                 [sys.executable, agent_script, "console"],
-                cwd=script_dir
+                cwd=script_dir,
+                stdin=sys.stdin,
+                stdout=sys.stdout,
+                stderr=sys.stderr
             )
             
             print(f"Agent started with PID: {self.agent_process.pid}")
