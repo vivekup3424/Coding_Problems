@@ -39,6 +39,7 @@ def convert_to_rasa_message(messages: List[ChatMessage]) -> Dict[str, str]:
     return {"message": last_message.content if last_message else '', "sender": "user"}
 
 def convert_to_openai_response(rasa_response: List[Dict], model: str) -> Dict:
+    print(f"Rasa response: {rasa_response}")
     content = rasa_response[0].get('text', 'Sorry, I could not process your request.') if rasa_response else 'Sorry, I could not process your request.'
     return {
         "id": f"chatcmpl-{int(time.time())}",
