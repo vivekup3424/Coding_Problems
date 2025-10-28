@@ -90,7 +90,7 @@ class WakeWordDetector:
             # Check all available models for detection
             for model_name, score in prediction.items():
                 if score >= DETECTION_THRESHOLD:
-                    print(f"\n🔔 Wake word detected! (confidence: {score:.2f})")
+                    print(f"\nWake word detected! (confidence: {score:.2f})")
                     return True
             
             return False
@@ -102,7 +102,7 @@ class WakeWordDetector:
     def start_agent(self):
         """Start the voice agent in console mode"""
         print("\n" + "="*60)
-        print("🚀 Starting voice agent in console mode...")
+        print("Starting voice agent in console mode...")
         print("="*60 + "\n")
         
         # Get the path to agent.py (same directory as this script)
@@ -142,16 +142,13 @@ class WakeWordDetector:
         try:
             while self.running:
                 if self.detect_wake_word():
-                    # Close the audio stream completely to release the microphone
                     if self.stream:
                         self.stream.stop_stream()
                         self.stream.close()
                         self.stream = None
                     
-                    # Start the agent
                     self.start_agent()
                     
-                    # Reopen the audio stream for wake word detection
                     if self.audio:
                         self.stream = self.audio.open(
                             format=AUDIO_FORMAT,
@@ -160,6 +157,10 @@ class WakeWordDetector:
                             input=True,
                             frames_per_buffer=CHUNK_SIZE
                         )
+                        time.sleep(0.5)
+                        while self.stream.get_read_available() > 0:
+                            self.stream.read(self.stream.get_read_available(), exception_on_overflow=False)
+                        self.model.reset()
                     print("🎤 Listening for wake word again...")
                 
                 # Small delay to prevent CPU overuse
