@@ -11,6 +11,8 @@ from livekit.plugins import (
 )
 import os
 import signal
+import time
+import asyncio
 
 load_dotenv()
 
@@ -20,10 +22,12 @@ GOODBYE_PHRASES = [
     "See you later! Let me know if you need anything!",
     "Bye! Your home is in good hands!",
 ]
+INACTIVITY_TIMEOUT = 10 #10 seconds
 
 class Assistant(Agent):
     def __init__(self) -> None:
         super().__init__(instructions="You are a helpful voice AI assistant.")
+        self.last_activity_time = None
 
 async def entrypoint(ctx: agents.JobContext):
     # Configuration without turn detection (avoids ML framework dependencies)
@@ -33,10 +37,15 @@ async def entrypoint(ctx: agents.JobContext):
         tts=cartesia.TTS(model="sonic-2", voice="f786b574-daa5-4673-aa0c-cbe3e8534c02"),
         vad=silero.VAD.load(),
     )
+    async def monitor_inactivity():
+        while True:
+            await asyncio.sleep(1)
+            
     
     @session.on("conversation_item_added")
     def on_conversation_item_added(event: ConversationItemAddedEvent):
         print(f"New conversation item added: {event.item.content}")
+        last_activity_time = time.time()
         for content_item in event.item.content:
             for phrase in GOODBYE_PHRASES:
                 # Strip whitespace and compare (case-insensitive)
