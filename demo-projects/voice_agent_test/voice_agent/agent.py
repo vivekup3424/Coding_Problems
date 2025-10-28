@@ -22,7 +22,7 @@ GOODBYE_PHRASES = [
     "See you later! Let me know if you need anything!",
     "Bye! Your home is in good hands!",
 ]
-INACTIVITY_TIMEOUT = 10 #10 seconds
+INACTIVITY_TIMEOUT = 30 #30 seconds
 
 class Assistant(Agent):
     def __init__(self) -> None:
@@ -52,6 +52,7 @@ async def entrypoint(ctx: agents.JobContext):
     def on_conversation_item_added(event: ConversationItemAddedEvent):
         nonlocal last_activity
         last_activity = datetime.now()
+        print("last_activity updated:", last_activity)
         print(f"New conversation item added: {event.item.content}")
         for content_item in event.item.content:
             for phrase in GOODBYE_PHRASES:
