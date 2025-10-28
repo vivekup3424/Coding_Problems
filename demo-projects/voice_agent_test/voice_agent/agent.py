@@ -11,8 +11,8 @@ from livekit.plugins import (
 )
 import os
 import signal
-from datetime import datetime, timedelta
 import asyncio
+from datetime import datetime, timedelta
 
 load_dotenv()
 
@@ -22,25 +22,31 @@ GOODBYE_PHRASES = [
     "See you later! Let me know if you need anything!",
     "Bye! Your home is in good hands!",
 ]
-INACTIVITY_TIMEOUT = 30 #30 seconds
+
+# Inactivity timeout in seconds (e.g., 30 seconds)
+INACTIVITY_TIMEOUT = 30
 
 class Assistant(Agent):
     def __init__(self) -> None:
         super().__init__(instructions="You are a helpful voice AI assistant.")
 
 async def entrypoint(ctx: agents.JobContext):
+    # Track last activity time
     last_activity = datetime.now()
     inactivity_task = None
-
-    async def monitor_inactivity():
+    
+    async def check_inactivity():
+        """Monitor for inactivity and shutdown if timeout exceeded"""
         nonlocal last_activity
         while True:
-            await asyncio.sleep(1)
-            print("Checking for inactivity...")
-            elapsed = (datetime.now() - last_activity).total_seconds()
-            if elapsed > INACTIVITY_TIMEOUT:
-                print("Inactivity timeout reached. Shutting down the session.")
+            await asyncio.sleep(5)  # Check every 5 seconds
+            time_since_activity = (datetime.now() - last_activity).total_seconds()
+            
+            if time_since_activity >= INACTIVITY_TIMEOUT:
+                print(f"\nNo activity for {INACTIVITY_TIMEOUT} seconds. Shutting down...")
                 os.kill(os.getpid(), signal.SIGINT)
+                break
+    
     session = AgentSession(
         stt=deepgram.STT(model="nova-3", language="en-US"),
         llm=openai.LLM.with_ollama(model="llama3.1-8b", base_url="http://localhost:8881/"), 
@@ -48,12 +54,12 @@ async def entrypoint(ctx: agents.JobContext):
         vad=silero.VAD.load(),
         turn_detection="stt",
     )
-
+    
     @session.on("conversation_item_added")
     def on_conversation_item_added(event: ConversationItemAddedEvent):
         nonlocal last_activity
         last_activity = datetime.now()
-        print("\nlast_activity updated:", last_activity)
+        
         print(f"New conversation item added: {event.item.content}")
         for content_item in event.item.content:
             for phrase in GOODBYE_PHRASES:
@@ -69,8 +75,11 @@ async def entrypoint(ctx: agents.JobContext):
             noise_cancellation=noise_cancellation.BVC(),
         ),
     )
-    inactivity_task = asyncio.create_task(monitor_inactivity()) 
+    
     await ctx.connect()
+    
+    inactivity_task = asyncio.create_task(check_inactivity())
+    
     await session.generate_reply(
         instructions="Greet the user and offer your assistance."
     )
