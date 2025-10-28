@@ -68,12 +68,12 @@ class ActionContextualScene(Action):
             # Provide detailed feedback
             if success_count > 0:
                 if intent == "leaving_home":
-                    message = f"✅ Safe travels! I've turned off lights in {success_count} rooms for you. Have a great time! 👋"
+                    message = f"Safe travels! I've turned off lights in {success_count} rooms for you. Have a great time!"
                 else:
-                    message = f"✅ All done! Everything is now off in {success_count} rooms. Is there anything else you need?"
+                    message = f"All done! Everything is now off in {success_count} rooms. Is there anything else you need?"
 
                 if failed_rooms:
-                    message += f"\n⚠️ Note: Had trouble with {len(failed_rooms)} room(s): {', '.join(failed_rooms[:3])}"
+                    message += f"\nNote: Had trouble with {len(failed_rooms)} room(s): {', '.join(failed_rooms[:3])}"
                     if len(failed_rooms) > 3:
                         message += f" and {len(failed_rooms) - 3} more"
 
@@ -90,47 +90,47 @@ class ActionContextualScene(Action):
             "good_night": {
                 "scene_id": "154",
                 "scene_name": "Night",
-                "message": "Good night! Sweet dreams! 🌙 Your night lighting is now set."
+                "message": "Good night! Sweet dreams! Your night lighting is now set."
             },
             "good_morning": {
                 "scene_id": "151",
                 "scene_name": "Bright",
-                "message": "Good morning! Have a wonderful day! ☀️ I've brightened everything up for you."
+                "message": "Good morning! Have a wonderful day!I've brightened everything up for you."
             },
             "want_relax": {
                 "scene_id": "152",
                 "scene_name": "Relax",
-                "message": "Time to unwind! 🧘‍♀️ I've set a relaxing mood. Anything else you need?"
+                "message": "Time to unwind! I've set a relaxing mood. Anything else you need?"
             },
             "leaving_home": {
                 "scene_id": "150",
                 "scene_name": "All off",
-                "message": "Safe travels! I've turned everything off for you 👋"
+                "message": "Safe travels! I've turned everything off for you"
             },
             "coming_home": {
                 "scene_id": "151",
                 "scene_name": "Bright",
-                "message": "Welcome home! 🏠 I've brightened things up to welcome you back!"
+                "message": "Welcome home! I've brightened things up to welcome you back!"
             },
             "going_to_bed": {
                 "scene_id": "154",
                 "scene_name": "Night",
-                "message": "Sleep well! 😴 Night mode is active. Rest easy!"
+                "message": "Sleep well! Night mode is active. Rest easy!"
             },
             "movie_time": {
                 "scene_id": "152",
                 "scene_name": "Relax",
-                "message": "Enjoy your movie! 🎬 Perfect ambient lighting is set. Get the popcorn ready!"
+                "message": "Enjoy your movie! Perfect ambient lighting is set. Get the popcorn ready!"
             },
             "work_mode": {
                 "scene_id": "151",
                 "scene_name": "Bright",
-                "message": "Let's get productive! 💪 Bright lighting activated for focused work."
+                "message": "Let's get productive! Bright lighting activated for focused work."
             },
             "turn_off_everything": {
                 "scene_id": "150",
                 "scene_name": "All off",
-                "message": "Everything is now turned off ✅ Anything else you need?"
+                "message": "Everything is now turned off. Anything else you need?"
             }
         }
 
