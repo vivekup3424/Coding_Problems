@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 
 from livekit import agents
-from livekit.agents import AgentSession, Agent, RoomInputOptions
+from livekit.agents import AgentSession, Agent, 
 from livekit.plugins import (
     openai,
     cartesia,
@@ -25,7 +25,8 @@ async def entrypoint(ctx: agents.JobContext):
         turn_detection="sst",
         vad=silero.VAD.load(),
     )
-    @session.on("")
+    @session.on("conversation_item_added")
+    def on_conversation_item_added(item:)
     
     await session.start(
         room=ctx.room,
