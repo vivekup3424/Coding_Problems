@@ -60,9 +60,9 @@ slots:
 
 responses:
   utter_greet:
-    - text: "Hello! I'm your smart home assistant. How can I help you today? 🏠"
-    - text: "Hi there! I can help you control your home. What would you like to do? 💡"
-    - text: "Hey! Ready to make your home more comfortable? What can I do for you? ✨"
+    - text: "Hello! I'm your smart home assistant. How can I help you today?"
+    - text: "Hi there! I can help you control your home. What would you like to do?"
+    - text: "Hey! Ready to make your home more comfortable? What can I do for you?"
 
   utter_goodbye:
     - text: "Goodbye! Have a wonderful day! 😊"
@@ -131,9 +131,9 @@ responses:
     - text: "I don't recognize that scene name. Try 'list scenes' to see your options."
 
   utter_default:
-    - text: "I'm not sure I understand. Could you try rephrasing? Or say 'help' for examples! 🤔"
-    - text: "Hmm, I didn't catch that. Try saying something like 'turn on living room lights' or ask for help!"
-    - text: "I'm a bit confused. Can you try a different way? Or ask me what I can do!"
+    - text: "Hello! I'm your smart home assistant. How can I help you today?"
+    - text: "Hi there! I can help you control your home. What would you like to do?"
+    - text: "Hey! Ready to make your home more comfortable? What can I do for you?"
 
 actions:
   - utter_greet
