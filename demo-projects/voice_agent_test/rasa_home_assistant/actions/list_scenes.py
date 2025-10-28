@@ -33,10 +33,10 @@ class ActionListScenes(Action):
                     scene_names = list(unique_scenes.keys())
                     scene_list = "• " + "\n• ".join(scene_names)
 
-                    message = f"🎭 **Available scenes in {room_name}:**\n{scene_list}"
-                    message += f"\n\n💡 You can say things like:\n• 'Turn on {scene_names[0].lower()} in {room_name}'"
+                    message = f"**Available scenes in {room_name}:**{scene_list}"
+                    message += f"You can say things like:\n• 'Turn on {scene_names[0].lower()} in {room_name}'"
                     if len(scene_names) > 1:
-                        message += f"\n• 'Set {scene_names[1].lower()} mode in {room_name}'"
+                        message += f"'Set {scene_names[1].lower()} mode in {room_name}'"
                     message += f"\n• 'Activate {scene_names[0].lower()}' (if you're already talking about {room_name})"
                 else:
                     message = f"I don't have any scenes configured for {room_name}. Would you like to see all available scenes?"
@@ -46,9 +46,9 @@ class ActionListScenes(Action):
             # TODO: Consider asking for clarification instead of showing all scenes
             # when user intent is unclear (e.g., "scenes?" vs "what scenes are available?")
             names = get_unique_scene_names()
-            message = f"🎭 Here are all available scenes:\n• " + \
-                "\n• ".join(names)
-            message += "\n\nYou can say things like:\n• 'Turn on bright lights in living room'\n• 'Set relax mode'\n• 'Activate night scene'"
+            message = f"Here are all available scenes:" + \
+                " ".join(names)
+            message += "You can say things like: 'Turn on bright lights in living room' 'Set relax mode' 'Activate night scene'"
 
         dispatcher.utter_message(text=message)
         return []

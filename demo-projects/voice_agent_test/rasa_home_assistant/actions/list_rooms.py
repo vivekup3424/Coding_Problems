@@ -23,7 +23,7 @@ class ActionListRooms(Action):
                 room_list.append(room.roomName)
 
         if room_list:
-            message = f"🏠 I can control these rooms:\n• " + \
+            message = f"I can control these rooms:\n• " + \
                 "\n• ".join(room_list)
             message += "\n\nJust tell me what you want to do! For example:\n• 'Turn on living room lights'\n• 'Set relax mode in bedroom'\n• 'Good night' (I'll set night lighting everywhere)"
         else:
