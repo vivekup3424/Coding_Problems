@@ -35,19 +35,8 @@ async def entrypoint(ctx: agents.JobContext):
     @session.on("conversation_item_added")
     def on_conversation_item_added(event: ConversationItemAddedEvent):
         print(f"New conversation item added: {event.item}")
+        if 
         
-        if hasattr(event.item, 'content') and isinstance(event.item.content, list):
-            for content_part in event.item.content:
-                if hasattr(content_part, 'text') and content_part.text:
-                    text = content_part.text
-                    print(f"Transcript: {text}")
-                    
-                    # Check if any goodbye phrase is in the text
-                    for goodbye_phrase in GOODBYE_PHRASES:
-                        if goodbye_phrase.lower() in text.lower():
-                            print(f"Goodbye phrase detected: '{goodbye_phrase}', ending session.")
-                            session.end()
-                            return
     
     await session.start(
         room=ctx.room,
