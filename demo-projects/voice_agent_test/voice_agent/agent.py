@@ -42,17 +42,18 @@ async def entrypoint(ctx: agents.JobContext):
                 print("Inactivity timeout reached. Shutting down the session.")
                 os.kill(os.getpid(), signal.SIGINT)
     session = AgentSession(
-        stt=deepgram.STT(model="nova-3", language="multi"),
+        stt=deepgram.STT(model="nova-3", language="en-US"),
         llm=openai.LLM.with_ollama(model="llama3.1-8b", base_url="http://localhost:8881/"), 
         tts=cartesia.TTS(model="sonic-2", voice="f786b574-daa5-4673-aa0c-cbe3e8534c02"),
         vad=silero.VAD.load(),
+        turn_detection="stt",
     )
 
     @session.on("conversation_item_added")
     def on_conversation_item_added(event: ConversationItemAddedEvent):
         nonlocal last_activity
         last_activity = datetime.now()
-        print("last_activity updated:", last_activity)
+        print("\nlast_activity updated:", last_activity)
         print(f"New conversation item added: {event.item.content}")
         for content_item in event.item.content:
             for phrase in GOODBYE_PHRASES:
