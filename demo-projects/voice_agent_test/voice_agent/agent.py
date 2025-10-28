@@ -25,6 +25,7 @@ async def entrypoint(ctx: agents.JobContext):
         turn_detection="sst",
         vad=silero.VAD.load(),
     )
+    @session.on("")
     
     await session.start(
         room=ctx.room,
