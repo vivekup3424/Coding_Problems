@@ -41,7 +41,6 @@ async def entrypoint(ctx: agents.JobContext):
                 # Strip whitespace and compare (case-insensitive)
                 if phrase.strip().lower() in content_item.strip().lower():
                     print(f"Goodbye phrase detected: '{phrase}'. Shutting down the session.")
-                    session.shutdown()
                     sys.exit(0)
         
     
