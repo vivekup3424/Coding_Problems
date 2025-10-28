@@ -5,7 +5,10 @@ nlu:
     examples: |
       - hello
       - hi
-      - hey
+      - hey mycroft
+      - Hey mycroft
+      - hi mycroft
+      - greetings mycroft
       - good evening
       - hey there
       - hi there

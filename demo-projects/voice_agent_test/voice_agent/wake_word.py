@@ -13,6 +13,7 @@ from openwakeword.model import Model
 import numpy as np
 import signal
 import time
+import openwakeword
 
 # Configuration
 WAKE_WORD = "hey_mycroft"
@@ -48,9 +49,10 @@ class WakeWordDetector:
         # Initialize OpenWakeWord model
         # By default, it includes pre-trained models like "hey_mycroft"
         try:
+            openwakeword.utils.download_models()
             self.model = Model(
                 wakeword_models=[WAKE_WORD],
-                inference_framework="tflite"
+                inference_framework="onnx"
             )
             print(f"✓ Loaded wake word model: {WAKE_WORD}")
         except Exception as e:
