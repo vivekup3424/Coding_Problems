@@ -9,7 +9,8 @@ from livekit.plugins import (
     noise_cancellation,
     silero,
 )
-import sys
+import os
+import signal
 
 load_dotenv()
 
@@ -41,7 +42,7 @@ async def entrypoint(ctx: agents.JobContext):
                 # Strip whitespace and compare (case-insensitive)
                 if phrase.strip().lower() in content_item.strip().lower():
                     print(f"Goodbye phrase detected: '{phrase}'. Shutting down the session.")
-                    sys.exit(0)
+                    os.kill(os.getpid(), signal.SIGINT)
         
     
     await session.start(
