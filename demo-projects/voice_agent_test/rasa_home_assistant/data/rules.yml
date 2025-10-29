@@ -2,6 +2,11 @@ version: "3.1"
 
 rules:
   # Basic conversation rules
+  - rule: Greet user
+    steps:
+      - intent: greet
+      - action: utter_greet
+
   - rule: Say goodbye anytime the user says goodbye
     steps:
       - intent: goodbye
@@ -32,6 +37,11 @@ rules:
     steps:
       - intent: ask_scenes_in_room
       - action: action_list_scenes
+
+  - rule: Execute scene when user specifies scene details
+    steps:
+      - intent: execute_scene
+      - action: action_execute_scene
 
   # Contextual scene rules - these trigger specific scenes based on natural language
   - rule: Good night triggers night scene
@@ -74,9 +84,44 @@ rules:
       - intent: work_mode
       - action: action_contextual_scene
 
-  - rule: Turn off everything
+  - rule: AC on when user feels hot
     steps:
-      - intent: turn_off_everything
+      - intent: ac_on
+      - action: action_contextual_scene
+
+  - rule: AC off when user feels cold
+    steps:
+      - intent: ac_off
+      - action: action_contextual_scene
+
+  - rule: Party scene activates party mode
+    steps:
+      - intent: party_scene
+      - action: action_contextual_scene
+
+  - rule: Reading mode activates reading lights
+    steps:
+      - intent: reading_mode
+      - action: action_contextual_scene
+
+  - rule: Coffee time activates coffee scene
+    steps:
+      - intent: coffee_time
+      - action: action_contextual_scene
+
+  - rule: Rain mood activates rain atmosphere
+    steps:
+      - intent: rain_mood
+      - action: action_contextual_scene
+
+  - rule: Romantic mood activates romantic scene
+    steps:
+      - intent: romantic_mood
+      - action: action_contextual_scene
+
+  - rule: Cool mode activates cool scene
+    steps:
+      - intent: cool_mode
       - action: action_contextual_scene
 
   # Fallback rule for unrecognized inputs
