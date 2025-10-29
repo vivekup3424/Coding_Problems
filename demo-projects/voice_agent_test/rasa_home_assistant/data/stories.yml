@@ -58,7 +58,7 @@ stories:
           - room: "living room"
       - action: action_execute_scene
       - action: utter_ask_which_scene
-      - intent: execute_scene
+      - intent: execute_sceneL
         entities:
           - scene_name: "relax"
       - action: action_execute_scene
