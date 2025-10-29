@@ -188,6 +188,7 @@ nlu:
       - I want to do something relaxing
       
 
+  # All off
   - intent: leaving_home
     examples: |
       - I'm leaving
@@ -199,8 +200,8 @@ nlu:
       - see you later home
       - time to go
       - I'm off
-      - departure time
 
+  # Bri
   - intent: coming_home
     examples: |
       - I'm home
