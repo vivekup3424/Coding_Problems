@@ -5,18 +5,14 @@ nlu:
     examples: |
       - hello
       - hi
-      - hey mycroft
-      - Hey mycroft
-      - hi mycroft
-      - greetings mycroft
+      - hey
+      
       - good evening
       - hey there
       - hi there
       - hello there
       - greetings
       - what's up
-      - howdy
-      - hiya
       - good afternoon
 
   - intent: affirm
@@ -225,6 +221,8 @@ nlu:
       - I want to chill out
       - help me destress
       - I need some calm
+      - Execute relax scene
+      
 
   - intent: leaving_home
     examples: |
