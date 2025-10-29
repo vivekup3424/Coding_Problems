@@ -16,7 +16,7 @@ import time
 import openwakeword
 
 # Configuration
-WAKE_WORD = "hey_mycroft"
+WAKE_WORD = "hey_keus"
 AUDIO_FORMAT = pyaudio.paInt16
 CHANNELS = 1
 SAMPLE_RATE = 16000
