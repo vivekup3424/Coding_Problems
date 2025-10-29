@@ -11,18 +11,8 @@ nlu:
       - hello there
       - greetings
       - what's up
-      - howdy
-      - hiya
-      - good afternoon
-      - good evening
-      - helo
-      - hii
-      - heya
-      - yo
-      - sup
-      - whats up
-      - hellow
 
+      
   - intent: affirm
     examples: |
       - yes
@@ -34,25 +24,6 @@ nlu:
       - okay
       - right
       - sounds good
-      - that sounds good
-      - correct
-      - absolutely
-      - sure
-      - definitely
-      - indeed
-      - that's right
-      - exactly
-      - for sure
-      - yup
-      - yas
-      - ya
-      - yea
-      - okey
-      - k
-      - kk
-      - alright
-      - all right
-      - affirmative
 
   - intent: deny
     examples: |
@@ -71,16 +42,6 @@ nlu:
       - never mind
       - noo
       - naah
-      - nada
-      - negative
-      - dont think so
-      - i dont think so
-      - not interested
-      - no thx
-      - no thnks
-      - stop
-      - abort
-      - forget it
 
   - intent: goodbye
     examples: |
@@ -89,23 +50,6 @@ nlu:
       - see you later
       - see you
       - take care
-      - talk to you later
-      - catch you later
-      - farewell
-      - until next time
-      - have a good day
-      - gotta go
-      - I have to go
-      - bye bye
-      - ciao
-      - adios
-      - byee
-      - good bye
-      - see ya
-      - later
-      - gtg
-      - cu
-      - c u later
 
   - intent: thank
     examples: |
@@ -137,6 +81,17 @@ nlu:
       - what lighting options do I have
       - what scene types are there
       - show available lighting modes
+      - whats scenes can i run
+      - show availble scenes
+      - what sceens do you have
+      - lst scenes
+      - show scences
+      - wat scenes r available
+      - show me all scens
+      - lighting options
+      - what r the scenes
+      - sceen list
+      - available scenes pls
 
   - intent: ask_rooms
     examples: |
@@ -154,7 +109,18 @@ nlu:
       - tell me all rooms
       - what areas can you control
       - which spaces do you manage
-      - tell me all scenes
+      - wat rooms can i control
+      - show availabe rooms
+      - lst all rooms
+      - what romms do you have
+      - wich rooms r available
+      - show roms
+      - list all roms
+      - what room can i manage
+      - show me al rooms
+      - tell me rooms
+      - available rooms pls
+      - rooms list
 
   - intent: good_night
     examples: |
@@ -167,6 +133,17 @@ nlu:
       - see you tomorrow
       - nighty night
       - sleep tight
+      - good nite
+      - goodnite
+      - nite
+      - sweat dreams
+      - gnite
+      - goodnight bot
+      - night night
+      - gud night
+      - good nght
+      - sleep well
+      - have a good night
 
   # All off Scene
   - intent: leaving_home
@@ -180,6 +157,19 @@ nlu:
       - see you later home
       - time to go
       - I'm off
+      - im leaving
+      - im going out
+      - headin out
+      - leavng home
+      - goin away
+      - ill be back later
+      - im off
+      - gotta leave
+      - leaving now
+      - on my way out
+      - bye home
+      - turn evrything off
+      - turn all off
   
   # AC On Scene
 
@@ -198,6 +188,19 @@ nlu:
       - finally home
       - made it home
       - I'm here
+      - im home
+      - im back
+      - just got hme
+      - arived home
+      - back frm work
+      - ive returned
+      - finaly home
+      - made it hom
+      - im here
+      - home now
+      - reached home
+      - back at home
+      - hello home
 
   # Relax Scene
   - intent: want_relax
@@ -216,6 +219,23 @@ nlu:
       - Execute relaxing
       - Execute. relaxing.
       - I want to do something relaxing
+      - i want to relax
+      - i need to unwind
+      - hlp me relax
+      - im stressed
+      - i need to chil
+      - time to relaax
+      - let me unwnd
+      - i want to chill out
+      - help me de-stress
+      - need some clam
+      - execute relax scen
+      - execut relaxing
+      - want 2 relax
+      - need to calm down
+      - wanna relax
+      - relaxation mode
+      - chill time
 
   # Day Scene
   - intent: good_morning
@@ -230,6 +250,19 @@ nlu:
       - morning time
       - wakey wakey
       - dawn
+      - good mornin
+      - gud morning
+      - mornin
+      - morng
+      - wakeup
+      - time 2 get up
+      - lets begin the day
+      - lets start the day
+      - rise n shine
+      - wakey wakey
+      - good morning bot
+      - gm
+      - rise and shin
 
 
   # Night Scene
@@ -245,6 +278,20 @@ nlu:
       - calling it a night
       - time to rest
       - sleep time
+      - im going to bed
+      - time 2 sleep
+      - bed time
+      - off to beed
+      - redy for sleep
+      - sleepy tym
+      - hitting the hy
+      - callin it a night
+      - time 2 rest
+      - slep time
+      - going 2 bed
+      - gonna sleep
+      - heading to bed
+      - time for sleep
   
   # Party Scene
   - intent: party_scene
@@ -252,6 +299,19 @@ nlu:
       - Let's Party
       - Let's Dance
       - Party time
+      - lets party
+      - lets dance
+      - party tym
+      - time to party
+      - dance time
+      - party mode
+      - partyy time
+      - lets have a party
+      - dance party
+      - its party time
+      - party lights
+      - party vibes
+      - lets get this party started
 
   # Reading Scene
   - intent: work_mode
@@ -266,6 +326,22 @@ nlu:
       - working now
       - focus time
       - concentration mode
+      - time 2 work
+      - wrk mode
+      - i need to focus
+      - wrk time
+      - productivity mod
+      - studie time
+      - need brite lights
+      - workin now
+      - focus tym
+      - concentration mod
+      - lets work
+      - work session
+      - reading mode
+      - study mode
+      - need to concentrate
+      - time for productivity
   
   # Movie Scene
   - intent: movie_time
@@ -280,6 +356,22 @@ nlu:
       - screen time
       - showtime
       - film night
+      - lets watch a movie
+      - moovie time
+      - time 4 a film
+      - watchin something
+      - cinima mode
+      - lets watch tv
+      - entertainment tym
+      - screan time
+      - showtime
+      - movie night
+      - film time
+      - netflix time
+      - tv time
+      - lets watch somthing
+      - watch a film
+      - movie mood
 
   # Coffee Scene
 
@@ -288,6 +380,35 @@ nlu:
   # Romantic Scene
 
   # Cool Scene
+
+  - intent: turn_off_everything
+    examples: |
+      - turn everything off
+      - shut it all down
+      - turn all lights off
+      - power down everything
+      - all off
+      - shut everything down
+      - turn off all devices
+      - everything off
+      - kill all lights
+      - power off all
+      - turn evrything off
+      - shut it al down
+      - turn all lites off
+      - power down evrything
+      - al off
+      - shut evrything down
+      - turn off all devises
+      - everything of
+      - kil all lights
+      - power of all
+      - lights off
+      - all lights off
+      - turn off everything
+      - switch everything off
+      - power off
+      - shut down all
 
   # for executing custom scenes
   - intent: execute_scene
@@ -306,6 +427,41 @@ nlu:
       - activate [relax](scene_name)
       - set [bright](scene_name)
       - run [night](scene_name)
+      - execut scene [scene123](scene_id) in [living room](room)
+      - run scen [scene456](scene_id) in the [bedroom](room)
+      - turn on [living rom](room) lights
+      - set [romantic mod](scene_name) in [dining room](room)
+      - activate [reading mood](scene_name) in [study](room)
+      - turn on [relx](scene_name) scene in [Work Station](room)
+      - activat [bright](scene_name) in [Testing Room](room)
+      - turn on [nite](scene_name) scene in [Conference Room](room)
+      - set [all of](scene_name) in [Hardware room](room)
+      - run [relax](scene_name) in [Work Station2](room)
+      - execute [relax](scene_name) scen
+      - activte [relax](scene_name)
+      - set [brite](scene_name)
+      - run [night](scene_name) sceen
+      - turn off [bedroom](room) lights
+      - dim the [kitchen](room) lights
+      - brighten lights
+      - control lights
+      - change lighting
+      - adjust lights
+      - turn on lights in [living room](room)
+      - turn off lites in [bedroom](room)
+      - dim [kitchen](room) lites
+      - control the lites
+      - change lightin
+      - ajust lights
+      - turn on [Conference Room](room)
+      - activate [Hardware room](room)
+      - set [Work Station 2](room)
+      - execute [all off](scene_name)
+      - execute [bright](scene_name)
+      - execute [night](scene_name)
+      - make it [darker](scene_name)
+      - I want [bright lights](scene_name)
+      - set [mood lighting](scene_name)
 
   - intent: ask_help
     examples: |
@@ -323,6 +479,26 @@ nlu:
       - show me what you can do
       - how to use this
       - what commands do you know
+      - how can u help me
+      - wat can you do
+      - hlp me
+      - what can u help with
+      - how do u work
+      - what r your capabilities
+      - what can i ask u
+      - halp
+      - how does this wrk
+      - wat do you do
+      - guid me
+      - show me wat you can do
+      - how 2 use this
+      - what commands do u know
+      - i need help
+      - need assistance
+      - can you help
+      - instructions
+      - tutorial
+      - show help
 
   - intent: ask_scenes_in_room
     examples: |
@@ -346,3 +522,24 @@ nlu:
       - [Conference Room](room) scene list
       - what scenes in [Hardware room](room)
       - [Work Station 2](room) available scenes
+      - wat scenes r available in [Work Station](room)
+      - show me scens for [Testing Room](room)
+      - list scens in [Conference Room](room)
+      - what can i do in [Hardware rom](room)
+      - what scenes can i run in [Work Station2](room)
+      - wat lighting options r there in [Work Station](room)
+      - show scens available in [Testing Room](room)
+      - wat scenes work in [Conference Room](room)
+      - tell me scens for [Hardware room](room)
+      - wat can i control in [Work Station 2](room)
+      - lst all scenes in [Work Station](room)
+      - show me whats availble in [Testing Room](room)
+      - [Work Station](room) scen list
+      - [Testing Room](room) lite options
+      - [Conference Room](room) available scenes
+      - scenes in [Dark Room](room)
+      - what's in [Ashwik Cabin](room)
+      - [Manish cabin](room) scenes
+      - [Assembly Room](room) lighting
+      - [Home theatre](room) available scenes
+      - [Corner Cabin](room) scenes
