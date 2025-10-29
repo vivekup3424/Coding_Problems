@@ -16,7 +16,7 @@ import time
 import openwakeword
 
 # Configuration
-WAKE_WORD = "hey_keus"
+WAKE_WORD = os.path.expanduser("~/Downloads/hey_kee_us.onnx")
 AUDIO_FORMAT = pyaudio.paInt16
 CHANNELS = 1
 SAMPLE_RATE = 16000
@@ -46,9 +46,6 @@ class WakeWordDetector:
         """Initialize the wake word model and audio stream"""
         print("Initializing wake word detection...")
         
-        # Initialize OpenWakeWord model
-        # By default, it includes pre-trained models like "hey_mycroft"
-        openwakeword.utils.download_models()
         self.model = Model(
             wakeword_models=[WAKE_WORD],
             inference_framework="onnx"
