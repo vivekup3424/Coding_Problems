@@ -78,27 +78,21 @@ responses:
     - text: |
         I'm your smart home assistant! Here's what I can do:
 
-        🏠 **Quick Commands:**
-        • "Good morning" / "Good night" 
-        • "I'm leaving" / "I'm home"
-        • "Movie time" / "Work mode"
-        • "Turn everything off"
-
-        💡 **Scene Control:**
+        Scene Control:
         • "Turn on living room lights"
         • "Set relax mode in bedroom"
         • "Execute scene 123 in kitchen"
 
-        📋 **Information:**
+        Information
         • "Show me all scenes"
         • "What rooms can I control?"
 
-        Just tell me what you want naturally - I'll ask if I need more details!
+        Just tell me what you want!
 
   utter_ask_which_room:
     - text: "Which room would you like me to control?"
-    - text: "In which room should I do that? I can control multiple rooms."
-    - text: "What room are we talking about? Say 'all rooms' if you want everywhere."
+    - text: "In which room should I do that?"
+    - text: "What room are we talking about?"
 
   utter_ask_which_scene:
     - text: "What scene would you like me to set? You can say things like 'bright', 'relax', or 'night mode'."
@@ -121,9 +115,7 @@ responses:
     - text: "I'm having trouble with that. Can you check the scene name and room?"
 
   utter_clarify_room:
-    - text: "I found that scene in multiple rooms: {rooms}. Which room did you mean?"
-    - text: "That scene is available in: {rooms}. Please specify which room."
-    - text: "I see that scene in {rooms}. Which one would you like?"
+    - text: "I found that scene in multiple rooms. Which room did you mean?"
 
   utter_scene_not_found:
     - text: "I couldn't find that scene. Would you like to see all available scenes?"
