@@ -19,7 +19,14 @@ intents:
   - going_to_bed
   - movie_time
   - work_mode
-  - turn_off_everything
+  - ac_on
+  - ac_off
+  - party_scene
+  - reading_mode
+  - coffee_time
+  - rain_mood
+  - romantic_mood
+  - cool_mode
 
 entities:
   - scene_id
