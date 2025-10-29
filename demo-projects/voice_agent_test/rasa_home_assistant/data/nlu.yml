@@ -6,14 +6,11 @@ nlu:
       - hello
       - hi
       - hey
-      
-      - good evening
       - hey there
       - hi there
       - hello there
       - greetings
       - what's up
-      - good afternoon
 
   - intent: affirm
     examples: |
@@ -21,16 +18,7 @@ nlu:
       - yeah
       - yep
       - of course
-      - that sounds good
-      - correct
       - yes please
-      - absolutely
-      - sure
-      - definitely
-      - indeed
-      - that's right
-      - exactly
-      - for sure
       - ok
       - okay
       - right
@@ -57,17 +45,7 @@ nlu:
       - bye
       - see you later
       - see you
-      - talk to you later
-      - catch you later
-      - farewell
       - take care
-      - until next time
-      - have a good day
-      - gotta go
-      - I have to go
-      - bye bye
-      - ciao
-      - adios
 
   - intent: thank
     examples: |
@@ -77,12 +55,8 @@ nlu:
       - thanks a lot
       - appreciate it
       - much appreciated
-      - thanks for that
-      - thank you very much
-      - I appreciate that
-      - cheers
-      - awesome thanks
-      - perfect thanks
+
+  # for executing custom scenes
   - intent: execute_scene
     examples: |
       - execute scene [scene123](scene_id) in [living room](room)
@@ -169,21 +143,6 @@ nlu:
       - which spaces do you manage
       - tell me all scenes
 
-  - intent: ask_rooms
-    examples: |
-      - what rooms can I control
-      - show me available rooms
-      - list all rooms
-      - what rooms do you have
-      - which rooms are available
-      - show rooms
-      - list rooms
-      - what rooms can I manage
-      - help with rooms
-      - show me all rooms
-      - what are all the rooms
-      - tell me all rooms
-
   - intent: good_night
     examples: |
       - good night
@@ -196,6 +155,7 @@ nlu:
       - nighty night
       - sleep tight
 
+  # Day Scene
   - intent: good_morning
     examples: |
       - good morning
@@ -209,6 +169,7 @@ nlu:
       - wakey wakey
       - dawn
 
+  # Relax Scene
   - intent: want_relax
     examples: |
       - I want to relax
@@ -222,6 +183,9 @@ nlu:
       - help me destress
       - I need some calm
       - Execute relax scene
+      - Execute relaxing
+      - Execute. relaxing.
+      - I want to do something relaxing
       
 
   - intent: leaving_home
@@ -318,6 +282,7 @@ nlu:
       - show me what you can do
       - how to use this
       - what commands do you know
+
   - intent: ask_scenes_in_room
     examples: |
       - what scenes are available in [Work Station](room)
