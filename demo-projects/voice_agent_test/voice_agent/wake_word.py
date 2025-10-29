@@ -15,8 +15,8 @@ import signal
 import time
 import openwakeword
 
-# Configuration
 WAKE_WORD = os.path.expanduser("~/Downloads/hey_kee_us.onnx")
+# Or provide full path to your .onnx or .tflite file
 AUDIO_FORMAT = pyaudio.paInt16
 CHANNELS = 1
 SAMPLE_RATE = 16000
@@ -46,6 +46,9 @@ class WakeWordDetector:
         """Initialize the wake word model and audio stream"""
         print("Initializing wake word detection...")
         
+        # Initialize OpenWakeWord model
+        # By default, it includes pre-trained models like "hey_mycroft"
+        # openwakeword.utils.download_models()
         self.model = Model(
             wakeword_models=[WAKE_WORD],
             inference_framework="onnx"
@@ -68,9 +71,9 @@ class WakeWordDetector:
             raise
         
         print("\n" + "="*60)
-        print(f"🎤 Listening for wake word: 'Hey Mycroft'")
+        print(f"🎤 Listening for wake word: 'Hey Keus'")
         print(f"   Detection threshold: {DETECTION_THRESHOLD}")
-        print("   Say 'Hey Mycroft' to activate the voice agent")
+        print("   Say 'Hey Keus' to activate the voice agent")
         print("   Press Ctrl+C to quit")
         print("="*60 + "\n")
     
