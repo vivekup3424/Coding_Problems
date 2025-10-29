@@ -11,6 +11,17 @@ nlu:
       - hello there
       - greetings
       - what's up
+      - howdy
+      - hiya
+      - good afternoon
+      - good evening
+      - helo
+      - hii
+      - heya
+      - yo
+      - sup
+      - whats up
+      - hellow
 
   - intent: affirm
     examples: |
@@ -23,6 +34,25 @@ nlu:
       - okay
       - right
       - sounds good
+      - that sounds good
+      - correct
+      - absolutely
+      - sure
+      - definitely
+      - indeed
+      - that's right
+      - exactly
+      - for sure
+      - yup
+      - yas
+      - ya
+      - yea
+      - okey
+      - k
+      - kk
+      - alright
+      - all right
+      - affirmative
 
   - intent: deny
     examples: |
@@ -38,6 +68,19 @@ nlu:
       - not at all
       - cancel
       - nevermind
+      - never mind
+      - noo
+      - naah
+      - nada
+      - negative
+      - dont think so
+      - i dont think so
+      - not interested
+      - no thx
+      - no thnks
+      - stop
+      - abort
+      - forget it
 
   - intent: goodbye
     examples: |
@@ -46,6 +89,23 @@ nlu:
       - see you later
       - see you
       - take care
+      - talk to you later
+      - catch you later
+      - farewell
+      - until next time
+      - have a good day
+      - gotta go
+      - I have to go
+      - bye bye
+      - ciao
+      - adios
+      - byee
+      - good bye
+      - see ya
+      - later
+      - gtg
+      - cu
+      - c u later
 
   - intent: thank
     examples: |
@@ -56,55 +116,8 @@ nlu:
       - appreciate it
       - much appreciated
 
-  # for executing custom scenes
-  - intent: execute_scene
-    examples: |
-      - execute scene [scene123](scene_id) in [living room](room)
-      - run scene [scene456](scene_id) in the [bedroom](room)
-      - turn on [living room](room) lights
-      - turn off [bedroom](room) lights
-      - dim the [kitchen](room) lights
-      - set [movie mode](scene_name) in [living room](room)
-      - activate [sleep mode](scene_name) in [bedroom](room)
-      - turn on [party lights](scene_name)
-      - execute [scene789](scene_id)
-      - run scene [scene123](scene_id)
-      - start scene [sc001](scene_id) in [bathroom](room)
-      - activate scene [home_theater](scene_name) in [basement](room)
-      - turn on [kitchen](room) scene
-      - execute [dining room](room) scene
-      - run [morning routine](scene_name)
-      - start [bedtime](scene_name) scene
-      - activate [welcome home](scene_name)
-      - turn on the lights in [living room](room)
-      - turn off lights in [bedroom](room)
-      - set [romantic mood](scene_name) in [dining room](room)
-      - activate [reading mode](scene_name) in [study](room)
-      - turn on [relax](scene_name) scene in [Work Station](room)
-      - activate [bright](scene_name) in [Testing Room](room)
-      - turn on [night](scene_name) scene in [Conference Room](room)
-      - set [all off](scene_name) in [Hardware room](room)
-      - run [relax](scene_name) in [Work Station 2](room)
-      - execute [relax](scene_name) scene
-      - execute [relax](scene_name) scene in [Work Station](room)
-      - execute [bright](scene_name) scene
-      - execute [night](scene_name) scene
-      - execute [all off](scene_name) scene
-      - turn on lights
-      - turn off lights
-      - dim lights
-      - brighten lights
-      - set lights
-      - activate [relax](scene_name)
-      - set [bright](scene_name)
-      - run [night](scene_name)
-      - execute [all off](scene_name)
-      - I want [bright lights](scene_name)
-      - make it [darker](scene_name)
-      - set [mood lighting](scene_name)
-      - control the lights
-      - change lighting
-      - adjust lights
+  
+      
 
   - intent: ask_scenes
     examples: |
@@ -155,19 +168,36 @@ nlu:
       - nighty night
       - sleep tight
 
-  # Day Scene
-  - intent: good_morning
+  # All off Scene
+  - intent: leaving_home
     examples: |
-      - good morning
-      - morning
-      - wake up
-      - time to get up
-      - rise and shine
-      - start the day
-      - let's begin the day
-      - morning time
-      - wakey wakey
-      - dawn
+      - I'm leaving
+      - I'm going out
+      - heading out
+      - leaving home
+      - going away
+      - I'll be back later
+      - see you later home
+      - time to go
+      - I'm off
+  
+  # AC On Scene
+
+  # AC Off Scene
+
+  # Bright Scene
+  - intent: coming_home
+    examples: |
+      - I'm home
+      - I'm back
+      - just got home
+      - arrived home
+      - back from work
+      - home sweet home
+      - I've returned
+      - finally home
+      - made it home
+      - I'm here
 
   # Relax Scene
   - intent: want_relax
@@ -186,35 +216,23 @@ nlu:
       - Execute relaxing
       - Execute. relaxing.
       - I want to do something relaxing
-      
 
-  # All off
-  - intent: leaving_home
+  # Day Scene
+  - intent: good_morning
     examples: |
-      - I'm leaving
-      - I'm going out
-      - heading out
-      - leaving home
-      - going away
-      - I'll be back later
-      - see you later home
-      - time to go
-      - I'm off
+      - good morning
+      - morning
+      - wake up
+      - time to get up
+      - rise and shine
+      - start the day
+      - let's begin the day
+      - morning time
+      - wakey wakey
+      - dawn
 
-  # Bri
-  - intent: coming_home
-    examples: |
-      - I'm home
-      - I'm back
-      - just got home
-      - arrived home
-      - back from work
-      - home sweet home
-      - I've returned
-      - finally home
-      - made it home
-      - I'm here
 
+  # Night Scene
   - intent: going_to_bed
     examples: |
       - I'm going to bed
@@ -227,7 +245,29 @@ nlu:
       - calling it a night
       - time to rest
       - sleep time
+  
+  # Party Scene
+  - intent: party_scene
+    examples: |
+      - Let's Party
+      - Let's Dance
+      - Party time
 
+  # Reading Scene
+  - intent: work_mode
+    examples: |
+      - time to work
+      - work mode
+      - I need to focus
+      - work time
+      - productivity mode
+      - study time
+      - need bright lights
+      - working now
+      - focus time
+      - concentration mode
+  
+  # Movie Scene
   - intent: movie_time
     examples: |
       - let's watch a movie
@@ -241,31 +281,31 @@ nlu:
       - showtime
       - film night
 
-  - intent: work_mode
-    examples: |
-      - time to work
-      - work mode
-      - I need to focus
-      - work time
-      - productivity mode
-      - study time
-      - need bright lights
-      - working now
-      - focus time
-      - concentration mode
+  # Coffee Scene
 
-  - intent: turn_off_everything
+  # Rain Scene
+
+  # Romantic Scene
+
+  # Cool Scene
+
+  # for executing custom scenes
+  - intent: execute_scene
     examples: |
-      - turn everything off
-      - shut it all down
-      - turn all lights off
-      - power down everything
-      - all off
-      - shut everything down
-      - turn off all devices
-      - everything off
-      - kill all lights
-      - power off all
+      - execute scene [scene123](scene_id) in [living room](room)
+      - run scene [scene456](scene_id) in the [bedroom](room)
+      - turn on [living room](room) lights
+      - set [romantic mood](scene_name) in [dining room](room)
+      - activate [reading mode](scene_name) in [study](room)
+      - turn on [relax](scene_name) scene in [Work Station](room)
+      - activate [bright](scene_name) in [Testing Room](room)
+      - turn on [night](scene_name) scene in [Conference Room](room)
+      - set [all off](scene_name) in [Hardware room](room)
+      - run [relax](scene_name) in [Work Station 2](room)
+      - execute [relax](scene_name) scene
+      - activate [relax](scene_name)
+      - set [bright](scene_name)
+      - run [night](scene_name)
 
   - intent: ask_help
     examples: |
