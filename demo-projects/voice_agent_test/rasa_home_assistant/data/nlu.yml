@@ -229,7 +229,7 @@ nlu:
       - time to rest
       - sleep time
       - Execute night scene
-      - 
+      - I want it to be night
   
   # Party Scene
   - intent: party_scene
@@ -250,6 +250,9 @@ nlu:
       - fun party scene
       - let's celebrate
       - party lighting
+      - Execute party scene
+      - I want to party
+
 
   # Reading Scene
   - intent: work_mode
@@ -264,6 +267,7 @@ nlu:
       - working now
       - focus time
       - concentration mode
+      - Execute Reading Scene
 
   - intent: reading_mode
     examples: |
@@ -297,6 +301,7 @@ nlu:
       - screen time
       - showtime
       - film night
+      - Execute Movie Scene
 
   # Coffee Scene
   - intent: coffee_time
@@ -312,9 +317,7 @@ nlu:
       - need my caffeine
       - coffee please
       - morning coffee
-      - espresso time
-      - cappuccino time
-      - latte time
+      - Execute coffee scene
 
   # Rain Scene
   - intent: rain_mood
@@ -331,6 +334,7 @@ nlu:
       - it's a rainy day
       - rain mode
       - stormy weather mood
+      - Execute rain scene
 
   # Romantic Scene
   - intent: romantic_mood
@@ -349,6 +353,7 @@ nlu:
       - intimate lighting
       - dinner for two
       - anniversary mode
+      - Execute romantic scene
 
   # Cool Scene
   - intent: cool_mode
@@ -364,6 +369,7 @@ nlu:
       - cool mood lighting
       - chill vibes
       - cool temperature mode
+      - Execute Cool Scene
 
   # for executing custom scenes
   - intent: execute_scene
