@@ -30,7 +30,8 @@ public:
             auto [i,j] = q.front();
             q.pop();
             for(pair<int,int> direction : directions){
-                pair<int,int> neighbor = {i+direction.first}
+                pair<int,int> neighbor = {i+direction.first, j+ direction.second};
+                if()
             }
         }
     }
