@@ -11,7 +11,7 @@ using namespace std;
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        
+        vector<vector<int>> temp = grid;
         int currentTime = 0, maxTime = 0;
         int totalOranges = 0;
         queue<pair<int,int>> q;
@@ -21,8 +21,16 @@ public:
                     totalOranges+=1;
                 }
                 if(grid[i][j]==2){
-                    
+                    q.push({i,j});
                 }
+            }
+        }
+        vector<pair<int,int>> directions = {{0,1}, {0,-1}, {1,0},{-1,0}};
+        while(q.size()>0){
+            auto [i,j] = q.front();
+            q.pop();
+            for(pair<int,int> direction : directions){
+                pair<int,int> neighbor = {i+direction.first}
             }
         }
     }
