@@ -7,6 +7,7 @@ from livekit.plugins import (
     cartesia,
     deepgram,
     noise_cancellation,
+    silero
 )
 import os
 import signal
@@ -50,6 +51,8 @@ async def entrypoint(ctx: agents.JobContext):
         stt=deepgram.STT(model="nova-3", language="en-US"),
         llm=openai.LLM.with_ollama(model="llama3.1-8b", base_url="http://localhost:8881/"), 
         tts=cartesia.TTS(model="sonic-2", voice="f786b574-daa5-4673-aa0c-cbe3e8534c02"),
+        vad=silero.VAD.load(),
+        turn_detection="stt",
     )
     
     @session.on("conversation_item_added")
