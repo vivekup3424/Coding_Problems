@@ -16,12 +16,13 @@ import time
 import openwakeword
 
 WAKE_WORD = os.path.expanduser("~/Downloads/hey_kee_us.onnx")
+# WAKE_WORD = "hey_mycroft"
 # Or provide full path to your .onnx or .tflite file
 AUDIO_FORMAT = pyaudio.paInt16
 CHANNELS = 1
 SAMPLE_RATE = 16000
 CHUNK_SIZE = 1280  # 80ms chunks at 16kHz
-DETECTION_THRESHOLD = 0.5  # Confidence threshold for wake word detection
+DETECTION_THRESHOLD = 0.4  # Confidence threshold for wake word detection
 
 class WakeWordDetector:
     def __init__(self):
