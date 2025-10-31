@@ -15,7 +15,7 @@ from config.constants import NATS_HOST, NATS_PORT, NATS_TOKEN, SITE_ID
 class ActionContextualScene(Action):
     # Constants for better maintainability
     ALL_OFF_SCENE_ID = "150"
-    DEFAULT_ROOM = "Work Station "
+    DEFAULT_ROOM = "Work Station 2"
 
     def name(self) -> Text:
         return "action_contextual_scene"
