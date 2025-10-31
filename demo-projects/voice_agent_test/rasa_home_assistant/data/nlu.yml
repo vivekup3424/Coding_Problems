@@ -375,11 +375,11 @@ nlu:
   # for executing custom scenes
   - intent: execute_scene
     examples: |
-      - execute scene [scene123](scene_id) in [living room](room)
-      - run scene [scene456](scene_id) in the [bedroom](room)
+      - execute scene [scene123](scene_id) in [Work Station 2](room)
+      - run scene [scene456](scene_id) in the [Work Station 2](room)
       - turn on [living room](room) lights
-      - set [romantic mood](scene_name) in [dining room](room)
-      - activate [reading mode](scene_name) in [study](room)
+      - set [romantic mood](scene_name) in [Work Station 2](room)
+      - activate [reading mode](scene_name) in [Work Station 2](room)
       - turn on [relax](scene_name) scene in [Work Station](room)
       - activate [bright](scene_name) in [Testing Room](room)
       - turn on [night](scene_name) scene in [Conference Room](room)
