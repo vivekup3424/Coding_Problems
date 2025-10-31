@@ -380,10 +380,10 @@ nlu:
       - turn on [living room](room) lights
       - set [romantic mood](scene_name) in [Work Station 2](room)
       - activate [reading mode](scene_name) in [Work Station 2](room)
-      - turn on [relax](scene_name) scene in [Work Station](room)
-      - activate [bright](scene_name) in [Testing Room](room)
-      - turn on [night](scene_name) scene in [Conference Room](room)
-      - set [all off](scene_name) in [Hardware room](room)
+      - turn on [relax](scene_name) scene in [Work Station 2](room)
+      - activate [bright](scene_name) in [Work Station 2](room)
+      - turn on [night](scene_name) scene in [Work Station 2](room)
+      - set [all off](scene_name) in [Work Station 2](room)
       - run [relax](scene_name) in [Work Station 2](room)
       - execute [relax](scene_name) scene
       - activate [relax](scene_name)
