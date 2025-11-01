@@ -95,7 +95,19 @@ nlu:
       - tell me all rooms
       - what areas can you control
       - which spaces do you manage
-      - tell me all scenes
+
+  - intent: set_room_context
+    examples: |
+      - I am inside [Work Station 2](room)
+      - I'm in the [Conference Room](room)
+      - I'm inside the [Testing Room](room)
+      - I am in [Ashwik Cabin](room)
+      - I'm currently in [Work Station](room)
+      - I am at the [hardware room](room)
+      - I'm over in [Manish cabin](room)
+      - we're in the [assembly room](room)
+      - I'm now in [corner cabin](room)
+      - I am inside the [dark room](room)
 
   - intent: good_night
     examples: |

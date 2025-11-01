@@ -160,6 +160,11 @@ class ActionContextualScene(Action):
         if room:
             # User specified a room - convert to ID and name
             room_id = find_room_id(room)
+            if not room_id:
+                dispatcher.utter_message(
+                    text=f"I couldn't find a room called '{room}'. Try asking 'what rooms can I control?'"
+                )
+                return []
             room_name = get_room_name(room_id)
         else:
             # No room specified - check if we have room context from recent conversation
@@ -167,6 +172,11 @@ class ActionContextualScene(Action):
 
             if recent_room:
                 room_id = find_room_id(recent_room)
+                if not room_id:
+                    dispatcher.utter_message(
+                        text=f"I lost track of the room '{recent_room}'. Could you tell me which room you're in?"
+                    )
+                    return []
                 room_name = get_room_name(room_id)
                 print(f"DEBUG: Using recent room context: {room_name}")
             else:
@@ -179,6 +189,11 @@ class ActionContextualScene(Action):
                     return await self.handle_all_rooms(dispatcher, intent)
                 else:
                     room_id = find_room_id(default_room)
+                    if not room_id:
+                        dispatcher.utter_message(
+                            text="I couldn't pick a default room. Which room should I use?"
+                        )
+                        return []
                     room_name = default_room
 
         scene_mapping = self._get_scene_mapping()
@@ -186,7 +201,7 @@ class ActionContextualScene(Action):
         if intent in scene_mapping:
             scene_info = scene_mapping[intent]
 
-            if await self._execute_scene_via_nats(scene_info["scene_id"], room_id):
+            if room_id and await self._execute_scene_via_nats(scene_info["scene_id"], room_id):
                 # Send contextual message with room info
                 if room_name and room_name != self.DEFAULT_ROOM:
                     message = scene_info["message"] + f" (in {room_name})"

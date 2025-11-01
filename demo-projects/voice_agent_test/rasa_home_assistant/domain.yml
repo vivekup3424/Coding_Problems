@@ -27,6 +27,7 @@ intents:
   - rain_mood
   - romantic_mood
   - cool_mode
+  - set_room_context
 
 entities:
   - scene_id
@@ -152,6 +153,7 @@ actions:
   - action_list_rooms
   - action_contextual_scene
   - action_ask_clarification
+  - action_set_room_context
 
 session_config:
   session_expiration_time: 60
