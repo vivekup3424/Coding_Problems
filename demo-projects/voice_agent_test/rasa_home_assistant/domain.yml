@@ -83,19 +83,7 @@ responses:
     - text: "My pleasure! Let me know if you need anything else!"
 
   utter_help:
-    - text: |
-        I'm your smart home assistant! Here's what I can do:
-
-        Scene Control:
-        • "Turn on living room lights"
-        • "Set relax mode in bedroom"
-        • "Execute scene 123 in kitchen"
-
-        Information
-        • "Show me all scenes"
-        • "What rooms can I control?"
-
-        Just tell me what you want!
+    - text: I'm your smart home assistant! I can help you start some scene in any room you want
 
   utter_ask_which_room:
     - text: "Which room would you like me to control?"
@@ -105,12 +93,10 @@ responses:
   utter_ask_which_scene:
     - text: "What scene would you like me to set? You can say things like 'bright', 'relax', or 'night mode'."
     - text: "Which scene should I activate? I have options like bright, relax, night, and all off."
-    - text: "What lighting mood are you looking for? Try 'bright', 'dim', 'relax', or tell me the scene name."
 
   utter_ask_scene_details:
     - text: "I need a bit more information. Which scene and which room?"
     - text: "Could you be more specific? What scene would you like and in which room?"
-    - text: "I want to help! Can you tell me the scene name and room?"
 
   utter_scene_executed:
     - text: "Done! Your scene is now active."
@@ -136,18 +122,6 @@ responses:
     - text: "Hey! Ready to make your home more comfortable? What can I do for you?"
 
 actions:
-  - utter_greet
-  - utter_thank_you
-  - utter_goodbye
-  - utter_help
-  - utter_ask_which_room
-  - utter_ask_which_scene
-  - utter_ask_scene_details
-  - utter_scene_executed
-  - utter_scene_error
-  - utter_clarify_room
-  - utter_scene_not_found
-  - utter_default
   - action_execute_scene
   - action_list_scenes
   - action_list_rooms
