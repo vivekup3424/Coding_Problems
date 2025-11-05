@@ -6,7 +6,6 @@ from livekit.plugins import (
     openai,
     cartesia,
     deepgram,
-    noise_cancellation,
     silero
 )
 import os
@@ -72,9 +71,7 @@ async def entrypoint(ctx: agents.JobContext):
     await session.start(
         room=ctx.room,
         agent=Assistant(),
-        room_input_options=RoomInputOptions(
-            noise_cancellation=noise_cancellation.BVC(),
-        ),
+        room_input_options=RoomInputOptions(),
     )
     
     await ctx.connect()
