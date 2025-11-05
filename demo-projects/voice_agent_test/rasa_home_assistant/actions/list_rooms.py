@@ -12,22 +12,18 @@ class ActionListRooms(Action):
         rooms = load_rooms_data()
 
         if not rooms:
-            dispatcher.utter_message(
-                text="Sorry, I couldn't load the rooms data. Please try again later.")
+            dispatcher.utter_message(text="Can't load rooms right now.")
             return []
 
         # Create a friendly list of rooms
         room_list = []
         for room in rooms:
-            if room._id != "Home":  # Skip the "Home" entry as it's not a real room
-                room_list.append(room.roomName)
+            room_list.append(room.roomName)
 
         if room_list:
-            message = f"I can control these rooms:\n• " + \
-                "\n• ".join(room_list)
-            message += "\n\nJust tell me what you want to do! For example:\n• 'Turn on living room lights'\n• 'Set relax mode in bedroom'\n• 'Good night' (I'll set night lighting everywhere)"
+            message = "**Available rooms:**\n• " + "\n• ".join(room_list)
         else:
-            message = "I don't see any rooms configured yet. Please check your smart home setup."
+            message = "No rooms configured."
 
         dispatcher.utter_message(text=message)
         return []

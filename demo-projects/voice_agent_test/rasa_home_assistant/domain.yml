@@ -30,103 +30,69 @@ intents:
   - set_room_context
 
 entities:
-  - scene_id
   - room
-  - scene_name
+  - scene
 
 slots:
-  scene_id:
-    type: text
-    influence_conversation: false
-    mappings:
-      - type: from_entity
-        entity: scene_id
   room:
     type: text
-    influence_conversation: false
-    mappings:
-      - type: from_entity
-        entity: room
-  scene_name:
-    type: text
-    influence_conversation: false
-    mappings:
-      - type: from_entity
-        entity: scene_name
-  requested_room:
-    type: text
     influence_conversation: true
     mappings:
       - type: from_entity
         entity: room
-  requested_scene:
+  room_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+  scene:
     type: text
     influence_conversation: true
     mappings:
       - type: from_entity
-        entity: scene_name
+        entity: scene
+  scene_id:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
 
 responses:
   utter_greet:
-    - text: "Hello! I'm your smart home assistant. How can I help you today?"
-    - text: "Hi there! I can help you control your home. What would you like to do?"
-    - text: "Hey! Ready to make your home more comfortable? What can I do for you?"
+    - text: "Hi! How can I help?"
+    - text: "Hello! What would you like?"
+    - text: "Hey! What can I do?"
 
   utter_goodbye:
-    - text: "Goodbye! Have a wonderful day!"
-    - text: "See you later! Let me know if you need anything!"
-    - text: "Bye! Your home is in good hands!"
+    - text: "Goodbye!"
+    - text: "See you!"
+    - text: "Bye!"
 
   utter_thank_you:
-    - text: "You're very welcome! Happy to help!"
-    - text: "Anytime! That's what I'm here for!"
-    - text: "My pleasure! Let me know if you need anything else!"
+    - text: "You're welcome!"
+    - text: "Anytime!"
+    - text: "Happy to help!"
 
   utter_help:
-    - text: I'm your smart home assistant! I can help you start some scene in any room you want
+    - text: "I control scenes in your rooms. Try 'turn on bright in living room' or 'good night'."
 
   utter_ask_which_room:
-    - text: "Which room would you like me to control?"
-    - text: "In which room should I do that?"
-    - text: "What room are we talking about?"
+    - text: "Which room?"
 
   utter_ask_which_scene:
-    - text: "What scene would you like me to set? You can say things like 'bright', 'relax', or 'night mode'."
-    - text: "Which scene should I activate? I have options like bright, relax, night, and all off."
+    - text: "Which scene? (bright, relax, night, etc.)"
 
   utter_ask_scene_details:
-    - text: "I need a bit more information. Which scene and which room?"
-    - text: "Could you be more specific? What scene would you like and in which room?"
-
-  utter_scene_executed:
-    - text: "Done! Your scene is now active."
-    - text: "Perfect! The scene has been set."
-    - text: "All set! Your lighting is now configured."
-
-  utter_scene_error:
-    - text: "Sorry, I couldn't execute that scene. Please try again or ask for help."
-    - text: "Something went wrong. Could you try rephrasing your request?"
-    - text: "I'm having trouble with that. Can you check the scene name and room?"
-
-  utter_clarify_room:
-    - text: "I found that scene in multiple rooms. Which room did you mean?"
-
-  utter_scene_not_found:
-    - text: "I couldn't find that scene. Would you like to see all available scenes?"
-    - text: "That scene doesn't exist. Say 'show scenes' to see what's available."
-    - text: "I don't recognize that scene name. Try 'list scenes' to see your options."
+    - text: "Which scene and room?"
 
   utter_default:
-    - text: "Hello! I'm your smart home assistant. How can I help you today?"
-    - text: "Hi there! I can help you control your home. What would you like to do?"
-    - text: "Hey! Ready to make your home more comfortable? What can I do for you?"
+    - text: "Hi! How can I help?"
+    - text: "Hello! What would you like?"
 
 actions:
   - action_execute_scene
   - action_list_scenes
   - action_list_rooms
-  - action_contextual_scene
-  - action_ask_clarification
   - action_set_room_context
 
 session_config:

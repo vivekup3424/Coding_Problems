@@ -98,16 +98,58 @@ nlu:
 
   - intent: set_room_context
     examples: |
-      - I am inside [Work Station 2](room)
-      - I'm in the [Conference Room](room)
-      - I'm inside the [Testing Room](room)
-      - I am in [Ashwik Cabin](room)
-      - I'm currently in [Work Station](room)
-      - I am at the [hardware room](room)
-      - I'm over in [Manish cabin](room)
-      - we're in the [assembly room](room)
-      - I'm now in [corner cabin](room)
-      - I am inside the [dark room](room)
+      - I am inside [living room](room)
+      - I'm in the [bedroom](room)
+      - I'm inside the [kitchen](room)
+      - I am in [office](room)
+      - I'm currently in [bathroom](room)
+      - I am at the [garage](room)
+      - I'm over in [dining room](room)
+      - we're in the [basement](room)
+      - I'm now in [attic](room)
+      - I'm at [hallway](room)
+      - currently in [lobby](room)
+      - I am at [entrance](room)
+      - I'm in [studio](room)
+      - inside [workshop](room)
+      - in the [lounge](room)
+      - in [pantry](room)
+      - I am inside [cabin 1](room)
+      - I'm in [cabin 2](room)
+      - I am in [cabin one](room)
+      - I'm at [cabin two](room)
+      - I am in [room 101](room)
+      - I'm at [room 202](room)
+      - currently in [lab](room)
+      - I'm in the [conference hall](room)
+      - inside [meeting room](room)
+      - I am at the [storage room](room)
+      - I'm in [server room](room)
+      - I am inside [workstation](room)
+      - I'm at [workstation 2](room)
+      - I am inside [workstation two](room)
+      - I'm in [workstation one](room)
+      - in [testing area](room)
+      - I'm in the [main hall](room)
+      - currently in [reception](room)
+      - I am inside [workstation](room)
+      - I'm in [bedroom](room)
+      - I am in [office](room)
+      - I'm at [kitchen](room)
+      - currently in [living room](room)
+      - inside [conference room](room)
+      - in the [basement](room)
+      - I'm now in [studio](room)
+      - I am at [hallway](room)
+      - in [workshop](room)
+      - I'm inside [cabin 1](room)
+      - I'm inside [cabin one](room)
+      - I am in [room 101](room)
+      - I am in [room one zero one](room)
+      - in [lab](room)
+      - I'm at [workstation 2](room)
+      - I'm at [workstation two](room)
+      - inside [testing area](room)
 
   - intent: good_night
     examples: |
@@ -120,6 +162,11 @@ nlu:
       - see you tomorrow
       - nighty night
       - sleep tight
+      - good night in [bedroom](room)
+      - night mode in [living room](room)
+      - goodnight in the [bedroom](room)
+      - going to sleep in [master bedroom](room)
+      - time for bed in the [bedroom](room)
 
   # All off Scene
   - intent: leaving_home
@@ -133,7 +180,11 @@ nlu:
       - see you later home
       - time to go
       - I'm off
-      - Execute all off scene
+      - turn off everything in [living room](room)
+      - I'm leaving [office](room)
+      - all off in the [workstation](room)
+      - turn everything off in [conference room](room)
+      - leaving the [meeting room](room)
       
   
   # AC On Scene
@@ -152,7 +203,12 @@ nlu:
       - activate air conditioning
       - need some cool air
       - make it cooler
-      - Execute AC on scene
+      - turn on AC in [bedroom](room)
+      - start AC in the [office](room)
+      - it's too hot in [workstation](room)
+      - cool down [conference room](room)
+      - turn on air conditioning in [living room](room)
+      - AC on in the [meeting room](room)
 
   # AC Off Scene
   - intent: ac_off
@@ -169,7 +225,12 @@ nlu:
       - AC is not needed
       - I'm feeling cold
       - no more AC
-      - Execute AC off scene
+      - turn off AC in [bedroom](room)
+      - stop AC in the [office](room)
+      - it's too cold in [workstation](room)
+      - AC off in [conference room](room)
+      - turn off air conditioning in [living room](room)
+      - stop cooling in the [meeting room](room)
 
   # Bright Scene
   - intent: coming_home
@@ -186,10 +247,13 @@ nlu:
       - finally home
       - made it home
       - I'm here
-      - Execute Bright Scene
-      - Execute right scene
       - Bright scene
-      - Execute Brightly
+      - I want it to be bright
+      - I'm home in [living room](room)
+      - bright mode in [hallway](room)
+      - make it bright in [entrance](room)
+      - I'm back in the [living room](room)
+      - bright scene in [workstation](room)
 
 
   # Relax Scene
@@ -205,10 +269,13 @@ nlu:
       - I want to chill out
       - help me destress
       - I need some calm
-      - Execute relax scene
-      - Execute relaxing
-      - Execute. relaxing.
       - I want to do something relaxing
+      - I want to relax in [bedroom](room)
+      - help me relax in the [living room](room)
+      - time to relax in [lounge](room)
+      - I need to unwind in [workstation](room)
+      - relax mode in [office](room)
+      - I want to chill in the [bedroom](room)
 
   # Day Scene
   - intent: good_morning
@@ -223,9 +290,13 @@ nlu:
       - morning time
       - wakey wakey
       - dawn
-      - Execute Day scene
       - Day scene
       - I want day scene
+      - good morning in [bedroom](room)
+      - day mode in [living room](room)
+      - wake up in the [bedroom](room)
+      - start the day in [kitchen](room)
+      - day scene in [workstation](room)
 
 
   # Night Scene
@@ -241,8 +312,12 @@ nlu:
       - calling it a night
       - time to rest
       - sleep time
-      - Execute night scene
       - I want it to be night
+      - going to bed in [bedroom](room)
+      - night mode in [living room](room)
+      - bedtime in the [bedroom](room)
+      - time to sleep in [master bedroom](room)
+      - night scene in [bedroom](room)
   
   # Party Scene
   - intent: party_scene
@@ -263,8 +338,12 @@ nlu:
       - fun party scene
       - let's celebrate
       - party lighting
-      - Execute party scene
       - I want to party
+      - party time in [living room](room)
+      - let's party in the [lounge](room)
+      - party mode in [main hall](room)
+      - celebration in [reception](room)
+      - dance mode in the [living room](room)
 
 
   # Reading Scene
@@ -280,26 +359,12 @@ nlu:
       - working now
       - focus time
       - concentration mode
-      - Execute Reading Scene
-
-  - intent: reading_mode
-    examples: |
-      - I want to read
-      - reading time
-      - set reading lights
-      - reading mode
-      - I need to read a book
-      - book reading
-      - reading scene
-      - good lighting for reading
-      - study reading
-      - reading atmosphere
-      - I'm going to read
-      - reading light please
-      - book time
-      - set up reading mode
-      - turn on reading lights
-      - prepare for reading
+      - work mode in [office](room)
+      - I need to focus in [workstation](room)
+      - study time in the [library](room)
+      - productivity mode in [office](room)
+      - working now in the [workstation](room)
+      - focus in [conference room](room)
   
   # Movie Scene
   - intent: movie_time
@@ -314,7 +379,11 @@ nlu:
       - screen time
       - showtime
       - film night
-      - Execute Movie Scene
+      - movie time in [living room](room)
+      - let's watch a movie in the [home theatre](room)
+      - cinema mode in [lounge](room)
+      - film night in the [living room](room)
+      - watching something in [home theatre](room)
 
   # Coffee Scene
   - intent: coffee_time
@@ -330,7 +399,11 @@ nlu:
       - need my caffeine
       - coffee please
       - morning coffee
-      - Execute coffee scene
+      - coffee time in [kitchen](room)
+      - I need coffee in the [office](room)
+      - coffee break in [lounge](room)
+      - let's have coffee in the [kitchen](room)
+      - morning coffee in [workstation](room)
 
   # Rain Scene
   - intent: rain_mood
@@ -347,7 +420,11 @@ nlu:
       - it's a rainy day
       - rain mode
       - stormy weather mood
-      - Execute rain scene
+      - rain mood in [living room](room)
+      - cozy rain vibes in the [bedroom](room)
+      - set rain scene in [lounge](room)
+      - rainy day mood in the [living room](room)
+      - rain atmosphere in [bedroom](room)
 
   # Romantic Scene
   - intent: romantic_mood
@@ -366,7 +443,11 @@ nlu:
       - intimate lighting
       - dinner for two
       - anniversary mode
-      - Execute romantic scene
+      - romantic mood in [bedroom](room)
+      - date night in the [dining room](room)
+      - set the mood in [living room](room)
+      - romantic atmosphere in the [bedroom](room)
+      - candlelight mood in [dining room](room)
 
   # Cool Scene
   - intent: cool_mode
@@ -383,24 +464,51 @@ nlu:
       - chill vibes
       - cool temperature mode
       - Execute Cool Scene
+      - cool mode in [living room](room)
+      - cool vibes in the [bedroom](room)
+      - make it cool in [office](room)
+      - cool scene in the [workstation](room)
+      - chill vibes in [lounge](room)
 
   # for executing custom scenes
   - intent: execute_scene
     examples: |
-      - execute scene [scene123](scene_id) in [Work Station 2](room)
-      - run scene [scene456](scene_id) in the [Work Station 2](room)
-      - turn on [living room](room) lights
-      - set [romantic mood](scene_name) in [Work Station 2](room)
-      - activate [reading mode](scene_name) in [Work Station 2](room)
-      - turn on [relax](scene_name) scene in [Work Station 2](room)
-      - activate [bright](scene_name) in [Work Station 2](room)
-      - turn on [night](scene_name) scene in [Work Station 2](room)
-      - set [all off](scene_name) in [Work Station 2](room)
-      - run [relax](scene_name) in [Work Station 2](room)
-      - execute [relax](scene_name) scene
-      - activate [relax](scene_name)
-      - set [bright](scene_name)
-      - run [night](scene_name)
+      - set [bright](scene) in [living room](room)
+      - activate [relax](scene) in [bedroom](room)
+      - turn on [night](scene) scene in [kitchen](room)
+      - turn on [all off](scene) in [office](room)
+      - run [cool](scene) in [bathroom](room)
+      - execute [reading](scene) scene in [garage](room)
+      - execute [day](scene) in [dining room](room)
+      - set [ac on](scene) scene in [basement](room)
+      - activate [ac off](scene) scene in [attic](room)
+      - run [bright](scene) scene in [hallway](room)
+      - set [relax](scene) mode in [lobby](room)
+      - turn on [night](scene) mode in [entrance](room)
+      - activate [cool](scene) mode in [studio](room)
+      - set [reading](scene) in the [workshop](room)
+      - turn on [day](scene) in the [lounge](room)
+      - activate [bright](scene) scene in the [pantry](room)
+      - execute [all off](scene) in the [cabin 1](room)
+      - run [relax](scene) in the [cabin 2](room)
+      - execute [all off](scene) in the [cabin one](room)
+      - run [relax](scene) in the [cabin two](room)
+      - set [bright](scene) in [workstation](room)
+      - activate [relax](scene) in [workstation 2](room)
+      - activate [relax](scene) in [workstation two](room)
+      - set [bright](scene) in [workstation one](room)
+      - turn on [night](scene) in [conference hall](room)
+      - run [cool](scene) in [meeting room](room)
+      - execute [reading](scene) in [storage room](room)
+      - set [day](scene) in [server room](room)
+      - turn on [ac on](scene) in [testing area](room)
+      - activate [ac off](scene) in [main hall](room)
+      - run [all off](scene) in [reception](room)
+      - set [bright](scene) in [room 101](room)
+      - execute [relax](scene) in [room 202](room)
+      - set [bright](scene) in [room one zero one](room)
+      - execute [relax](scene) in [room two zero two](room)
+      - turn on [night](scene) in [lab](room)
 
   - intent: ask_help
     examples: |
@@ -421,23 +529,110 @@ nlu:
 
   - intent: ask_scenes_in_room
     examples: |
-      - what scenes are available in [Work Station](room)
-      - show me scenes for [Testing Room](room)
-      - list scenes in [Conference Room](room)
-      - what can I do in [Hardware room](room)
-      - what scenes can I run in [Work Station 2](room)
-      - what lighting options are there in [Work Station](room)
-      - show scenes available in [Testing Room](room)
-      - what scenes work in [Conference Room](room)
-      - tell me the scenes for [Hardware room](room)
-      - what can I control in [Work Station 2](room)
-      - list all scenes in [Work Station](room)
-      - show me what's available in [Testing Room](room)
-      - what scenes are in [Conference Room](room)
-      - scenes for [Hardware room](room)
-      - what's available in [Work Station 2](room)
-      - [Work Station](room) scenes
-      - [Testing Room](room) lighting options
-      - [Conference Room](room) scene list
-      - what scenes in [Hardware room](room)
+      - what scenes are available in [living room](room)
+      - show me scenes for [bedroom](room)
+      - list scenes in [kitchen](room)
+      - what can I do in [office](room)
+      - what scenes can I run in [bathroom](room)
+      - what lighting options are there in [garage](room)
+      - show scenes available in [dining room](room)
+      - what scenes work in [basement](room)
+      - tell me the scenes for [attic](room)
+      - what can I control in [hallway](room)
+      - list all scenes in [lobby](room)
+      - show me what's available in [entrance](room)
+      - what scenes are in [studio](room)
+      - scenes for [workshop](room)
+      - what's available in [lounge](room)
+      - scenes in [pantry](room)
+      - lighting options in [workstation](room)
+      - scene list for [workstation 2](room)
+      - what scenes are available in [conference hall](room)
+      - show me scenes for [meeting room](room)
+      - list scenes in [storage room](room)
+      - what can I do in [server room](room)
+      - what scenes can I run in [testing area](room)
+      - show scenes available in [main hall](room)
+      - what scenes work in [reception](room)
+      - tell me the scenes for [room 101](room)
+      - what can I control in [room 202](room)
+      - list all scenes in [lab](room)
+      - show me what's available in [cabin 1](room)
+      - what scenes are in [cabin 2](room)
+      - what scenes in [room placeholder](room)
       - [Work Station 2](room) available scenes
+  
+  - synonym: bright
+    examples: |
+      - right
+      - brightly
+      - brite
+      - bright scene
+      - right scene
+
+  - synonym: night
+    examples: |
+      - knight
+      - nite
+      - nighty
+      - night scene
+
+  - synonym: relax
+    examples: |
+      - relaxed
+      - relaxing
+      - relax scene
+      - relaxing scene
+
+  - synonym: party
+    examples: |
+      - parti
+      - party scene
+      - celebration
+      - disco
+
+  - synonym: coffee
+    examples: |
+      - cafi
+      - cafe
+      - coffee scene
+      - caffeine
+
+  - synonym: romantic
+    examples: |
+      - romantics
+      - romance
+      - romantic scene
+      - romantic mood
+
+  - synonym: cool
+    examples: |
+      - kewl
+      - cool scene
+      - cool mood
+      - c
+
+  - lookup: scene
+    examples: |
+      - All off
+      - Bright
+      - Relax
+      - Night
+      - Day
+      - Party
+      - Coffee
+      - Romantic
+      - Cool
+      - AC On
+      - AC Off
+      - all off
+      - bright
+      - relax
+      - night
+      - day
+      - party
+      - coffee
+      - romantic
+      - cool
+      - ac on
+      - ac off

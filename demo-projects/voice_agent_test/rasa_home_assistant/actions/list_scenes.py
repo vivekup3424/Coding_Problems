@@ -2,10 +2,9 @@ from typing import Text
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from services import (
-    find_room_id,
-    get_room_name,
     get_scenes_by_room,
-    get_unique_scene_names
+    get_unique_scene_names,
+    extract_and_match_room
 )
 
 
@@ -14,41 +13,29 @@ class ActionListScenes(Action):
         return "action_list_scenes"
 
     async def run(self, dispatcher, tracker, domain):
-        room = next(tracker.get_latest_entity_values(
-            "room"), None) or tracker.get_slot("room")
+        # Get room from entity or slot and use fuzzy matching
+        room_mention = next(tracker.get_latest_entity_values("room"), None)
+        
+        if room_mention:
+            extract_and_match_room(tracker)
+            
+        room = tracker.get_slot("room")
+        room_id = tracker.get_slot("room_id")
+        room_scenes = get_scenes_by_room(room_id)
+        if room_scenes:
+            # Group scenes by name (remove duplicates)
+            unique_scenes = {}
+            for scene in room_scenes:
+                scene_name = scene.sceneName
+                if scene_name not in unique_scenes:
+                    unique_scenes[scene_name] = scene
 
-        if room:
-            room_id = find_room_id(room)
-            if room_id:
-                room_name = get_room_name(room_id)
-                room_scenes = get_scenes_by_room(room_id)
-                if room_scenes:
-                    # Group scenes by name (remove duplicates)
-                    unique_scenes = {}
-                    for scene in room_scenes:
-                        scene_name = scene.sceneName
-                        if scene_name not in unique_scenes:
-                            unique_scenes[scene_name] = scene
+            scene_names = list(unique_scenes.keys())
+            scene_list = "• " + "\n• ".join(scene_names)
 
-                    scene_names = list(unique_scenes.keys())
-                    scene_list = "• " + "\n• ".join(scene_names)
-
-                    message = f"**Available scenes in {room_name}:**{scene_list}"
-                    message += f"You can say things like:\n• 'Turn on {scene_names[0].lower()} in {room_name}'"
-                    if len(scene_names) > 1:
-                        message += f"'Set {scene_names[1].lower()} mode in {room_name}'"
-                    message += f"\n• 'Activate {scene_names[0].lower()}' (if you're already talking about {room_name})"
-                else:
-                    message = f"I don't have any scenes configured for {room_name}. Would you like to see all available scenes?"
-            else:
-                message = f"I couldn't find a room called '{room}'. Try asking 'what rooms can I control?' to see available rooms."
+            message = f"**{room} scenes:**\n{scene_list}"
         else:
-            # TODO: Consider asking for clarification instead of showing all scenes
-            # when user intent is unclear (e.g., "scenes?" vs "what scenes are available?")
-            names = get_unique_scene_names()
-            message = f"Here are all available scenes:" + \
-                " ".join(names)
-            message += "You can say things like: 'Turn on bright lights in living room' 'Set relax mode' 'Activate night scene'"
+            message = f"No scenes for {room}."
 
         dispatcher.utter_message(text=message)
         return []

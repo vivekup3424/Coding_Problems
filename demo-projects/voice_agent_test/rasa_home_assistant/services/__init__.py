@@ -9,7 +9,9 @@ from .room_service import (
     find_room_id,
     get_room_name,
     get_all_rooms,
-    room_exists
+    room_exists,
+    get_all_room_names,
+    extract_and_match_room
 )
 
 from .scene_service import (
@@ -18,7 +20,8 @@ from .scene_service import (
     find_scenes_by_name,
     get_scenes_by_room,
     get_all_scenes,
-    get_unique_scene_names
+    get_unique_scene_names,
+    extract_and_match_scene
 )
 
 __all__ = [
@@ -28,6 +31,8 @@ __all__ = [
     'get_room_name',
     'get_all_rooms',
     'room_exists',
+    'get_all_room_names',
+    'extract_and_match_room'
 
     # Scene services
     'load_scenes_data',
@@ -36,4 +41,5 @@ __all__ = [
     'get_scenes_by_room',
     'get_all_scenes',
     'get_unique_scene_names'
+    "extract_and_match_scene"
 ]

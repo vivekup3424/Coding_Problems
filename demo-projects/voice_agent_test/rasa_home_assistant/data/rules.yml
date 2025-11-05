@@ -43,87 +43,91 @@ rules:
       - intent: set_room_context
       - action: action_set_room_context
 
-
-  # Contextual scene rules - these trigger specific scenes based on natural language
-  - rule: Good night triggers night scene
+  # Unified scene execution - handles both contextual and explicit scene commands
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: good_night
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: Good morning triggers bright scene
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: good_morning
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: Want to relax triggers relax scene
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: want_relax
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: Leaving home turns everything off
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: leaving_home
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: Coming home turns on lights
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: coming_home
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: Going to bed triggers night scene
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: going_to_bed
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: Movie time sets ambient lighting
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: movie_time
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: Work mode sets bright lighting
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: work_mode
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: AC on when user feels hot
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: ac_on
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: AC off when user feels cold
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: ac_off
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: Party scene activates party mode
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: party_scene
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: Reading mode activates reading lights
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: reading_mode
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: Coffee time activates coffee scene
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: coffee_time
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: Rain mood activates rain atmosphere
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: rain_mood
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: Romantic mood activates romantic scene
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: romantic_mood
-      - action: action_contextual_scene
+      - action: action_execute_scene
 
-  - rule: Cool mode activates cool scene
+  - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: cool_mode
-      - action: action_contextual_scene
+      - action: action_execute_scene
+  
+  - rule: Execute custom scene inside a room
+    steps:
+      - intent: execute_scene
+      - action: action_execute_scene
 
   # Fallback rule for unrecognized inputs
   - rule: Fallback for unclear requests
