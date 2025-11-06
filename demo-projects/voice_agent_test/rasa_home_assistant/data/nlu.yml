@@ -313,11 +313,9 @@ nlu:
       - time to rest
       - sleep time
       - I want it to be night
-      - going to bed in [bedroom](room)
-      - night mode in [living room](room)
-      - bedtime in the [bedroom](room)
+  - going to bed in [bedroom](room)
+  - bedtime in the [bedroom](room)
       - time to sleep in [master bedroom](room)
-      - night scene in [bedroom](room)
   
   # Party Scene
   - intent: party_scene

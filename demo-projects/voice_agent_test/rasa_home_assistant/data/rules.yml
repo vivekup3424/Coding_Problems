@@ -104,6 +104,17 @@ rules:
       - intent: reading_mode
       - action: action_execute_scene
 
+  # Confirmation handling
+  - rule: Handle affirmation
+    steps:
+      - intent: affirm
+      - action: utter_thank_you
+
+  - rule: Handle denial
+    steps:
+      - intent: deny
+      - action: utter_default
+
   - rule: Execute any scene (contextual or explicit)
     steps:
       - intent: coffee_time
