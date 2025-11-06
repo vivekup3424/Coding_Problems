@@ -31,9 +31,15 @@ class ActionListScenes(Action):
                     unique_scenes[scene_name] = scene
 
             scene_names = list(unique_scenes.keys())
-            scene_list = "• " + "\n• ".join(scene_names)
+            # Build a TTS-friendly spoken list: "A, B, and C"
+            if len(scene_names) == 1:
+                spoken = scene_names[0]
+            elif len(scene_names) == 2:
+                spoken = f"{scene_names[0]} and {scene_names[1]}"
+            else:
+                spoken = ", ".join(scene_names[:-1]) + f", and {scene_names[-1]}"
 
-            message = f"**{room} scenes:**\n{scene_list}"
+            message = f"Available scenes in {room}: {spoken}."
         else:
             message = f"No scenes for {room}."
 
