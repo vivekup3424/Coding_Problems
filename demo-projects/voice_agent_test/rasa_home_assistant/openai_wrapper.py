@@ -33,8 +33,10 @@ class ChatCompletionRequest(BaseModel):
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
+
 def convert_to_rasa_message(messages: List[ChatMessage]) -> Dict[str, str]:
-    user_messages = [msg for msg in messages if msg.role == 'user']
+    # getting the message from both the user and the system
+    user_messages = [msg for msg in messages if ( msg.role == 'user' or msg.role == 'system')]
     last_message = user_messages[-1] if user_messages else None
     return {"message": last_message.content if last_message else '', "sender": "user"}
 
@@ -49,11 +51,23 @@ def convert_to_openai_response(rasa_response: List[Dict], model: str) -> Dict:
     }
 
 async def send_to_rasa(message: Dict) -> List[Dict]:
+    # Log outgoing payload
+    try:
+        print("Sending to Rasa webhook: %s", json.dumps(message))
+    except Exception:
+        print("Sending to Rasa webhook (could not serialize message)")
+
     async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=10)) as session:
         async with session.post(f"{RASA_SERVER_URL}/webhooks/rest/webhook", json=message) as response:
+            resp_text = await response.text()
+            print("Rasa response status=%s body=%s", response.status, resp_text)
             if response.status != 200:
-                raise HTTPException(status_code=502, detail="Rasa server error")
-            return await response.json()
+                raise HTTPException(status_code=502, detail=f"Rasa server error: {resp_text}")
+            try:
+                return json.loads(resp_text)
+            except Exception:
+                print("Failed to decode Rasa JSON response")
+                raise HTTPException(status_code=502, detail="Invalid JSON from Rasa")
 
 async def generate_streaming_response(content: str, model: str):
     words = content.split(" ")
@@ -83,12 +97,23 @@ async def generate_streaming_response(content: str, model: str):
 @app.post("/chat/completions")
 async def chat_completions(request: ChatCompletionRequest):
     try:
+        try:
+            print("Incoming OpenAI-style request: %s", request.json())
+        except Exception:
+            print("Incoming OpenAI-style request (could not serialize)")
+
         rasa_message = convert_to_rasa_message(request.messages)
+        print("Converted to Rasa message: %s", json.dumps(rasa_message))
         rasa_response = await send_to_rasa(rasa_message)
-        
+        # Log Rasa reply
+        try:
+            print("Rasa reply parsed: %s", json.dumps(rasa_response))
+        except Exception:
+            print("Rasa reply received (could not serialize)")
+
         if not request.stream:
             return convert_to_openai_response(rasa_response, request.model)
-        
+
         content = rasa_response[0].get('text', 'Sorry, I could not process your request.') if rasa_response else 'Sorry, I could not process your request.'
         return StreamingResponse(generate_streaming_response(content, request.model), media_type="text/event-stream")
         
