@@ -313,8 +313,8 @@ nlu:
       - time to rest
       - sleep time
       - I want it to be night
-  - going to bed in [bedroom](room)
-  - bedtime in the [bedroom](room)
+      - going to bed in [bedroom](room)
+      - bedtime in the [bedroom](room)
       - time to sleep in [master bedroom](room)
   
   # Party Scene
@@ -634,3 +634,22 @@ nlu:
       - cool
       - ac on
       - ac off
+
+  - intent: ask_door_presence
+    examples: |
+      - is someone at the door
+      - is somebody at the door
+      - who is at the door
+      - is someone outside
+      - is some at the door
+      - anyone at the door
+
+  - intent: request_open_door
+    examples: |
+      - open the door
+      - please open the door
+      - yes open the door
+      - open the front door
+      - let them in
+      - let them inside
+      - yes please open the door

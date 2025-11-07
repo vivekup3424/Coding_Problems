@@ -28,6 +28,8 @@ intents:
   - romantic_mood
   - cool_mode
   - set_room_context
+  - ask_door_presence
+  - request_open_door
 
 entities:
   - room
@@ -64,30 +66,42 @@ responses:
     - text: "Hey! What can I do?"
 
   utter_goodbye:
-    - text: "Goodbye!"
-    - text: "See you!"
-    - text: "Bye!"
+    - text: "Goodbye! Have a wonderful day!"
+    - text: "See you later! Let me know if you need anything!"
+    - text:  "Bye! Your home is in good hands!"
 
   utter_thank_you:
     - text: "You're welcome!"
-    - text: "Anytime!"
+    - text: "Anytime! Happy to be of help"
     - text: "Happy to help!"
 
   utter_help:
     - text: "I control scenes in your rooms. Try 'turn on bright in living room' or 'good night'."
 
   utter_ask_which_room:
-    - text: "Which room?"
+    - text: "Which room do you want the scene to execute in ?"
 
   utter_ask_which_scene:
-    - text: "Which scene? (bright, relax, night, etc.)"
+    - text: "Which scene do you want to execute (bright, relax, night, etc.)"
 
   utter_ask_scene_details:
-    - text: "Which scene and room?"
+    - text: "Which scene do you want, and in which room?"
 
   utter_default:
     - text: "Hi! How can I help?"
     - text: "Hello! What would you like?"
+
+  utter_door_presence_info:
+    - text: "Yes, there are two people at the door. Do you want to meet them?"
+
+  utter_camera_stream_opened:
+    - text: "Perfect, I've opened the door camera stream on Homestation."
+
+  utter_offer_open_door:
+    - text: "No problem. Let me know if you want them inside the home."
+
+  utter_opening_door:
+    - text: "Opening the door now."
 
 actions:
   - action_execute_scene

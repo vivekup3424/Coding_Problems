@@ -20,67 +20,67 @@ class ActionExecuteScene(Action):
         return {
             "good_night": {
                 "scene_name": "Night",
-                "message": "Good night!"
+                "message": "Good night! I've set the cozy Night scene so the lights dim and you're ready to wind down."
             },
             "good_morning": {
                 "scene_name": "Bright",
-                "message": "Good morning!"
+                "message": "Good morning! Bright scene is on—energizing light to kickstart your day."
             },
             "want_relax": {
                 "scene_name": "Relax",
-                "message": "Relax mode set."
+                "message": "Relax mode set. Soft ambient lighting is on—take a deep breath and unwind."
             },
             "leaving_home": {
                 "scene_name": "All off",
-                "message": "Everything's off."
+                "message": "All off—I've powered everything down safely as you head out."
             },
             "coming_home": {
                 "scene_name": "Bright",
-                "message": "Welcome home!"
+                "message": "Welcome home! Bright scene is on to greet you—let me know if you want a different mood."
             },
             "going_to_bed": {
                 "scene_name": "Night",
-                "message": "Night mode set."
+                "message": "Night mode set. Lights are dimmed for a restful sleep. Sweet dreams!"
             },
             "movie_time": {
                 "scene_name": "Relax",
-                "message": "Movie mode set."
+                "message": "Movie mode set. Ambient lights lowered—enjoy your show!"
             },
             "work_mode": {
                 "scene_name": "Bright",
-                "message": "Work mode activated."
+                "message": "Work mode activated. Bright balanced lighting to help you focus and stay productive."
             },
             "ac_on": {
                 "scene_name": "AC on",
-                "message": "AC is on."
+                "message": "AC is on. Cooling started—let me know if you'd like to tweak the comfort."
             },
             "ac_off": {
                 "scene_name": "AC off",
-                "message": "AC is off."
+                "message": "AC is off. Saving energy—turn it back on anytime."
             },
             "party_scene": {
                 "scene_name": "Party",
-                "message": "Party mode!"
+                "message": "Party mode! Colorful scene engaged—have fun and let me know when to change the vibe."
             },
             "reading_mode": {
                 "scene_name": "Reading",
-                "message": "Reading lights set."
+                "message": "Reading lights set. Focused warm lighting for comfy page turning. Enjoy!"
             },
             "coffee_time": {
                 "scene_name": "Coffee",
-                "message": "Coffee time!"
+                "message": "Coffee time! Bright, alert lighting—perfect for a fresh cup and a boost."
             },
             "rain_mood": {
                 "scene_name": "Rain",
-                "message": "Rain mood set."
+                "message": "Rain mood set. Gentle cool ambience—great for focus or a reflective break."
             },
             "romantic_mood": {
                 "scene_name": "Romantic",
-                "message": "Romantic mood set."
+                "message": "Romantic mood set. Soft warm hues for an intimate, relaxed atmosphere."
             },
             "cool_mode": {
                 "scene_name": "Cool",
-                "message": "Cool mode set."
+                "message": "Cool mode set. Fresh clean lighting profile is active—let me know if you want to switch moods."
             }
         }
 

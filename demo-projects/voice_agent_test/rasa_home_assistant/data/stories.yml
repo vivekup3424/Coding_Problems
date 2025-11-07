@@ -1,0 +1,13 @@
+version: "3.1"
+
+stories:
+  - story: door_presence_flow
+    steps:
+      - intent: ask_door_presence
+      - action: utter_door_presence_info
+      - intent: affirm
+      - action: utter_camera_stream_opened
+      - intent: thank
+      - action: utter_offer_open_door
+      - intent: request_open_door
+      - action: utter_opening_door
