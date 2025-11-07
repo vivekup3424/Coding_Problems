@@ -112,7 +112,7 @@ class ActionExecuteScene(Action):
         print(f"Intent: {intent}")
         
         # Step 1: Extract and match room context
-        room_mention = next(tracker.get_latest_entity_values("room"), None)
+        room_mention = next(tracker.get_latest_entity_values("room"), "Home")
         if room_mention:
             print(f"Room mentioned: {room_mention}")
             room_name, room_id, slot_events = extract_and_match_room(tracker)
