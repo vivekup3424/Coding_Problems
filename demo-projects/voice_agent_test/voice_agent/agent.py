@@ -11,9 +11,13 @@ from livekit.plugins import (
 import os
 import signal
 import asyncio
+import sys
 from datetime import datetime, timedelta
 
 load_dotenv()
+
+# Global variable to store initial message from wake word
+INITIAL_MESSAGE = None
 
 # Define Rasa goodbye utterances
 GOODBYE_PHRASES = [
@@ -27,7 +31,7 @@ INACTIVITY_TIMEOUT = 30
 
 class Assistant(Agent):
     def __init__(self) -> None:
-        super().__init__(instructions="You are a helpful voice AI assistant.")
+        super().__init__(instructions="")
 
 async def entrypoint(ctx: agents.JobContext):
     # Track last activity time
@@ -78,9 +82,28 @@ async def entrypoint(ctx: agents.JobContext):
     
     inactivity_task = asyncio.create_task(check_inactivity())
     
-    await session.generate_reply(
-        instructions="Greet the user and offer your assistance."
-    )
+    # If there's an initial message from wake word, process it first
+    if INITIAL_MESSAGE:
+        print(f"Processing initial command: '{INITIAL_MESSAGE}'")
+        # Send initial message as user input
+        await session.generate_reply(instructions=INITIAL_MESSAGE)
+    else:
+        # Normal greeting
+        await session.generate_reply(
+            instructions="Greet the user briefly"
+        )
 
 if __name__ == "__main__":
+    # Parse command line arguments for initial message
+    if "--initial-message" in sys.argv:
+        try:
+            idx = sys.argv.index("--initial-message")
+            if idx + 1 < len(sys.argv):
+                INITIAL_MESSAGE = sys.argv[idx + 1]
+                # Remove these arguments so they don't interfere with LiveKit CLI
+                sys.argv.pop(idx)  # Remove --initial-message
+                sys.argv.pop(idx)  # Remove the message value
+        except Exception as e:
+            print(f"Error parsing initial message: {e}")
+    
     agents.cli.run_app(agents.WorkerOptions(entrypoint_fnc=entrypoint))

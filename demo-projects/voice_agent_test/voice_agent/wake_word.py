@@ -14,6 +14,12 @@ import numpy as np
 import signal
 import time
 import openwakeword
+from deepgram import DeepgramClient
+from dotenv import load_dotenv
+import io
+import wave
+
+load_dotenv()
 
 WAKE_WORD = os.path.expanduser("~/Downloads/hey_kee_us.onnx")
 # WAKE_WORD = "hey_mycroft"
@@ -23,6 +29,7 @@ CHANNELS = 1
 SAMPLE_RATE = 16000
 CHUNK_SIZE = 1280  # 80ms chunks at 16kHz
 DETECTION_THRESHOLD = 0.4  # Confidence threshold for wake word detection
+POST_WAKE_DURATION = 4.0  # Seconds to record after wake word detection
 
 class WakeWordDetector:
     def __init__(self):
@@ -31,10 +38,19 @@ class WakeWordDetector:
         self.stream = None
         self.agent_process = None
         self.running = True
+        self.deepgram_client = None
         
         # Setup signal handlers for graceful shutdown
         signal.signal(signal.SIGINT, self._signal_handler)
         signal.signal(signal.SIGTERM, self._signal_handler)
+        
+        # Initialize Deepgram client
+        deepgram_api_key = os.getenv("DEEPGRAM_API_KEY")
+        if not deepgram_api_key:
+            print("⚠️  Warning: DEEPGRAM_API_KEY not found in environment")
+        else:
+            self.deepgram_client = DeepgramClient(api_key=deepgram_api_key)
+            print("✓ Deepgram client initialized")
     
     def _signal_handler(self, signum, frame):
         """Handle shutdown signals gracefully"""
@@ -100,10 +116,77 @@ class WakeWordDetector:
             print(f"Error during detection: {e}")
             return False
     
-    def start_agent(self):
+    def record_post_wake_audio(self):
+        """Record audio for POST_WAKE_DURATION seconds after wake word detection"""
+        print(f"🎙️  Recording for {POST_WAKE_DURATION} seconds...")
+        
+        num_chunks = int(SAMPLE_RATE * POST_WAKE_DURATION / CHUNK_SIZE)
+        audio_frames = []
+        
+        try:
+            for i in range(num_chunks):
+                audio_data = self.stream.read(CHUNK_SIZE, exception_on_overflow=False)
+                audio_frames.append(audio_data)
+            
+            print("✓ Recording complete")
+            return b''.join(audio_frames)
+        
+        except Exception as e:
+            print(f"Error recording audio: {e}")
+            return None
+    
+    def transcribe_audio(self, audio_data):
+        """Transcribe audio using Deepgram API"""
+        if not self.deepgram_client:
+            print("⚠️  Deepgram client not initialized, skipping transcription")
+            return None
+        
+        try:
+            print("🔄 Transcribing audio with Deepgram...")
+            
+            # Create a WAV file in memory
+            wav_buffer = io.BytesIO()
+            with wave.open(wav_buffer, 'wb') as wav_file:
+                wav_file.setnchannels(CHANNELS)
+                wav_file.setsampwidth(2)  # 16-bit audio
+                wav_file.setframerate(SAMPLE_RATE)
+                wav_file.writeframes(audio_data)
+            
+            wav_buffer.seek(0)
+            audio_bytes = wav_buffer.read()
+            
+            # Transcribe using Deepgram - SDK v5.x uses: client.listen.v1.media.transcribe_file()
+            response = self.deepgram_client.listen.v1.media.transcribe_file(
+                request=audio_bytes,
+                model="nova-2",
+                language="en-US",
+                smart_format=True,
+                punctuate=True,
+            )
+            
+            # Extract transcript
+            transcript = response.results.channels[0].alternatives[0].transcript.strip()
+            
+            if transcript:
+                print(f"✓ Transcription: '{transcript}'")
+                return transcript
+            else:
+                print("⚠️  No speech detected in audio")
+                return None
+                
+        except Exception as e:
+            print(f"Error transcribing audio: {e}")
+            import traceback
+            traceback.print_exc()
+            return None
+    
+    def start_agent(self, initial_message=None):
         """Start the voice agent in console mode"""
         print("\n" + "="*60)
-        print("Starting voice agent in console mode...")
+        if initial_message:
+            print(f"Starting voice agent with command: '{initial_message}'")
+        else:
+            print("Starting voice agent in console mode...")
         print("="*60 + "\n")
         
         # Get the path to agent.py (same directory as this script)
@@ -111,10 +194,15 @@ class WakeWordDetector:
         agent_script = os.path.join(script_dir, "agent.py")
         
         try:
+            # Build command with optional initial message
+            cmd = [sys.executable, agent_script, "console"]
+            if initial_message:
+                cmd.extend(["--initial-message", initial_message])
+            
             # Start the agent as a subprocess with inherited stdin/stdout/stderr
             # This allows the console mode to work properly
             self.agent_process = subprocess.Popen(
-                [sys.executable, agent_script, "console"],
+                cmd,
                 cwd=script_dir,
                 stdin=sys.stdin,
                 stdout=sys.stdout,
@@ -143,13 +231,24 @@ class WakeWordDetector:
         try:
             while self.running:
                 if self.detect_wake_word():
+                    # Record audio after wake word detection
+                    audio_data = self.record_post_wake_audio()
+                    
+                    # Transcribe the recorded audio
+                    initial_message = None
+                    if audio_data:
+                        initial_message = self.transcribe_audio(audio_data)
+                    
+                    # Close audio stream before starting agent
                     if self.stream:
                         self.stream.stop_stream()
                         self.stream.close()
                         self.stream = None
                     
-                    self.start_agent()
+                    # Start agent with transcribed message
+                    self.start_agent(initial_message)
                     
+                    # Reopen audio stream after agent exits
                     if self.audio:
                         self.stream = self.audio.open(
                             format=AUDIO_FORMAT,
