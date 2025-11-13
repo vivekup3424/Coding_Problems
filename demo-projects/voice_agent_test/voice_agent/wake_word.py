@@ -21,7 +21,10 @@ import wave
 
 load_dotenv()
 
-WAKE_WORD = os.path.expanduser("~/Downloads/hey_kee_us.onnx")
+HEY_KEE_US = os.path.expanduser("~/Downloads/hey_kee_us.onnx")
+HEY_KEUS = os.path.expanduser("~/Downloads/hey_keus.onnx")
+HEY_K_OOS = os.path.expanduser("~/Downloads/hey_k_oos.onnx")
+
 # WAKE_WORD = "hey_mycroft"
 # Or provide full path to your .onnx or .tflite file
 AUDIO_FORMAT = pyaudio.paInt16
@@ -29,7 +32,7 @@ CHANNELS = 1
 SAMPLE_RATE = 16000
 CHUNK_SIZE = 1280  # 80ms chunks at 16kHz
 DETECTION_THRESHOLD = 0.4  # Confidence threshold for wake word detection
-POST_WAKE_DURATION = 4.0  # Seconds to record after wake word detection
+POST_WAKE_DURATION = 2.0  # Seconds to record after wake word detection
 
 class WakeWordDetector:
     def __init__(self):
@@ -67,10 +70,10 @@ class WakeWordDetector:
         # By default, it includes pre-trained models like "hey_mycroft"
         # openwakeword.utils.download_models()
         self.model = Model(
-            wakeword_models=[WAKE_WORD],
+            wakeword_models=[HEY_KEE_US, HEY_KEUS, HEY_K_OOS],
             inference_framework="onnx"
         )
-        print(f"✓ Loaded wake word model: {WAKE_WORD}")
+        print(f"✓ Loaded wake word models: {HEY_KEE_US}, {HEY_KEUS}")
         
         self.audio = pyaudio.PyAudio()
         
