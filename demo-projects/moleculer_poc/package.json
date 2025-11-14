@@ -1,0 +1,17 @@
+{
+  "name": "moleculer_poc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "moleculer": "^0.14.35",
+    "moleculer-repl": "^0.7.4",
+    "nats": "^2.29.3"
+  }
+}
