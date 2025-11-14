@@ -1,0 +1,16 @@
+{
+  "name": "attendance-automation",
+  "version": "1.0.0",
+  "description": "Automated attendance check-in system using Playwright",
+  "main": "attendance.js",
+  "scripts": {
+    "test": "node attendance.js",
+    "start": "node attendance.js"
+  },
+  "keywords": ["playwright", "automation", "attendance"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "playwright": "^1.40.0"
+  }
+}
