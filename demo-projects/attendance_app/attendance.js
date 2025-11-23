@@ -176,7 +176,7 @@ async function checkInEmployee(browser, employee) {
     console.log(`📋 Found ${data.employees.length} employee(s) to process\n`);
 
     const browser = await chromium.launch({
-        headless: true, // Set to true to run without UI
+        headless: false, // Set to true to run without UI
         slowMo: 500 // Slow down by 500ms for better visibility
     });
 
