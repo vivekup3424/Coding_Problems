@@ -1,4 +1,2 @@
-#practice code for Counter dict
-from collections import Counter
-c = Counter("kvmkdsnvsdhdsgs")
-print(c)
+a = 0
+print(type(a))
