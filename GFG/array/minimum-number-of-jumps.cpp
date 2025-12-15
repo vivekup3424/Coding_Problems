@@ -14,6 +14,16 @@ class Solution{
         }
         return jumps[n-1];
     }
+    int minJumps2(vector<int> &arr){
+        int maxReach = 0, steps = 0;
+        for(int i = 0; i < arr.size(); i++){
+            if(i==0){
+                steps = 1;
+                maxReach = arr[i];
+                
+            }
+        }
+    }
 };
 
 int main(int argc, char const *argv[])
