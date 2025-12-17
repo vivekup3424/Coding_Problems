@@ -6,7 +6,7 @@ class Solution{
     void nextPermutation(vector<int> &nums){
         int pivot_idx = -1;
         for(int i = nums.size()-2; i >= 0; i--){
-            if(nums[i]<nums[i+1]){
+            if(nums[i] < nums[i+1]){
                 pivot_idx=i;
                 break;
             }
