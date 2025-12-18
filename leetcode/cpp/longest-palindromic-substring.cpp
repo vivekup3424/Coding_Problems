@@ -86,3 +86,26 @@ public:
         return maxString;
     }
 };
+
+// Attempt = 17th December 2025
+class Solution1{
+public:
+    string longestPalindrome(string s){
+        int n = s.size();
+        vector<vector<int>> dp(n+1, vector<int>(n+1,0));
+        int maxLen = 0;
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; i <= n; i++){
+                int norm_i = i-1;
+                int norm_j = j-1;
+                if(s[norm_i]==s[n-1-norm_j]){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                    maxLen = max(maxLen, dp[i][j]);
+                }else{
+                    dp[i][j] = 0;
+                }
+            }
+        }
+        return maxLen;
+    }
+};
