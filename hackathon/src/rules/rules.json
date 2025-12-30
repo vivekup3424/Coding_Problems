@@ -1,0 +1,19 @@
+[
+  {
+    "name": "High activity past day",
+    "conditions": {
+      "all": [
+        { "fact": "event_id", "operator": "equal", "value": "cameras.motion.person" },
+        { "fact": "count_last_24h", "operator": "greaterThan", "value": 10 }
+      ]
+    },
+    "event": {
+      "type": "send-alert",
+      "params": {
+        "severity": "high",
+        "reason": "High motion activity in last 24h"
+      }
+    },
+    "priority": 10
+  }
+]
