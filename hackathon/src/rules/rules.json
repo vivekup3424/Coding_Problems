@@ -1,17 +1,47 @@
 [
   {
-    "name": "High activity past day",
+    "name": "Dismissed by user",
     "conditions": {
       "all": [
-        { "fact": "event_id", "operator": "equal", "value": "cameras.motion.person" },
-        { "fact": "count_last_24h", "operator": "greaterThan", "value": 10 }
+        { "fact": "dismissible", "operator": "equal", "value": true }
       ]
     },
     "event": {
-      "type": "send-alert",
+      "type": "dismissed",
       "params": {
-        "severity": "high",
-        "reason": "High motion activity in last 24h"
+        "reason": "Dismissed by user"
+      }
+    },
+    "priority": 100
+  },
+  {
+    "name": "Anomaly detected",
+    "conditions": {
+      "all": [
+        { "fact": "dismissible", "operator": "equal", "value": false },
+        { "fact": "occurrence", "operator": "lessThan", "value": 2 }
+      ]
+    },
+    "event": {
+      "type": "anomaly",
+      "params": {
+        "reason": "Anomaly detected - rare occurrence"
+      }
+    },
+    "priority": 50
+  },
+  {
+    "name": "Common event",
+    "conditions": {
+      "all": [
+        { "fact": "dismissible", "operator": "equal", "value": false },
+        { "fact": "occurrence", "operator": "greaterThanInclusive", "value": 2 }
+      ]
+    },
+    "event": {
+      "type": "common",
+      "params": {
+        "reason": "Common event"
       }
     },
     "priority": 10

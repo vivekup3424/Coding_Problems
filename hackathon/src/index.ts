@@ -17,7 +17,7 @@ async function main() {
     .split(',')
     .map(server => server.trim())
     .filter(Boolean);
-  const natsSubject = process.env.NATS_SUBJECT ?? 'camera.motion';
+  const natsSubject = process.env.NATS_SUBJECT ?? 'events.anomaly';
   const natsQueue = process.env.NATS_QUEUE;
 
   const rules = await loadRulesFromFile(rulesPath);
@@ -42,6 +42,7 @@ async function main() {
     nc,
     natsSubject,
     async payload => {
+      console.log("incoming payload = ", payload)
       const parsed = motionEventSchema.safeParse(payload);
       if (!parsed.success) {
         console.error('Invalid camera motion event', parsed.error.flatten());

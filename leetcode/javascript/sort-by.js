@@ -5,7 +5,9 @@
  */
 var sortBy = function(arr,fn){
     arr.sort((a,b)=>{
-        return fn(a) - fn(b);
+        return fn(a) - fn(b)
     })
-    return arr
 }
+
+//doing mergesort now
+// var sortBy = function
