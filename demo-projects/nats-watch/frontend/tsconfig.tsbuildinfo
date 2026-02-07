@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/components/Layout.tsx","./src/hooks/useWebSocket.ts","./src/pages/ClientsPage.tsx","./src/pages/ConnectionPage.tsx","./src/pages/DashboardPage.tsx","./src/pages/SettingsPage.tsx","./src/pages/SubscriptionsPage.tsx","./src/services/api.ts","./src/types/index.ts"],"version":"5.9.3"}
