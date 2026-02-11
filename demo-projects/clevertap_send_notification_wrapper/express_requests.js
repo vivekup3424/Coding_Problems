@@ -5,7 +5,7 @@ const eventData = {
 	d: [
 		{
 			type: "event",
-			identity: process.env.CLEVERTAP_ACCOUNT_ID,
+			identity: ["+918247781785"],
 			evtName: "Security_Tab_Viewed",
 			evtData: {
 				"timestamp": "12:46",
@@ -17,8 +17,8 @@ const eventData = {
 };
 
 const headers = {
-	"X-CleverTap-Account-Id": process.env.CLEVERTAP_ACCOUNT_ID,
-	"X-CleverTap-Passcode": process.env.CLEVERTAP_ACCOUNT_PASSCODE,
+	"X-CleverTap-Account-Id": "449-R46-R57Z",
+	"X-CleverTap-Passcode": "AAS-IAY-MPEL",
 	"Content-Type": "application/json",
 };
 
