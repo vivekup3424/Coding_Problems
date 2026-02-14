@@ -13,23 +13,7 @@ const pushPayload = {
 
 	"to": {
 
-		"objectId": [
-			
-			"-v8829d8dce13548df84dea2412686f8dd",
-			"-vdd7ea2c414e843a1a4fb66b3b0e25343",
-			
-			"-2d1cc83f9f084a43b2eb3f0754b87a3a",
-
-			"-24a6212992e04542b9ce361f31e7a923",
-
-			"-v6bf1567abd1a48968f72718e9436e9e8",
-
-
-			"-1281e7550d784915b77c9ddabe79cbf3",
-
-			"-5707bb4001754239baf3c0699ccc872e"
-
-		]
+		"Identity": "+917000417019"
 
 	},
 
