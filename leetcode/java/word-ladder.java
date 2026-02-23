@@ -1,7 +1,7 @@
 import java.util.*;
 class Solution{
     public int ladderLength(String beginWord, String endWord, List<String> wordList){
-        int count = 0;
+        wordList.add(beginWord);
         Map<String, List<String>> neighbors = new HashMap<>();
         for (int i = 0; i < wordList.size(); i++) {
            for (int j = i + 1; j < wordList.size(); j++) {
@@ -18,8 +18,37 @@ class Solution{
             }
            }
         }
-
-
-        return count;
+        //so the map has been constructed now
+        System.out.print("Neighbors Map");
+        System.out.println(neighbors);
+        //let's do bfs now
+        Queue<String> queue = new ArrayDeque<>();
+        Set<String> visited = new HashSet<>();
+        queue.add(beginWord);
+        visited.add(beginWord);
+        int distance = 1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for(int i = 0; i < size; i++){
+                String word = queue.poll();
+                if(word.equals(endWord)){
+                    return distance;
+                }
+                for(String neighbor: neighbors.getOrDefault(word, new ArrayList<>())){
+                    if(!visited.contains(neighbor)){
+                        visited.add(neighbor);
+                        queue.add(neighbor);
+                    }
+                }
+            }
+            distance++;
+        }
+        return 0;
+    }
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        String beginWord = "hit", endWord = "cog";
+        List<String> wordList = new ArrayList<>(Arrays.asList("hot", "dog", "lot", "dot", "log", "cog"));
+        System.out.println(solution.ladderLength(beginWord, endWord, wordList));
     }
 }
