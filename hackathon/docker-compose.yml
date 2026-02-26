@@ -1,9 +1,0 @@
-version: '3.9'
-services:
-  nats:
-    image: nats:latest
-    container_name: hackathon-nats
-    ports:
-      - "4222:4222"  # client
-      - "8222:8222"  # monitoring UI
-    command: ["-js"]
