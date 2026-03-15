@@ -1,33 +1,25 @@
-import java.util.HashMap;
-import java.util.Map;
-import javax.naming.NameNotFoundException;
+import java.util.UUID;
 
 public class User {
+    private final String id;
     private String name;
-    private String id;
-    private Map<String, Task> tasks;
-    public User(String name, String id){
+    private String email;
+
+    public User(String name, String email) {
+        this.id = UUID.randomUUID().toString();
         this.name = name;
-        this.id = id;
-        tasks = new HashMap<>();
-    }
-    String sanitizeDescription(String descriptionString){
-        String answer = descriptionString.trim();
-        return answer;
-    }
-    public void markTask(String description, TaskStatus newStatus) throws NameNotFoundException{
-        description = sanitizeDescription(description);
-        if (!tasks.containsKey(description)) {
-           throw new NameNotFoundException("task with given description not found");
-        }
-        Task requiredTask = tasks.get(description);
-        requiredTask.changeStatus(newStatus);
-        return;
+        this.email = email;
     }
 
-    public void printUser(){
-        System.out.println("Give user: ");
-        System.out.println("\tName = "+name);
-        System.out.println("\tId = "+id);
+    public String getId()    { return id; }
+    public String getName()  { return name; }
+    public String getEmail() { return email; }
+
+    public void setName(String name)   { this.name = name; }
+    public void setEmail(String email) { this.email = email; }
+
+    @Override
+    public String toString() {
+        return String.format("User{id='%s', name='%s', email='%s'}", id.substring(0, 8), name, email);
     }
 }
