@@ -16,25 +16,27 @@ Implement MyHashSet class:
 class ListNode{
     int data;
     ListNode next;
-    ListNode() {}
     ListNode(int data) {this.data = data;}
-    ListNode(int data, ListNode next){}
 }
-public class DesignHashset {
-    ListNode head;
-    DesignHashset(){
-        head = null;
+class MyHashset {
+    public final int MAX_LENGTH = 10000;
+    public ListNode[] values;
+    public MyHashset(){
+        values = new ListNode[MAX_LENGTH];
     }
     
     public void add(int data){
-        ListNode node = new ListNode(data);
-        if(head==null) head = node;
-        else{
-            head.next = node;
-        }
+        if(contains(data)) return;
+        int idx = data % MAX_LENGTH;
+        ListNode head = values[idx];
+        ListNode newNode = new ListNode(data);
+        newNode.next = head;
+        head = newNode;
     }
 
     public boolean contains(int data){
+        int idx = data % MAX_LENGTH;
+        ListNode head = values[idx];
         if(head==null) return false;
         ListNode temp = head;
         while(temp!=null){
@@ -45,8 +47,23 @@ public class DesignHashset {
     }
 
     public void remove(int data){
+        int idx = data % MAX_LENGTH;
+        ListNode head = values[idx];
         if(head == null) return;
-        
+        if(head.data == data){
+            head = head.next;
+            return;
+        }
+        ListNode prev = null;
+        ListNode temp = head;
+        while(temp!=null){
+            if(temp.data == data){
+                prev.next = temp.next;
+                break;
+            }
+            prev = temp;
+            temp = temp.next;
+        }
     }
     
 }
