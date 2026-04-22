@@ -18,20 +18,19 @@ class ListNode{
     ListNode next;
     ListNode(int data) {this.data = data;}
 }
-class MyHashset {
+class MyHashSet {
     public final int MAX_LENGTH = 10000;
     public ListNode[] values;
-    public MyHashset(){
+    public MyHashSet(){
         values = new ListNode[MAX_LENGTH];
     }
     
     public void add(int data){
         if(contains(data)) return;
         int idx = data % MAX_LENGTH;
-        ListNode head = values[idx];
         ListNode newNode = new ListNode(data);
-        newNode.next = head;
-        head = newNode;
+        newNode.next = values[idx];
+        values[idx] = newNode;
     }
 
     public boolean contains(int data){
@@ -51,7 +50,7 @@ class MyHashset {
         ListNode head = values[idx];
         if(head == null) return;
         if(head.data == data){
-            head = head.next;
+            values[idx] = head.next;
             return;
         }
         ListNode prev = null;
