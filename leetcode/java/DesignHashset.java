@@ -1,3 +1,10 @@
+
+class ListNode{
+    int data;
+    ListNode next;
+    ListNode(int data) {this.data = data;}
+}
+
 /**
  * Design a HashSet without using any built-in hash table libraries.
 
@@ -13,11 +20,6 @@ Implement MyHashSet class:
 
  */
 
-class ListNode{
-    int data;
-    ListNode next;
-    ListNode(int data) {this.data = data;}
-}
 class MyHashSet {
     public final int MAX_LENGTH = 10000;
     public ListNode[] values;
