@@ -1,7 +1,8 @@
 // place files you want to import through the `$lib` alias in this folder.
 export const DOMAIN = "https://auth.keus.in";
-export const CLIENT_ID = "327213041626185734"; // stage
+// export const CLIENT_ID = "327213041626185734"; // stage
 // export const CLIENT_ID = "332278888744943622"; // dev
+export const CLIENT_ID = "350697063522041865"; // prod
 export const REDIRECT_URI = "http://localhost:3000/auth/callback";
 export const POST_LOGOUT_REDIRECT_URI = "http://localhost:3000/auth/logged-out";
 
