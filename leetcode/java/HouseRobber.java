@@ -32,5 +32,23 @@ public class HouseRobber {
         return -100;
     }
     
-    //I am going to solve the question of 
+    //I am going to solve the question of house robber 2 here as well
+    //we need to get answer from two case 
+    //robbing from 0th house to n-2 house
+    //robbing from 1st house to n-1 house
+    public int recurse2(int idx, boolean allowFirst, int[] nums){
+        if(idx == 0) return allowFirst ? nums[0] : 0;
+        else if(idx == 1) return allowFirst ? Math.max(nums[1],nums[0]) : nums[1];
+        return Math.max(
+            nums[idx] + recurse2(idx-2, allowFirst, nums),
+            recurse2(idx-1, allowFirst, nums)
+        )
+    }
+    public int rob(int[] nums){
+        int n = nums.length;
+        return Math.max(
+            recurse2(n-1, false, nums),
+            recurse2(n-2, true, nums)
+        );
+    }
 }
