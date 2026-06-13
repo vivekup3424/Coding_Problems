@@ -13,6 +13,7 @@ Return a string formed by concatenating the mapped characters for all words in o
 
 class Solution {
     public String mapWordWeights(String[] words, int[] weights) {
+        //result stores the answer
         StringBuilder result = new StringBuilder();
 
         for (String word : words) {
