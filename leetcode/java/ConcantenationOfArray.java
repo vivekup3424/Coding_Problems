@@ -10,6 +10,7 @@ public class ConcantenationOfArray {
         for(int i = 0; i < nums.length; i++){
             ans.add(nums[i]);
         }
-        return ans.toArray(Integer);
+        int[] new_ans = new int[2 * nums.length];
+        return new_ans;
     }
 }
