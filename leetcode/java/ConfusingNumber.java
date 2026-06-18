@@ -26,16 +26,23 @@ Since 96 ≠ 69, this is a confusing number.
         mirror.put(0,0);
         mirror.put(1,1);
         mirror.put(6,9);
+        mirror.put(8,8);
         mirror.put(9,6);
         Set<Integer> invalids = new HashSet<>();
-        invalids.addAll(
+        invalids.addAll(List.of(2,3,4,5,7));
 
-        )
-
+        int original = num;
         List<Integer> flippedArr = new ArrayList<>();
         while(num > 0){
-            flippedArr.add(num % 10);
+            int a = num % 10;
+            if(invalids.contains(a)) return false;
+            flippedArr.add(mirror.get(a));
             num /= 10;
         }
+        int flippedNum = 0;
+        for(int n : flippedArr){
+            flippedNum = 10 * flippedNum + n;
+        }
+        return flippedNum != original;
     }
 }
