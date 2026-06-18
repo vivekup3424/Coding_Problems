@@ -18,7 +18,15 @@
  *   Row 3 == Col 3: "dtye"  =>  valid
  */
 public class ValidWordSquare {
-    public isValidWordSquare(String[] words){
-        
+    public boolean isValidWordSquare(String[] words) {
+        int n = words.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < words[i].length(); j++) {
+                if (j >= n || words[j].length() <= i || words[i].charAt(j) != words[j].charAt(i)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
