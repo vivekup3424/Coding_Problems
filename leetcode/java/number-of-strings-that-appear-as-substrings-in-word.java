@@ -20,6 +20,9 @@ class Solution{
            }
         }
         int count = 0;
-        f
+        for(String pattern : patterns){
+            if(substrings.contains(pattern))count+=1;
+        }
+        return count;
     }
 }
