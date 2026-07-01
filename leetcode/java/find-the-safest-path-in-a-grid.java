@@ -43,7 +43,13 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 class Solution{
-    public void bfs(int[][] grid, int[][] safeness){
+    public void bfs(int[][] grid, [][] safeness, boolean[][] visited){
+        int rows = grid.length;
         Queue<int[]> q = new ArrayDeque<>();
+        for(int i = -)
+    }
+    public int maximumSafesnessInGried(int[][] grid){
+        int rows = grid.length, cols = grid[0].length;
+
     }
 }
