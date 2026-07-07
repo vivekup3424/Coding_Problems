@@ -1,6 +1,6 @@
 ---
 name: leetcode-solution
-description: Use when the user asks to solve, add, scaffold, or write the header/boilerplate/Solution class for a LeetCode problem in this java directory (e.g. "solve two-sum", "add remove-covered-intervals", "write the class Solution for X"). Creates or fills in the .java file with the standard problem-statement header and a working Solution class, following this repo's conventions.
+description: Use when the user asks to add, scaffold, or write the header/boilerplate/Solution class for a LeetCode problem in this java directory (e.g. "scaffold two-sum", "add remove-covered-intervals", "write the class Solution for X"). Creates the .java file with the standard problem-statement header and an EMPTY Solution stub (method signature only, no logic) — the user writes the actual algorithm themselves. Do not use this to implement a working solution.
 ---
 
 # Adding a LeetCode Java Solution
@@ -33,29 +33,31 @@ Recall the actual LeetCode problem number, statement, examples, and constraints
 accurately — don't invent or approximate them. If unsure of the exact wording,
 say so and ask the user for the problem link/text rather than guessing.
 
-## Solution class
-- Class must be named `Solution` (LeetCode judge convention).
-- Method name and signature must match LeetCode's exact signature for that problem.
-- Style used throughout this repo: 4-space indent, opening brace on the same line,
-  no space before `(` in control statements (`if(...)`, `for(...)`):
+## Solution class — STUB ONLY, never the algorithm
+This skill scaffolds, it does not solve. Leave the method body empty, exactly like
+LeetCode's own "Java" starter code for a problem:
 ```java
 class Solution {
     public int removeCoveredIntervals(int[][] intervals) {
-        ...
+
     }
 }
 ```
-- Implement a real, working solution — not a stub — unless the user explicitly asks
-  for just a skeleton/stub (in which case use the minimal `class Solution{\n\n}`
-  form seen elsewhere in this repo).
-- No `main` method or test harness in the committed file — this repo doesn't use
-  them; solutions are graded on LeetCode directly. If verification is useful,
-  compile/run a scratch copy with a temporary `Main` class outside this directory,
-  then discard it.
+- Class must be named `Solution` (LeetCode judge convention).
+- Method name and signature must match LeetCode's exact signature for that problem.
+- Style used throughout this repo: 4-space indent, opening brace on the same line,
+  no space before `(` in control statements (`if(...)`, `for(...)`).
+- Body stays empty. Do not fill in any logic, do not add a `return` statement,
+  do not add helper methods — it not compiling is expected and fine, same as a
+  fresh LeetCode problem page. The user solves it themselves.
+- Never write a solution here even if you know the answer — do this only if the
+  user explicitly asks you to solve/implement it (that's a separate ask, not this
+  skill's job).
+- No `main` method or test harness in the committed file.
 
 ## Workflow
 1. Given a problem name, number, or URL, recall the exact statement/examples/constraints.
 2. Determine the file name and check whether it already exists in this directory.
-3. Write the header + Solution class into that one file, matching the format above.
-4. Compile it (`javac`) to make sure it's syntactically valid.
-5. State the approach and time/space complexity briefly — don't over-explain.
+3. Write the header + empty Solution stub into that one file, matching the format above.
+4. Do NOT compile/test it — an empty body has nothing to verify.
+5. Stop there. Don't explain an approach or complexity — that would be solving it.
