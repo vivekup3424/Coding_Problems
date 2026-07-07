@@ -36,10 +36,29 @@
  *   - order.length == 26
  *   - All characters in words[i] and order are English lowercase letters.
  */
+
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution {
-    private boolean
+    private boolean isSmaller(String word1, String word2, Map<Character, Integer> indexOfMap){
+        for(int i = 0; i < Math.min(word1.length(),word2.length()); i++){
+            int idx1 = indexOfMap.get(word1.charAt(i));
+            int idx2 = indexOfMap.get(word2.charAt(i));
+            if(idx1 < idx2) return true;
+            else if(idx1 > idx2) return false;
+        }
+        if(word1.length() > word2.length()) return false;
+        return true;
+    }
     public boolean isAlienSorted(String[] words, String order) {
-
-
+        Map<Character,Integer> indexOfMap = new HashMap<>();
+        for(int i = 0; i < order.length(); i++){
+            indexOfMap.put(order.charAt(i),i);
+        }
+        for(int i = 0; i < words.length - 1; i++){
+            if(!isSmaller(words[i], words[i + 1], indexOfMap)) return false;
+        }
+        return true;
     }
 }
