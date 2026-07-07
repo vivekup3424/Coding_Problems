@@ -43,7 +43,13 @@ class Solution {
         int[] indegree = new int[n+1];
         int[] outdegree = new int[n+1];
         for(int i = 0; i < trust.length; i++){
-            
+            int l = trust[i][0], r = trust[i][1];
+            indegree[r]++;
+            outdegree[l]++;
         }
+        for(int i = 1; i<= n; i++){
+            if(indegree[i] == n-1 && outdegree[i]==0) return i;
+        }
+        return -1;
     }
 }
