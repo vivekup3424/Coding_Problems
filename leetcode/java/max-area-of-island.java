@@ -49,7 +49,16 @@ class Solution {
         return sum;
     }
     public int maxAreaOfIsland(int[][] grid) {
-
+        int rows = grid.length, cols = grid[0].length;
+        boolean[][] visited = new boolean[rows][cols];
+        int maxVal = 0;
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < cols; j++){
+                if(grid[i][j] == 1 && visited[i][j]==false){
+                   maxVal = Math.max(maxVal,dfs(grid,visited,i,j));
+                }
+            }
+        }
+        return maxVal;
     }
 }
-1
