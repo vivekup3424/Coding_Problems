@@ -37,11 +37,19 @@
  */
 class Solution {
     private int dfs(int[][] grid, boolean[][] visited, int X, int Y){
-        
-        if(X < 0 || X >=)
+        int rows = grid.length, cols = grid[0].length;
+        if(X < 0 || X >= rows || Y < 0 || Y >= cols) return 0;
+        if(visited[X][Y] || grid[X][Y]==0) return 0;
         visited[X][Y] = true;
+        int sum = 1;
+        sum += dfs(grid, visited, X-1, Y);
+        sum += dfs(grid, visited, X+1, Y);
+        sum += dfs(grid, visited, X, Y-1);
+        sum += dfs(grid, visited, X, Y+1);
+        return sum;
     }
     public int maxAreaOfIsland(int[][] grid) {
 
     }
 }
+1
