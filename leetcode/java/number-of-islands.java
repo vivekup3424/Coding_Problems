@@ -34,10 +34,28 @@
  *   - grid[i][j] is '0' or '1'.
  */
 class Solution {
-    private void dfs(char[][] grid, boolean[][] visited){
-
+    private void dfs(char[][] grid, boolean[][] visited, int X, int Y){
+        int rows = grid.length, cols = grid[0].length;
+        if(X < 0 || X >= rows || Y < 0 || Y >= cols) return;
+        if(visited[X][Y] || grid[X][Y]== '0')return;
+        visited[X][Y] = true;
+        dfs(grid, visited, X-1, Y);
+        dfs(grid, visited, X+1, Y);
+        dfs(grid, visited, X, Y-1);
+        dfs(grid, visited, X, Y+1);
     }
     public int numIslands(char[][] grid) {
-
+        int count = 0;
+        int rows = grid.length, cols = grid[0].length;
+        boolean[][] visited = new boolean[rows][cols];
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < cols; j++){
+                if(visited[i][j]==false && grid[i][j] == '1'){
+                    dfs(grid,visited,i,j);
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
