@@ -34,7 +34,15 @@
  *   - rooms[i][j] is -1, 0, or 2^31 - 1.
  */
 class Solution {
+    //bfs with minHeap
     public void wallsAndGates(int[][] rooms) {
+        int rows = rooms.length, cols = rooms[0].length;
+        
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < cols; j++){
+                if()
+            }
+        }
 
     }
 }
