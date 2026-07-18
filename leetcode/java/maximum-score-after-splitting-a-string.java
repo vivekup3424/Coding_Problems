@@ -38,6 +38,6 @@ class Solution {
         int n = s.length();
         int[] zeroesFromLeft = new int[n];
         int[] onesFromRight = new int[n];
-        
+
     }
 }
