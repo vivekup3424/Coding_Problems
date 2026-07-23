@@ -3,13 +3,13 @@ import java.util.Map;
 
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> valueIndex = new HashMap<>();
+        Map<Integer, Integer> indexOf = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             int complement = target - nums[i];
-            if (valueIndex.containsKey(complement)) {
-                return new int[] { valueIndex.get(complement), i };
+            if (indexOf.containsKey(complement)) {
+                return new int[] { indexOf.get(complement), i };
             }
-            valueIndex.put(nums[i], i);
+            indexOf.put(nums[i], i);
         }
         return new int[] {};
     }
