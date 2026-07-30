@@ -42,6 +42,7 @@
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 class Solution {
     public int minimumPushes(String word) {
@@ -50,6 +51,11 @@ class Solution {
             Character c = word.charAt(i);
             freq.put(c,freq.getOrDefault(c, 0)+1);
         }
+        PriorityQueue<Character> maxHeap = new PriorityQueue<>(
+            (a,b) -> freq.get(b) - freq.get(a)
+        );
+        maxHeap.addAll(freq.keySet());
+        int idx = 0;
         
     }
 }
