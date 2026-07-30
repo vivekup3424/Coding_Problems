@@ -39,8 +39,17 @@
  *   - 1 <= word.length <= 10^5
  *   - word consists of lowercase English letters.
  */
+
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution {
     public int minimumPushes(String word) {
-
+        Map<Character, Integer> freq = new HashMap<>();
+        for(int i = 0; i < word.length(); i++){
+            Character c = word.charAt(i);
+            freq.put(c,freq.getOrDefault(c, 0)+1);
+        }
+        
     }
 }
