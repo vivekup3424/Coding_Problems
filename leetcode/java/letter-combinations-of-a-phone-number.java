@@ -29,7 +29,11 @@
 import java.util.List;
 
 class Solution {
-    void recurse(String digits, int idx, StringBuffer)
+    void recurse(String digits, int idx, StringBuffer temp, List<String> answer){
+        if(idx == digits.length()){
+            answer.add(temp.toString());
+        }
+    }
     public List<String> letterCombinations(String digits) {
 
     }
