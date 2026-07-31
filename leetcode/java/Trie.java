@@ -50,7 +50,6 @@ public class Trie{
     }
 
     public static void main(String[] args) {
-        String[] strs = {"bat", "bag", "bank", "band"};
     }
 
 }

@@ -10,11 +10,4 @@ public class KthLargest {
             }
         }
     }
-    public int add(int val){
-        minHeap.add(val);
-        if (minHeap.size() > k) {
-            minHeap.poll();
-        }
-        minHeap.peek();
-    }
 }

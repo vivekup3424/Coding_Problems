@@ -28,7 +28,6 @@ public class HouseRobber {
     public int memoryOptimized(int[] nums){
         if(nums.length == 0)return nums[0];
         else if(nums.length == 1) return Math.max(nums[0] , nums[1]);
-        int first = nums[0], second = nums[1];
         return -100;
     }
     

@@ -9,21 +9,6 @@ public class TwoKeysKeyboard {
      * Given an integer n, return the minimum number of operations to get the character 'A' exactly n times on the screen.
      */
 
-    private int recurse(int length, int buffer, int target){
-        if(length == target) return 1;
-        else if(length > target) return Integer.MAX_VALUE;
-        else{
-            if(buffer != 0){
-                return Math.min(
-                    recurse(length+buffer, buffer, target), 
-                    recurse(length, length, target)
-                );
-            }
-            else{
-                return recurse(length, buffer, target);
-            }
-        }
-    }
     public int minSteps(int n){
         return 5;
     }

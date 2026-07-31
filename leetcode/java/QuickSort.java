@@ -1,4 +1,3 @@
-import java.util.Random;
 
 public class QuickSort {
     public void quicksort(int[] arr, int l, int r){
