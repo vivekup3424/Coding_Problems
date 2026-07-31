@@ -50,7 +50,29 @@ class Solution {
     public int betterThreeSumClosest(int[] nums, int target){
         Arrays.sort(nums);
         int diff = Integer.MAX_VALUE, ans = -1;
-        for(int i = 0; i < n; i++)
+        int n = nums.length;
+        for(int i = 0; i < n; i++){
+            int j = i + 1, k = n-1;
+            while(j < k){
+                int sum = nums[i] + nums[j] + nums[k];
+                if(sum > target){
+                    k--;
+                }
+                else if(sum < target){
+                    j++;
+                }else{
+                    return sum;
+                }
+                
+                //re-adjust the diff
+                int new_diff = Math.abs(target - sum);
+                if(new_diff < diff){
+                    diff = new_diff;
+                    ans = sum;
+                }
+            }
+        }
+        return ans;
     }
 
     public static void main(String[] args) {

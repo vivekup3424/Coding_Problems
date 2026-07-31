@@ -56,6 +56,12 @@ class Solution {
         );
         maxHeap.addAll(freq.keySet());
         int idx = 0;
-        
+        int ans = 0, MOD = 8; 
+        while(maxHeap.size() > 0){
+            Character val = maxHeap.poll();
+            ans += ((idx / MOD) + 1) * freq.get(val);
+            idx++;
+        }
+        return ans; 
     }
 }
