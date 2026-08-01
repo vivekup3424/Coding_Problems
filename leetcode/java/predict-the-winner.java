@@ -44,11 +44,20 @@ class Solution {
         if(turn==1){
             return Math.max(
                 recurse(nums, l+1, r, 2) + nums[l],
-                recurse(nums,l,r-1,2) + nums[r-1]
-            )
+                recurse(nums,l,r-1,2) + nums[r]
+            );
+        }
+        else{
+            return Math.min(
+                recurse(nums,l+1,r,1),
+                recurse(nums,l,r-1,1)
+            );
         }
     }
     public boolean predictTheWinner(int[] nums) {
-
+        int answer = recurse(nums,0,nums.length-1,1);
+        int total_sum = 0;
+        for(int num : nums) total_sum += num;
+        return answer * 2 >= total_sum;
     }
 }
