@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Better Auth PoC</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 480px; margin: 40px auto; }
+      fieldset { margin-bottom: 16px; }
+      input { display: block; width: 100%; margin: 6px 0; padding: 6px; box-sizing: border-box; }
+      button { margin-right: 8px; padding: 6px 12px; }
+      pre { background: #f0f0f0; padding: 12px; white-space: pre-wrap; word-break: break-word; }
+    </style>
+  </head>
+  <body>
+    <h1>Better Auth PoC</h1>
+
+    <fieldset>
+      <legend>Sign up</legend>
+      <input id="su-name" placeholder="Name" value="Test User" />
+      <input id="su-email" placeholder="Email" value="test@example.com" />
+      <input id="su-password" placeholder="Password" type="password" value="password123" />
+      <button id="signup-btn">Sign up</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Sign in</legend>
+      <input id="si-email" placeholder="Email" value="test@example.com" />
+      <input id="si-password" placeholder="Password" type="password" value="password123" />
+      <button id="signin-btn">Sign in</button>
+    </fieldset>
+
+    <button id="session-btn">Check session</button>
+    <button id="me-btn">Call /api/me</button>
+    <button id="signout-btn">Sign out</button>
+
+    <h3>Result</h3>
+    <pre id="output">-</pre>
+
+    <script>
+      const output = document.getElementById("output");
+
+      async function show(promise) {
+        try {
+          const res = await promise;
+          const body = await res.json().catch(() => null);
+          output.textContent = `${res.status} ${res.statusText}\n\n${JSON.stringify(body, null, 2)}`;
+        } catch (err) {
+          output.textContent = `Error: ${err.message}`;
+        }
+      }
+
+      document.getElementById("signup-btn").addEventListener("click", () => {
+        show(
+          fetch("/api/auth/sign-up/email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+              name: document.getElementById("su-name").value,
+              email: document.getElementById("su-email").value,
+              password: document.getElementById("su-password").value,
+            }),
+          }),
+        );
+      });
+
+      document.getElementById("signin-btn").addEventListener("click", () => {
+        show(
+          fetch("/api/auth/sign-in/email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+              email: document.getElementById("si-email").value,
+              password: document.getElementById("si-password").value,
+            }),
+          }),
+        );
+      });
+
+      document.getElementById("session-btn").addEventListener("click", () => {
+        show(fetch("/api/auth/get-session", { credentials: "include" }));
+      });
+
+      document.getElementById("me-btn").addEventListener("click", () => {
+        show(fetch("/api/me", { credentials: "include" }));
+      });
+
+      document.getElementById("signout-btn").addEventListener("click", () => {
+        show(
+          fetch("/api/auth/sign-out", {
+            method: "POST",
+            credentials: "include",
+          }),
+        );
+      });
+    </script>
+  </body>
+</html>
