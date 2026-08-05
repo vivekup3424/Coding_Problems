@@ -17,7 +17,7 @@ app.use(
 );
 
 // Better Auth must be mounted before express.json() so it can read the raw body.
-app.all("/api/auth/*splat", toNodeHandler(auth));
+app.all("/api/auth/{*any}", toNodeHandler(auth));
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public")));
