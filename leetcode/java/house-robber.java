@@ -31,7 +31,8 @@
 class Solution {
     private int recurse(int[] nums, int i){
         if(i < 0) return 0;
-        if(i==0 || i == 1) return nums[i];
+        if(i==0) return nums[0];
+        if(i==1) return Math.max(nums[0], nums[1]);
         return Math.max(nums[i] + recurse(nums,i-2), recurse(nums,i-1));
     }
     public int rob(int[] nums) {
