@@ -62,7 +62,11 @@ class Solution {
         while(q.size()>0){
             int node = q.poll();
             for(int neighbor : graph.get(node)){
-                
+                indegrees[neighbor]--;
+                if(indegrees[neighbor]==0){
+                    q.add(neighbor);
+                    //Work in progress
+                }
             }
         }
     }
