@@ -54,6 +54,16 @@ class Solution {
             graph.computeIfAbsent(u, key -> new ArrayList<>()).add(v);
             indegrees[v]++;
         }
-        
+        if(indegrees[k]!= 0){
+            //early return here with all nodes remaining as they were
+        }
+        Queue<Integer> q = new ArrayDeque<>();
+        q.add(k);
+        while(q.size()>0){
+            int node = q.poll();
+            for(int neighbor : graph.get(node)){
+                
+            }
+        }
     }
 }
