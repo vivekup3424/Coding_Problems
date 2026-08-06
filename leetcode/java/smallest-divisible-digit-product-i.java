@@ -23,7 +23,19 @@
  *   - 1 <= t <= 10
  */
 class Solution {
+    private int productDigits(int n){
+        int product = 1;
+        while(n > 0){
+            product *= (n%10);
+            n /= 10;
+        }
+        return product;
+    }
     public int smallestNumber(int n, int t) {
-
+        int num = n;
+        while(true){
+            if(productDigits(num) % t == 0)return num;
+            num++;
+        }
     }
 }
