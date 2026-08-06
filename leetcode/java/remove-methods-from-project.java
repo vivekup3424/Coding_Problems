@@ -54,20 +54,51 @@ class Solution {
             graph.computeIfAbsent(u, key -> new ArrayList<>()).add(v);
             indegrees[v]++;
         }
-        if(indegrees[k]!= 0){
-            //early return here with all nodes remaining as they were
-        }
+        //drain indegrees starting from k; a node only clears once every
+        //predecessor of it has cleared first
+        boolean[] removed = new boolean[n];
         Queue<Integer> q = new ArrayDeque<>();
         q.add(k);
+        removed[k] = true;
+        int removedCount = 1;
         while(q.size()>0){
             int node = q.poll();
-            for(int neighbor : graph.get(node)){
+            for(int neighbor : graph.getOrDefault(node, Collections.emptyList())){
                 indegrees[neighbor]--;
-                if(indegrees[neighbor]==0){
+                if(indegrees[neighbor]==0 && !removed[neighbor]){
+                    removed[neighbor] = true;
+                    removedCount++;
                     q.add(neighbor);
-                    //Work in progress
                 }
             }
         }
+
+        //the true suspicious set: everything reachable from k, ignoring indegree
+        boolean[] suspicious = new boolean[n];
+        Deque<Integer> stack = new ArrayDeque<>();
+        stack.push(k);
+        suspicious[k] = true;
+        int suspiciousCount = 1;
+        while(!stack.isEmpty()){
+            int node = stack.pop();
+            for(int neighbor : graph.getOrDefault(node, Collections.emptyList())){
+                if(!suspicious[neighbor]){
+                    suspicious[neighbor] = true;
+                    suspiciousCount++;
+                    stack.push(neighbor);
+                }
+            }
+        }
+
+        //removed is only a subset of suspicious; they're equal iff nothing
+        //outside the suspicious set invokes into it, so the whole group can go
+        boolean canRemoveAll = removedCount == suspiciousCount;
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i < n; i++){
+            if(!canRemoveAll || !removed[i]){
+                result.add(i);
+            }
+        }
+        return result;
     }
 }
