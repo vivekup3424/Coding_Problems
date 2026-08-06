@@ -45,20 +45,15 @@
 import java.util.HashMap;
 import java.util.Map;
 
-class Node{
+class Node {
     int key;
     int value;
     Node prev;
     Node next;
-    Node(int key, int data){
+
+    Node(int key, int value) {
         this.key = key;
-        this.value = data;
-        prev = null;
-        next = null;
-    }
-    Node(){
-        this.key = -1;
-        this.value = -1;
+        this.value = value;
         prev = null;
         next = null;
     }
@@ -66,20 +61,54 @@ class Node{
 
 class LRUCache {
     private Map<Integer, Node> nodesMap;
+    private int capacity;
+    private Node head; // dummy; head.next is most recently used
+    private Node tail; // dummy; tail.prev is least recently used
 
     public LRUCache(int capacity) {
+        this.capacity = capacity;
         nodesMap = new HashMap<>();
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    private void remove(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    private void insertAtFront(Node node) {
+        node.next = head.next;
+        node.prev = head;
+        head.next.prev = node;
+        head.next = node;
     }
 
     public int get(int key) {
-        //get it if present
         Node node = nodesMap.get(key);
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-        return node.da
+        if (node == null) return -1;
+        remove(node);
+        insertAtFront(node);
+        return node.value;
     }
 
     public void put(int key, int value) {
-
+        Node existingNode = nodesMap.get(key);
+        if (existingNode != null) {
+            existingNode.value = value;
+            remove(existingNode);
+            insertAtFront(existingNode);
+            return;
+        }
+        if (nodesMap.size() == capacity) {
+            Node lru = tail.prev;
+            remove(lru);
+            nodesMap.remove(lru.key);
+        }
+        Node newNode = new Node(key, value);
+        insertAtFront(newNode);
+        nodesMap.put(key, newNode);
     }
 }
