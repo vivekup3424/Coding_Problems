@@ -40,7 +40,18 @@ import java.util.*;
 
 class Solution {
     public int orangesRotting(int[][] grid) {
+        int rows = grid.length, cols = grid[0].length;
+        int countofFreshOranges = 0;
+        boolean[][] visited = new boolean[rows][cols];
         Queue<int[]> q = new ArrayDeque<>();
-        for(int i )
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j <cols; j++){
+                if(grid[i][j]==2){
+                    int[] temp = new int[]{i,j,0}; //last this is the time
+                }else if(grid[i])
+            }
+        }
+
+
     }
 }
