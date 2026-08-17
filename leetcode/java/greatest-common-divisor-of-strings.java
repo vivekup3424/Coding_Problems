@@ -1,23 +1,32 @@
+/*
+ * 1071. Greatest Common Divisor of Strings
+ * https://leetcode.com/problems/greatest-common-divisor-of-strings/
+ *
+ * For two strings s and t, we say "t divides s" if and only if s = t + t + ...
+ * + t (i.e., t is concatenated with itself one or more times).
+ *
+ * Given two strings str1 and str2, return the largest string x such that x
+ * divides both str1 and str2.
+ *
+ * Example 1:
+ *   Input:  str1 = "ABCABC", str2 = "ABC"
+ *   Output: "ABC"
+ *
+ * Example 2:
+ *   Input:  str1 = "ABABAB", str2 = "ABAB"
+ *   Output: "AB"
+ *
+ * Example 3:
+ *   Input:  str1 = "LEET", str2 = "CODE"
+ *   Output: ""
+ *
+ * Constraints:
+ *   - 1 <= str1.length, str2.length <= 1000
+ *   - str1 and str2 consist of English uppercase letters.
+ */
+
 class Solution {
-    private boolean canFormCompleteString(String gcd, String str1){
-        int len_gcd = gcd.length(), len_str = str1.length();
-        if(len_str % len_gcd != 0){
-            return false;
-        }
-        String ans = gcd.repeat(len_str/len_gcd);
-        return ans.equals(str1);
-    }
     public String gcdOfStrings(String str1, String str2) {
-        StringBuilder prefix = new StringBuilder();
-        String gcd = "";
-        for (int i = 0; i < Math.min(str1.length(), str2.length()) && (str1.charAt(i) == str2.charAt(i)); i++) {
-            prefix.append(str1.charAt(i));
-            boolean canFormStr1 = canFormCompleteString(prefix.toString(), str1);
-            boolean canFormStr2 = canFormCompleteString(prefix.toString(), str2);
-            if(canFormStr1 && canFormStr2){
-                gcd = prefix.toString();
-            }
-        }
-        return gcd;
+
     }
 }
