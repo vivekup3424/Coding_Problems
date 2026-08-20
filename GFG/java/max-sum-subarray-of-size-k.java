@@ -6,5 +6,12 @@ class Solution{
             subarraySum+=arr[i];
         }
         if(n < k) return subarraySum;
+        int maxi = subarraySum;
+        for(int i = k; i < n; i++){
+            subarraySum -= arr[i-k];
+            subarraySum += arr[i];
+            maxi = Math.max(maxi,subarraySum);
+        }
+        return maxi;
     }
 }
