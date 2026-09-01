@@ -25,4 +25,14 @@ Constraints:
 from typing import List
 class Solution:
     def findMaxAverage(self, nums: List[int], k: int) -> float:
-        pass
+        n = len(nums)
+        sum_sub_arr = 0
+        for i in range(min(k,n)):
+            sum_sub_arr+=nums[i]
+        if(k>=n):
+            return sum_sub_arr / k
+        maxi = sum_sub_arr
+        for i in range(k,n):
+            sum_sub_arr = sum_sub_arr + nums[i] - nums[i-k]
+            maxi = max(sum_sub_arr,maxi)
+        return maxi / k
