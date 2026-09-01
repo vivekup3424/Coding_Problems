@@ -38,4 +38,22 @@ Constraints:
 from typing import List
 class Solution:
     def minimumMoves(self, classroom: List[str], energy: int) -> int:
-        pass
+        rows, cols = len(classroom), len(classroom[0])
+        max_energy = energy
+        litter_index = {}
+        start = None
+        for r in range(rows):
+            for c in range(cols):
+                ch = classroom[r][c]
+                if ch == 'S':
+                    start = (r,c)
+                elif ch == 'L':
+                    litter_index[(r,c)] = len(litter_index)
+
+        total_litter = len(litter_index)
+        full_mask = (1 << total_litter) - 1 if total_litter else 0
+
+        if start is None:
+            return -1
+        if total_litter == 0:
+            return 0
