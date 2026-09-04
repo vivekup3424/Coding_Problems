@@ -307,8 +307,7 @@ async function main(): Promise<void> {
   });
 
   await uploadEvents([event]);
-  // const fcmtoken = "eSZKtQesQ7-QREjcE2V83i:APA91bFEpXv5vWZvRFLie0E3B6s3zS5rsJ4iGNI-UhUuhk3XIFNCp3AlJvZ-srWqmCATiqk7fhpMNvRXMwOajFI2uR1YgGNrMECSLvNjr-75S2o_PuXPLDk";
-  const fcmtoken = "e8vnmHuqSAKFF-8A7GH-lF:APA91bHAl34Zf3NnoZtpV23XK1jj89JMhWrBiYziADrcTdMjwKXrNcOPqbNI_1Tk0m7Rxg9j3TgGuoRdfzjhJM2m4DeRorpZayqX6HzqdtEHuY-zVLtx5vA"
+  const fcmtoken = "eXkDOxaNa0mmkPvGiRtybD:APA91bHpjIFzvbleLl0Ftu7HoVHn3mH6Bzz55Py4ti14h9h4JhfhP0zup1Fs-iDgoQmLUorcUgblnPW0Jff-tdQDoGqxvxQcDMYYEvOpnNK5Dcc7YY4oueQ"
   await sendPushNotificationViaFCM(
     fcmtoken,
     "this one is from direct FCM",
