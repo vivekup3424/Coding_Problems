@@ -39,7 +39,7 @@ Constraints:
 from typing import List
 class Solution:
     def uniformArray(self, nums1: List[int]) -> bool:
-        min_odd = -1e9
+        min_odd = 1e9
         num_odd = 0
         num_even = 0
         for n in nums1:
@@ -48,4 +48,11 @@ class Solution:
                 num_odd += 1
             else:
                 num_even += 1
+        if num_even == 0 or num_odd == 0:
+            return True
+        for num in nums1:
+            if num % 2 == 0:
+                if num < min_odd:
+                    return False
+        return True 
 
