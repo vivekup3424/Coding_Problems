@@ -5,16 +5,12 @@ class Solution:
         i = word1
         j = word2
         """
-        temp : List[str]= []
-        i,j = 0,0
-        while i < len(word1) and j < len(word2):
-            temp.append(word1[i])
-            temp.append(word2[j])
+        temp  = ""
+        max_length = max(len(word1),len(word2))
+        for i in range(max_length):
+            if(i < len(word1)):
+                temp += word1[i]
+            if(i < len(word2)):
+                temp += word2[i]
             i+=1
-            j+=1
-        answer = ''.join(temp)
-        if i != len(word1):
-            answer += word1[i:]
-        if j != len(word2):
-            answer += word2[j:]
-        return answer
+        return temp
