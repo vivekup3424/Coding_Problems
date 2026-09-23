@@ -1,0 +1,235 @@
+{
+  "home_admin": [
+    {
+      "action": ["read", "write", "configure", "control"],
+      "subject": "device",
+      "conditions": {
+        "homeId": "${user.profile.homeId}"
+      }
+    },
+    {
+      "action": ["read", "write", "configure"],
+      "subject": "room",
+      "conditions": {
+        "homeId": "${user.profile.homeId}"
+      }
+    },
+    {
+      "action": ["read", "control"],
+      "subject": "automation",
+      "conditions": {
+        "homeId": "${user.profile.homeId}"
+      }
+    },
+    {
+      "action": ["read", "control"],
+      "subject": "scene",
+      "conditions": {
+        "homeId": "${user.profile.homeId}"
+      }
+    },
+    {
+      "action": ["read", "write"],
+      "subject": "local_settings",
+      "conditions": {
+        "homeId": "${user.profile.homeId}"
+      }
+    },
+    {
+      "action": ["read", "control"],
+      "subject": "security_system",
+      "conditions": {
+        "homeId": "${user.profile.homeId}"
+      }
+    },
+    {
+      "action": "read",
+      "subject": "sensor_data",
+      "conditions": {
+        "homeId": "${user.profile.homeId}"
+      }
+    }
+  ],
+  "user_002": [
+    {
+      "action": ["read", "control"],
+      "subject": "device",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "type": ["smart_light", "smart_thermostat", "smart_speaker"],
+        "roomId": ["room_001", "room_002"],
+        "timeRestrictions": {
+          "startTime": "07:00",
+          "endTime": "23:00"
+        }
+      }
+    },
+    {
+      "action": "read",
+      "subject": "room",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "id": ["room_001", "room_002", "room_004"]
+      }
+    },
+    {
+      "action": "control",
+      "subject": "scene",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "type": ["lighting", "entertainment"]
+      }
+    }
+  ],
+  "user_003": [
+    {
+      "action": ["read", "control"],
+      "subject": "device",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "type": ["smart_light", "smart_switch"],
+        "roomId": ["room_001", "room_003"],
+        "timeRestrictions": {
+          "startTime": "18:00",
+          "endTime": "22:00"
+        }
+      }
+    },
+    {
+      "action": "read",
+      "subject": "room",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "id": ["room_001", "room_003"]
+      }
+    },
+    {
+      "action": "control",
+      "subject": "scene",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "type": ["lighting"],
+        "roomIds": ["room_001", "room_003"]
+      }
+    }
+  ],
+  "user_006": [
+    {
+      "action": ["read", "control"],
+      "subject": "device",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "type": ["smart_light", "smart_thermostat", "smart_speaker", "smart_switch"],
+        "timeRestrictions": {
+          "startTime": "06:00",
+          "endTime": "24:00"
+        }
+      }
+    },
+    {
+      "action": "read",
+      "subject": "room",
+      "conditions": {
+        "homeId": "${user.profile.homeId}"
+      }
+    },
+    {
+      "action": "control",
+      "subject": "scene",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "type": ["lighting", "entertainment"]
+      }
+    },
+    {
+      "action": "read",
+      "subject": "sensor_data",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "type": ["motion_sensor"],
+        "roomId": ["room_001", "room_002"]
+      }
+    }
+  ],
+  "user_008": [
+    {
+      "action": ["read", "control"],
+      "subject": "device",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "type": ["smart_light"],
+        "roomId": ["room_002"],
+        "timeRestrictions": {
+          "startTime": "08:00",
+          "endTime": "20:00"
+        }
+      }
+    },
+    {
+      "action": "read",
+      "subject": "room",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "id": ["room_002"]
+      }
+    },
+    {
+      "action": "control",
+      "subject": "scene",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "type": ["lighting"],
+        "roomIds": ["room_002"]
+      }
+    }
+  ],
+  "user_010": [
+    {
+      "action": ["read", "control"],
+      "subject": "device",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "type": ["smart_light", "smart_speaker"],
+        "roomId": ["room_001", "room_004"],
+        "timeRestrictions": {
+          "startTime": "09:00",
+          "endTime": "21:00"
+        }
+      }
+    },
+    {
+      "action": "read",
+      "subject": "room",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "id": ["room_001", "room_004"]
+      }
+    },
+    {
+      "action": "control",
+      "subject": "scene",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "type": ["lighting", "entertainment"],
+        "roomIds": ["room_001"]
+      }
+    }
+  ],
+  "emergency_override": [
+    {
+      "action": ["read", "control"],
+      "subject": "device",
+      "conditions": {
+        "type": ["alarm_system", "door_lock", "smart_light"],
+        "emergency": true
+      }
+    },
+    {
+      "action": "control",
+      "subject": "scene",
+      "conditions": {
+        "type": ["emergency_lighting", "emergency_unlock"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "super_admin": [
+    {
+      "action": ["read", "write", "delete", "configure", "control"],
+      "subject": "home",
+      "conditions": {}
+    },
+    {
+      "action": ["read", "write", "delete", "configure"],
+      "subject": "user",
+      "conditions": {}
+    },
+    {
+      "action": ["read", "write", "delete", "configure"],
+      "subject": "role",
+      "conditions": {}
+    },
+    {
+      "action": ["read", "write", "delete"],
+      "subject": "user_role",
+      "conditions": {}
+    },
+    {
+      "action": ["read", "write", "delete", "configure", "control"],
+      "subject": "device",
+      "conditions": {}
+    },
+    {
+      "action": ["read", "write", "delete", "configure"],
+      "subject": "room",
+      "conditions": {}
+    },
+    {
+      "action": ["read", "write"],
+      "subject": "system",
+      "conditions": {}
+    },
+    {
+      "action": "read",
+      "subject": "audit_log",
+      "conditions": {}
+    }
+  ],
+  "home_admin": [
+    {
+      "action": ["read", "write", "configure", "control"],
+      "subject": "device",
+      "conditions": {
+        "homeId": "${user.profile.homeId}"
+      }
+    },
+    {
+      "action": ["read", "write", "configure"],
+      "subject": "room",
+      "conditions": {
+        "homeId": "${user.profile.homeId}"
+      }
+    },
+    {
+      "action": ["read", "write"],
+      "subject": "home",
+      "conditions": {
+        "id": "${user.profile.homeId}"
+      }
+    },
+    {
+      "action": ["read", "write"],
+      "subject": "user_role",
+      "conditions": {
+        "homeId": "${user.profile.homeId}"
+      }
+    },
+    {
+      "action": "read",
+      "subject": "user",
+      "conditions": {
+        "profile.homeId": "${user.profile.homeId}"
+      }
+    },
+    {
+      "action": ["read", "write"],
+      "subject": "guest_access",
+      "conditions": {
+        "homeId": "${user.profile.homeId}"
+      }
+    }
+  ],
+  "guest": [
+    {
+      "action": ["read", "control"],
+      "subject": "device",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "type": ["smart_light", "smart_thermostat", "smart_speaker", "smart_switch"]
+      }
+    },
+    {
+      "action": "read",
+      "subject": "room",
+      "conditions": {
+        "homeId": "${user.profile.homeId}"
+      }
+    },
+    {
+      "action": "read",
+      "subject": "device",
+      "conditions": {
+        "homeId": "${user.profile.homeId}",
+        "type": ["security_camera", "door_lock", "alarm_system"]
+      },
+      "inverted": true,
+      "reason": "Guests cannot access security devices"
+    }
+  ]
+}
