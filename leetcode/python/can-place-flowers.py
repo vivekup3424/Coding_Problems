@@ -1,14 +1,15 @@
 from typing import List
 class Solution:
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
-        flower_length = len(flowerbed)
-        if flower_length == 0:
+        flowerbed_length = len(flowerbed)
+        if(n==0):
             return True
-        #start from 0
         count = 0
-        temp = [flowerbed[i] for i in range(n)]
-        for i in range(0,flower_length):
-            if i == 0 or temp[i-1] == 0:
-                count+=1
-                flowerbed
-
+        for i in range(flowerbed_length):
+            if(flowerbed[i]==0):
+                isLeftZero = (i==0 or flowerbed[i-1]==0)
+                isRightZero = (i==flowerbed_length-1 or flowerbed[i+1]==0)
+                if isLeftZero and isRightZero:
+                    flowerbed[i]=1
+                    count+=1
+            return count>=n
