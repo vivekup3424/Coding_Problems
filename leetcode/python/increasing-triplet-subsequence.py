@@ -36,12 +36,11 @@ class Solution:
             return False
         smallest_num, second_smallest_num = float('inf'), float('inf')
         for num in nums:
-            print(smallest_num,second_smallest_num,num)
             if num > second_smallest_num and second_smallest_num > smallest_num:
                 return True
             elif smallest_num > num:
                 smallest_num = num
-            elif second_smallest_num > num:
+            elif second_smallest_num > num and num > smallest_num:
                 second_smallest_num = num
         return False
 
