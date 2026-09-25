@@ -38,8 +38,31 @@ Constraints:
 class Solution:
     @staticmethod
     def isNumeric(c: str) -> bool:
-        return ord(c) >= ord('0') and ord(c) <= ord('9')
+        return ord(c[0]) >= ord('0') and ord(c[0]) <= ord('9')
     def isAlpha(c: str) -> bool:
-        return (ord(c) >= ord('a') and ord(c) <= 'z') and (ord(c) >= ord('a') and ord(c))
+        return (ord(c[0]) >= ord('a') and ord(c[0]) <= 'z') and (ord(c[0]) >= ord('a') and ord(c[0]))
     def decodeString(self, s: str) -> str:
         stk = []
+        for c in s:
+            if c == '[':
+                stk.append(c)
+            elif c == ']':
+                temp = stk.pop()
+                stk.pop()
+                freq = stk.pop()
+                stk.append(temp*int(freq))
+            elif self.isNumeric(c):
+                if len(stk) == 0:
+                    stk.append(c)
+                top = stk.pop()
+                if self.isNumeric(top):
+                    stk.append(10*top+int(c))
+                else:
+                    stk.append(top)
+                    stk.append(c)
+            else:
+                if len(stk) == 0:
+                    stk.append(c)
+                top = stk.pop()
+                if self.isAlpha(top):
+                    stk.append()
