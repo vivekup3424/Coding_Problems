@@ -38,6 +38,8 @@ Constraints:
 class Solution:
     @staticmethod
     def isNumeric(c: str) -> bool:
-        return ord(c) >= ord('0') and ord(c) <= ord('9'):
+        return ord(c) >= ord('0') and ord(c) <= ord('9')
+    def isAlpha(c: str) -> bool:
+        return (ord(c) >= ord('a') and ord(c) <= 'z') and (ord(c) >= ord('a') and ord(c))
     def decodeString(self, s: str) -> str:
-        
+        stk = []
