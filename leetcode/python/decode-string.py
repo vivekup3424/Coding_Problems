@@ -65,4 +65,7 @@ class Solution:
                     stk.append(c)
                 top = stk.pop()
                 if self.isAlpha(top):
-                    stk.append()
+                    stk.append(top+c)
+                else:
+                    stk.append(top)
+                    stk.append(c)
