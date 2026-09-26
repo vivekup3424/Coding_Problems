@@ -1,0 +1,10 @@
+class Solution:
+    def minQueenMoves(self, source: list[int], target: list[int]) -> int:
+        l1 = target[1] - source[1]
+        l2 = target[0] - source[0]
+        if l1 == 0 and l2 == 0:
+            return 0
+        if l1 == 0 or l2 == 0 or abs(l1) == abs(l2):
+            return 1
+        else:
+            return 2
