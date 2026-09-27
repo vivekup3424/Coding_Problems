@@ -44,7 +44,19 @@ class TreeNode:
 
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        
-        def recurse(node, currentSum, targetSum):
-            if node == None:
+
+        def recurse(node, currentSum, targetSum, current_list, ans):
+            if node is None:
+                return False
+
+            currentSum += node.val
+            current_list.add(node.val)
+
+            if node.left is None and node.right is None:
+                if(currentSum == targetSum):
+                    ans.add(targetSum)
                 return currentSum == targetSum
+
+            return recurse(node.left, currentSum, targetSum) or recurse(node.right, currentSum, targetSum)
+
+        return recurse(root, 0, targetSum)
