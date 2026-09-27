@@ -37,5 +37,23 @@ class TreeNode:
 
 class Solution:
     def maxLevelSum(self, root: Optional[TreeNode]) -> int:
-        if root is None
+        if root is None:
+            return 0
+        maxi, maxi_level, current_level = -float('inf'), 0, 0
         queue = deque()
+        queue.append(root)
+        while queue:
+            current_sum = 0
+            current_level+=1
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                current_sum += node.val
+                if node.left is not None:
+                    queue.append(node.left)
+                if node.right is not None:
+                    queue.append(node.right)
+            if current_sum > maxi:
+                maxi_level = current_level
+                maxi = current_sum
+        return maxi_level
+            
