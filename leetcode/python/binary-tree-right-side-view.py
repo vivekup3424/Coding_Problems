@@ -27,6 +27,7 @@ Constraints:
     - -100 <= Node.val <= 100
 """
 from typing import List, Optional
+from collections import deque
 
 
 # Definition for a binary tree node.
@@ -39,14 +40,20 @@ class TreeNode:
 
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
-        queue = []
         rhs = []
         if root is None:
             return rhs
-        queue.append([root,0])
-        while len(queue) != 0:
-            node,level = queue.pop()
-            rhs[level] = node.val
-            if root.left is not None:
-                
+
+        queue = deque([root])
+        while queue:
+            level_size = len(queue)
+            for i in range(level_size):
+                node = queue.popleft()
+                if i == level_size - 1: # happens once per level only
+                    rhs.append(node.val)
+                if node.left is not None:
+                    queue.append(node.left)
+                if node.right is not None:
+                    queue.append(node.right)
+        return rhs
 
