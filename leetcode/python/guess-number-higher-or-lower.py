@@ -35,7 +35,18 @@ Constraints:
 """
 # The guess API is already defined for you.
 # def guess(num: int) -> int:
-
+import random
+def guess(m:int):
+    return random.randint(-1,1)
 class Solution:
     def guessNumber(self, n: int) -> int:
-        pass
+        l,r = 1,n
+        while l <= r:
+            m = (l+r)//2
+            res = guess(m)
+            if(res==0):
+                return m
+            elif(res==-1):
+                r = m-1
+            else:
+                l = m+1
