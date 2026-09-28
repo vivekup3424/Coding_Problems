@@ -40,8 +40,20 @@ Constraints:
     - 1 <= k <= n
 """
 from typing import List
-
+import heapq
 
 class Solution:
     def maxScore(self, nums1: List[int], nums2: List[int], k: int) -> int:
-        nums = [(n1,n2) for n1, n2 in nums1,nums2]
+        nums = [(n1,n2) for n1, n2 in zip(nums1,nums2)]
+        nums = sorted(nums, key=lambda p : p[1], reverse=True)
+        minheap = []
+        res, n1_sum = -float("inf"), 0
+        for n1, n2 in nums:
+            n1_sum+=n1
+            heapq.heappush(minheap)
+            if len(minheap) > k:
+                n1_pop = heapq.heappop(minheap)
+                n1_sum -= n1_pop
+            if len(minheap) == k:
+                res = max(res, n1_sum * n2)
+        return res
