@@ -23,8 +23,13 @@ Constraints:
     - -10^4 <= nums[i] <= 10^4
 """
 from typing import List
-
+import heapq
 
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        pass
+        minheap = []
+        for num in nums:
+            heapq.heappush(minheap,num)
+            if len(minheap) > k:
+                heapq.heappop(minheap)
+        return heapq.heappop(minheap)
