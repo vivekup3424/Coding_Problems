@@ -1,10 +1,14 @@
 import { buildContainer } from "./container.js";
+import { ensureIndexes } from "./db-indexes.js";
 
 const container = buildContainer();
-const { config, mongoClient, app } = container.cradle;
+const { config, mongoClient, mongoDb, app } = container.cradle;
 
 await mongoClient.connect();
 console.log("Connected to MongoDB");
+
+await ensureIndexes(mongoDb);
+console.log("MongoDB indexes ready");
 
 const server = app.listen(config.port, config.host, () => {
   console.log(`Server listening on http://${config.host}:${config.port}`);
