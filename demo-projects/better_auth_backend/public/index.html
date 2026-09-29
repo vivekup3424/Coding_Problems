@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Auth Test Page</title>
+    <style>
+      :root {
+        --bg: #f6f7f9;
+        --surface: #ffffff;
+        --border: #dde1e6;
+        --text: #1b1f24;
+        --muted: #5f6b7a;
+        --accent: #2563eb;
+        --accent-text: #ffffff;
+        --ok: #15803d;
+        --err: #b91c1c;
+        --code-bg: #f1f3f5;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0f1216;
+          --surface: #171b21;
+          --border: #2a3039;
+          --text: #e6e9ee;
+          --muted: #95a0ae;
+          --accent: #3b82f6;
+          --accent-text: #ffffff;
+          --ok: #4ade80;
+          --err: #f87171;
+          --code-bg: #0b0e12;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      main { max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }
+      h1 { font-size: 22px; margin: 0 0 4px; }
+      h2 { font-size: 15px; margin: 0 0 12px; }
+      p.lead { color: var(--muted); margin: 0 0 24px; }
+      section {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 18px;
+        margin-bottom: 16px;
+      }
+      .row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+      input {
+        flex: 1 1 200px;
+        min-width: 0;
+        padding: 9px 11px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--text);
+        font: inherit;
+      }
+      button {
+        padding: 9px 14px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface);
+        color: var(--text);
+        font: inherit;
+        cursor: pointer;
+      }
+      button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+      button:disabled { opacity: 0.5; cursor: default; }
+      .status { font-weight: 600; }
+      .status.in { color: var(--ok); }
+      .status.out { color: var(--muted); }
+      .error { color: var(--err); margin: 8px 0 0; }
+      .hint { color: var(--muted); font-size: 13px; margin: 4px 0 0; }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 12px;
+        margin: 12px 0 0;
+        overflow-x: auto;
+        font: 12.5px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      #log { max-height: 320px; overflow-y: auto; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Auth test page</h1>
+      <p class="lead">Calls the better-auth endpoints directly with <code>fetch</code>. Dev only.</p>
+
+      <section>
+        <h2>Session</h2>
+        <div class="row">
+          <span id="status" class="status out">Checking…</span>
+        </div>
+        <div class="row">
+          <button id="refresh">Refresh /api/me</button>
+          <button id="sign-out" disabled>Sign out</button>
+        </div>
+        <p id="callback-error" class="error" hidden></p>
+        <pre id="session" hidden></pre>
+      </section>
+
+      <section>
+        <h2>Google</h2>
+        <div class="row">
+          <button id="google" class="primary">Sign in with Google</button>
+        </div>
+        <p class="hint">Redirects to Google, then back here with a session cookie.</p>
+      </section>
+
+      <section>
+        <h2>Phone number + OTP</h2>
+        <div class="row">
+          <input id="phone" type="tel" placeholder="+919876543210" autocomplete="tel" />
+          <button id="send-otp">Send OTP</button>
+        </div>
+        <div class="row">
+          <input id="code" inputmode="numeric" placeholder="6-digit code" autocomplete="one-time-code" />
+          <button id="verify" class="primary">Verify</button>
+        </div>
+        <p class="hint">The OTP is printed in the server log: <code>[sms] to … Your verification code is …</code></p>
+      </section>
+
+      <section>
+        <h2>Request log</h2>
+        <pre id="log">(no requests yet)</pre>
+      </section>
+    </main>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const logEl = $("log");
+      let logStarted = false;
+
+      function log(line) {
+        if (!logStarted) {
+          logEl.textContent = "";
+          logStarted = true;
+        }
+        logEl.textContent += line + "\n";
+        logEl.scrollTop = logEl.scrollHeight;
+      }
+
+      // All calls are same-origin, so the session cookie is sent automatically.
+      async function call(method, path, body) {
+        log(`→ ${method} ${path}${body ? " " + JSON.stringify(body) : ""}`);
+        const res = await fetch(path, {
+          method,
+          credentials: "include",
+          headers: body ? { "Content-Type": "application/json" } : undefined,
+          body: body ? JSON.stringify(body) : undefined,
+        });
+        const text = await res.text();
+        let data = text;
+        try { data = JSON.parse(text); } catch {}
+        log(`← ${res.status} ${typeof data === "string" ? data : JSON.stringify(data)}`);
+        return { ok: res.ok, status: res.status, data };
+      }
+
+      async function refreshSession() {
+        const { ok, data } = await call("GET", "/api/me");
+        const status = $("status");
+        const session = $("session");
+        if (ok) {
+          status.textContent = `Signed in as ${data.user.email}`;
+          status.className = "status in";
+          session.textContent = JSON.stringify(data, null, 2);
+          session.hidden = false;
+        } else {
+          status.textContent = "Signed out";
+          status.className = "status out";
+          session.hidden = true;
+        }
+        $("sign-out").disabled = !ok;
+      }
+
+      async function withButton(button, fn) {
+        button.disabled = true;
+        try { await fn(); } finally { button.disabled = false; }
+      }
+
+      $("refresh").onclick = (e) => withButton(e.currentTarget, refreshSession);
+
+      $("sign-out").onclick = async () => {
+        await call("POST", "/api/auth/sign-out", {});
+        await refreshSession();
+      };
+
+      $("google").onclick = (e) =>
+        withButton(e.currentTarget, async () => {
+          const here = location.origin + "/";
+          const { ok, data } = await call("POST", "/api/auth/sign-in/social", {
+            provider: "google",
+            callbackURL: here,
+            errorCallbackURL: here,
+          });
+          if (ok && data.url) location.href = data.url;
+        });
+
+      $("send-otp").onclick = (e) =>
+        withButton(e.currentTarget, () =>
+          call("POST", "/api/auth/phone-number/send-otp", { phoneNumber: $("phone").value.trim() }),
+        );
+
+      $("verify").onclick = (e) =>
+        withButton(e.currentTarget, async () => {
+          await call("POST", "/api/auth/phone-number/verify", {
+            phoneNumber: $("phone").value.trim(),
+            code: $("code").value.trim(),
+          });
+          await refreshSession();
+        });
+
+      // better-auth appends ?error=<code> to errorCallbackURL when the OAuth callback fails.
+      const params = new URLSearchParams(location.search);
+      if (params.has("error")) {
+        const el = $("callback-error");
+        el.textContent = `Sign-in failed: ${params.get("error")}`;
+        el.hidden = false;
+        history.replaceState(null, "", location.pathname);
+      }
+
+      refreshSession();
+    </script>
+  </body>
+</html>

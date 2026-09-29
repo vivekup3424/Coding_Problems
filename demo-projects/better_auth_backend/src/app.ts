@@ -1,6 +1,7 @@
 import express, { type ErrorRequestHandler, type Express } from "express";
 import cors from "cors";
 import { toNodeHandler } from "better-auth/node";
+import { fileURLToPath } from "node:url";
 import type { Db } from "mongodb";
 import type { Auth } from "./auth.js";
 import { createHealthRouter } from "./routes/health.js";
@@ -18,6 +19,11 @@ export function createApp({ auth, mongoDb }: { auth: Auth; mongoDb: Db }): Expre
 
   app.use("/health", createHealthRouter({ mongoDb }));
   app.use("/api/me", createMeRouter({ auth }));
+
+  // Browser test page for the auth flows (public/index.html). Not served in production.
+  if (process.env.NODE_ENV !== "production") {
+    app.use(express.static(fileURLToPath(new URL("../public", import.meta.url))));
+  }
 
   app.use((_req, res) => {
     res.status(404).json({ error: "Not found" });
