@@ -1,8 +1,7 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import { toNodeHandler } from "better-auth/node";
 import type { Db, MongoClient } from "mongodb";
-import type { Config } from "../config.js";
+import type { Config } from "./config.js";
 
 export function createAuth({
   config,
@@ -29,9 +28,3 @@ export function createAuth({
 }
 
 export type Auth = ReturnType<typeof createAuth>;
-
-export type AuthHttpHandler = ReturnType<typeof toNodeHandler>;
-
-export function createAuthHttpHandler({ auth }: { auth: Auth }): AuthHttpHandler {
-  return toNodeHandler(auth);
-}

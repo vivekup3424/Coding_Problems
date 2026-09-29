@@ -1,12 +1,12 @@
 import { buildContainer } from "./container.js";
 
 const container = buildContainer();
-const { config, mongoClient, httpApp } = container.cradle;
+const { config, mongoClient, app } = container.cradle;
 
 await mongoClient.connect();
 console.log("Connected to MongoDB");
 
-const server = httpApp.listen(config.port, config.host, () => {
+const server = app.listen(config.port, config.host, () => {
   console.log(`Server listening on http://${config.host}:${config.port}`);
 });
 
