@@ -38,5 +38,20 @@ Constraints:
 """
 from typing import List
 class Solution:
-    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
-        pass
+    def combinationSum3(self, k: int, n: int) -> list[list[int]]:
+        answer : list[list[int]] = []
+        def recurse(current_num : int, current_list: list[int]):
+            if(len(current_list)==k):
+                if(sum(current_list)==n):
+                    answer.append(current_list[:])
+                return;
+            if(current_num>9):
+                return;
+
+            current_list.append(current_num);
+            recurse(current_num+1,current_list)
+            current_list.pop();
+            recurse(current_num+1,current_list)
+
+        recurse(1,[]);
+        return answer
