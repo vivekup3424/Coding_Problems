@@ -39,5 +39,5 @@ class Solution:
             return self.fib(n-1) + self.fib(n-2)
 
 solution = Solution()
-for i in range(20):
-    print(solution.fib(i))
+for i in range(2,20):
+    print(solution.fib(i) + solution.fib(i-1) + solution.fib(i-2))
