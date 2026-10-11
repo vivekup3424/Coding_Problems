@@ -51,4 +51,29 @@ Constraints:
 """
 class Solution:
     def myAtoi(self, s: str) -> int:
-        pass
+        INT_MAX = 2**31 - 1
+        INT_MIN = -2**31
+        n = len(s)
+
+        # 1. skip leading whitespace only
+        l = 0
+        while l < n and s[l] == ' ':
+            l += 1
+
+        # 2. at most one sign, and only right after the whitespace
+        positive = True
+        if l < n and (s[l] == '-' or s[l] == '+'):
+            positive = (s[l] == '+')
+            l += 1
+
+        # 3. read digits until the first non-digit
+        ans = 0
+        while l < n and s[l].isdigit():
+            ans = 10 * ans + (ord(s[l]) - ord('0'))
+            l += 1
+
+        # 4. clamp to the 32-bit signed range
+        if not positive:
+            ans = -ans
+        return max(INT_MIN, min(INT_MAX, ans))
+
