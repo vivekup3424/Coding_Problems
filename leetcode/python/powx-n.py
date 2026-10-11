@@ -30,7 +30,16 @@ class Solution:
             return 1
         elif n == 1:
             return x
-        elif n % 2 == 1:
-            return self.myPow(x, n//2) * self.myPow(x, n//2) * x
-        else:
-            return self.myPow(x, n//2) * self.myPow(x, n//2)
+        elif n < 0:
+            return 1 / self.myPow(x, -n)
+        half = self.myPow(x,n//2)
+        if n % 2 == 1:
+            return half * half * x
+        return half * half
+
+
+def main():
+    solution = Solution()
+    print(solution.myPow(2.0,-200000000))
+
+main()
