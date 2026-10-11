@@ -27,7 +27,7 @@ class Solution:
         for i in range(2, int(n**0.5)+1):
             if sieve[i]:
                 for p in range(i*i, n+1, i):
-                    primes[p] = False
+                    sieve[p] = False
 
         primes =  [i for i, prime in enumerate(sieve) if prime]
 
