@@ -29,6 +29,18 @@ Expected Complexity:
     - Time: O(n)
     - Auxiliary Space: O(n)
 """
+from typing import List
 class Solution:
-    def findRollOut(self, s, roll, n):
-        pass
+    def findRollOut(self, s: str, roll: List[int], n):
+        n = len(s)
+        prefix = [0 for _ in range(n)]
+        for r in roll:
+            prefix[0]+=1
+            if r <= n-1:
+                prefix[r]-=1
+        for i in range(1,n):
+            prefix[i]+=prefix[i-1]
+        chars = list(s)
+        for i in range(n):
+            chars[i] = chr((ord(chars[i]) - ord('a') + prefix[i]) % 26 + ord('a'))
+        return "".join(chars)
