@@ -47,10 +47,7 @@ class Solution:
     def maxSumOfSquares(self, num: int, sum: int) -> str:
         if num * 9 < sum:
             return ""
-        ans = []
-        while sum > 0:
-            ans.append(min(9,sum))
-            sum -= ans[-1]
-        if len(ans) < num:
-            ans += [0 for _ in range(num-len(ans))]
-        return "".join(map(str,ans))
+        ans = "9" * (sum // 9)
+        if sum % 9:
+            ans += str(sum % 9)
+        return ans + "0" * (num - len(ans))
