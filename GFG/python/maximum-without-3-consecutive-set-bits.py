@@ -24,5 +24,7 @@ Constraints:
 """
 class Solution:
     def maxValue(self, n: int) -> int:
+        ans = []
+        
         """code here"""
 
