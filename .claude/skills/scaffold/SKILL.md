@@ -51,7 +51,20 @@ Sources, in priority order:
 1. **Text the user pasted** — use it as-is (reflowed to ~80 cols).
 2. **Your own recall** — only for problems you know reliably (number, title,
    statement, examples, constraints, exact signature).
-3. **Otherwise ask** for the statement/link and the editor's starter code. Don't guess.
+3. **LeetCode GraphQL fallback** (LeetCode only, when recall isn't reliable) —
+   fetch by the URL slug from LeetCode's unofficial public endpoint:
+   ```bash
+   curl -s -m 20 https://leetcode.com/graphql \
+     -H 'Content-Type: application/json' -H 'Referer: https://leetcode.com' \
+     -d '{"query":"query q($titleSlug:String!){question(titleSlug:$titleSlug){questionFrontendId title content codeSnippets{langSlug code}}}","variables":{"titleSlug":"<slug>"}}'
+   ```
+   - `questionFrontendId` = number; `content` is HTML — convert it to plain
+     text (decode entities, render `<sup>` as `^`, tables as aligned columns).
+   - Take the stub from `codeSnippets` for the target language (`python3`,
+     `java`, `cpp`, `golang`, `javascript`) verbatim, empty body.
+   - Send only the slug — no cookies or user details. If `question` is null,
+     `content` is null (premium), or the request fails, fall through to step 4.
+4. **Otherwise ask** for the statement/link and the editor's starter code. Don't guess.
 
 Cleaning pasted text:
 - Superscripts get flattened on copy: `105` -> `10^5`, `2 * 106` -> `2 * 10^6`,
