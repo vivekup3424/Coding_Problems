@@ -49,9 +49,11 @@ class Solution:
         n = len(nums)
         for i in range(n):
             bitwise_and = nums[i]
+            mn = nums[i]
             for j in range(i,n):
                 bitwise_and &= nums[j]
-                if bitwise_and == min(nums[i:j+1]):
+                mn = min(mn, nums[j])
+                if bitwise_and == mn:
                     count+=1
         return count
                 
