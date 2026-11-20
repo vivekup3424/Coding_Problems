@@ -1,9 +1,9 @@
 ---
 name: scaffold
-description: Use when the user asks to scaffold / add / set up a LeetCode or GeeksforGeeks (GFG) problem anywhere in this Coding_Problems repo (e.g. "scaffold problem 50", "scaffold two-sum in cpp", "scaffold gfg kadane", "scaffold this question" + pasted statement). Creates leetcode/<lang>/<slug>.<ext> or GFG/<lang>/<slug>.<ext> with a problem-statement header and an EMPTY stub (signature only, no logic). Never writes the algorithm.
+description: Use when the user asks to scaffold / add / set up a LeetCode, GeeksforGeeks (GFG) or Codeforces (CF) problem anywhere in this Coding_Problems repo (e.g. "scaffold problem 50", "scaffold two-sum in cpp", "scaffold gfg kadane", "scaffold cf 1999C", "scaffold this question" + pasted statement). Creates leetcode/<lang>/<slug>.<ext>, GFG/<lang>/<slug>.<ext> or codeforces/<contest><Index>.<ext> with a problem-statement header and an EMPTY stub (signature / I/O boilerplate only, no logic). Never writes the algorithm.
 ---
 
-# Scaffolding a LeetCode / GFG problem
+# Scaffolding a LeetCode / GFG / Codeforces problem
 
 Scaffold = header + empty stub. The user solves it. Never write logic, helpers,
 a real `return`, or explain the approach — even if the answer is obvious.
@@ -13,7 +13,10 @@ Solving/fixing is a separate, explicit request.
 
 **Site:** GFG if the user says "gfg"/"geeksforgeeks", pastes a
 `geeksforgeeks.org` link, or pastes GFG-style text ("Your Task:", "Expected
-Time Complexity:", driver-code markers). Otherwise LeetCode.
+Time Complexity:", driver-code markers). Codeforces if the user says
+"cf"/"codeforces", gives a CF id like `1999C`, pastes a `codeforces.com` link,
+or pastes CF-style text ("time limit per test", "memory limit per test",
+"Input"/"Output" format sections, "standard input"). Otherwise LeetCode.
 
 | Site     | Language   | Directory               | Ext     | Default for site |
 |----------|------------|-------------------------|---------|------------------|
@@ -24,11 +27,15 @@ Time Complexity:", driver-code markers). Otherwise LeetCode.
 | LeetCode | JavaScript | `leetcode/javascript/`  | `.js`   |                  |
 | GFG      | Java       | `GFG/java/`             | `.java` | yes              |
 | GFG      | C++        | `GFG/cpp/`              | `.cpp`  |                  |
+| CF       | C++        | `codeforces/`           | `.cpp`  | yes              |
+| CF       | Python     | `codeforces/`           | `.py`   |                  |
+| CF       | Go         | `codeforces/`           | `.go`   |                  |
 
 If the user is already working inside one of these directories (cwd or the
 file open in the IDE), use that site + language unless they say otherwise.
 A GFG language not listed (e.g. Python) -> create `GFG/<lang>/` and follow the
 matching LeetCode template for that language.
+Codeforces files all live flat in `codeforces/` (no per-language subdirs).
 
 ## 2. File name
 
@@ -38,7 +45,13 @@ matching LeetCode template for that language.
   `https://www.geeksforgeeks.org/problems/minimize-the-heights3351/1`; the title
   "Minimize the Heights II" -> `minimize-the-heights-ii.java`. (Older GFG files
   are PascalCase like `KthSmallest.java`; new files use kebab-case.)
-- Check whether the file already exists (case-insensitive — e.g. an empty
+- **Codeforces:** `<contestId><Index>.<ext>` with an uppercase index:
+  `https://codeforces.com/contest/1999/problem/C` or
+  `/problemset/problem/1999/C` -> `1999C.cpp`; sub-indices keep their digit
+  (`1999F1.cpp`). Gym problems -> `gym<contestId><Index>.cpp`. Older files
+  use `1030_a.cpp` / `1338_A.cpp`; new files use `1999C.cpp`.
+- Check whether the file already exists (for CF also check the old
+  `<id>_<index>` spellings) (case-insensitive — e.g. an empty
   `String-to-integer-atoi.py` placeholder, or a PascalCase GFG file for the
   same problem):
   - empty placeholder -> fill it in.
@@ -64,6 +77,10 @@ Sources, in priority order:
      `java`, `cpp`, `golang`, `javascript`) verbatim, empty body.
    - Send only the slug — no cookies or user details. If `question` is null,
      `content` is null (premium), or the request fails, fall through to step 4.
+   - Codeforces has no equivalent statement API (its public API returns only
+     name, rating and tags; the problem pages block scripted fetches) — don't
+     scrape. For CF, `problemset.problems` may be used to confirm the title of
+     a known id, nothing more.
 4. **Otherwise ask** for the statement/link and the editor's starter code. Don't guess.
 
 Cleaning pasted text:
@@ -81,6 +98,10 @@ Cleaning pasted text:
   sections.
 - GFG "Expected Time Complexity" / "Expected Auxiliary Space": keep them, under
   `Expected Complexity:` after Constraints (they're part of the GFG spec).
+- Codeforces: drop "Codeforces Round …" banners, "Dashboard", "Submit",
+  "Problem tags", difficulty `*1400`, and the "Copy" buttons next to examples.
+  Keep the time/memory limits, Input and Output sections, examples, and Note.
+  Flattened math (`$$$n$$$`, `1≤n≤2⋅105`) -> `n`, `1 <= n <= 2 * 10^5`.
 
 If some fields are missing (no number, no examples, no starter code): fill in
 what you have, omit the missing sections rather than fabricate them, and tell
@@ -112,8 +133,33 @@ Expected Complexity:       (GFG only, if given)
     - Time: O(n)
     - Auxiliary Space: O(1)
 ```
+Codeforces uses its own layout (no constraints list — limits live in the
+Input section):
+```
+<contestId><Index>. <Title>
+<URL>
+Time limit: 2 seconds | Memory limit: 256 megabytes
+
+<statement>
+
+Input:
+    ...
+
+Output:
+    ...
+
+Example 1:
+    Input:
+        ...
+    Output:
+        ...
+
+Note:                      (if given)
+    ...
+```
 Python wraps it in `"""…"""`; Java / C++ / JS in a `/* … */` block with ` * `
-line prefixes; Go in `/* … */` without prefixes.
+line prefixes; Go in `/* … */` without prefixes. Multi-line CF examples keep
+their exact line breaks (they are stdin/stdout).
 
 ## 5. Stub templates
 
@@ -236,13 +282,105 @@ var myPow = function(x, n) {
 };
 ```
 
+### Codeforces C++ (`codeforces/`, default)
+Boilerplate taken from `codeforces/template.cpp`, minus its DFS / DSU / other
+helpers:
+```cpp
+/*
+ * 1999C. Showering
+ * https://codeforces.com/contest/1999/problem/C
+ * Time limit: 2 seconds | Memory limit: 256 megabytes
+ * ...same CF header layout...
+ */
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+inline void fast_io()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+}
+
+int main()
+{
+    fast_io();
+    ll T;
+    cin >> T;
+    while (T--)
+    {
+    }
+}
+```
+- Multi-test problems (first line is `t`) get the `T` loop; single-test
+  problems get an empty `main` after `fast_io();` with no loop.
+- Don't read the problem's inputs or declare its variables — the loop body
+  stays empty.
+
+### Codeforces Python (`codeforces/`)
+```python
+"""
+1999C. Showering
+https://codeforces.com/contest/1999/problem/C
+...
+"""
+import sys
+input = sys.stdin.readline
+
+
+def solve():
+    pass
+
+
+def main():
+    t = int(input())
+    for _ in range(t):
+        solve()
+
+
+main()
+```
+- Single-test problems: `main()` just calls `solve()` once.
+
+### Codeforces Go (`codeforces/`)
+```go
+/*
+1999C. Showering
+https://codeforces.com/contest/1999/problem/C
+...
+*/
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
+
+func main() {
+	reader := bufio.NewReader(os.Stdin)
+	writer := bufio.NewWriter(os.Stdout)
+	defer writer.Flush()
+
+	var t int
+	fmt.Fscan(reader, &t)
+	for ; t > 0; t-- {
+	}
+}
+```
+- Single-test problems: drop the `t` read and loop (an unused `reader` /
+  `writer` not compiling is fine, as for any empty stub).
+
 ## 6. Rules for every language
 - Signature must match the site's starter code exactly (names, types, class
   name — `Solution` unless it's a design problem or the site uses another).
-- No `main`, driver code, test harness, `if __name__ == "__main__"`, or sample calls.
+- No `main`, driver code, test harness, `if __name__ == "__main__"`, or sample calls
+  — except Codeforces, where the stdin/stdout `main` boilerplate above IS the
+  stub (still no sample inputs, input parsing, or logic).
 - Don't run or compile — an empty stub has nothing to verify.
 
 ## 7. Reply
 One or two short sentences: the file path, problem number + title, and the
-stub signature. Plus a short list of anything guessed or omitted. No approach
+stub signature (CF: single- or multi-test boilerplate). Plus a short list of anything guessed or omitted. No approach
 hints, no complexity talk.
