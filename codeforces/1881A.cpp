@@ -129,8 +129,6 @@ int main(){
         cin>>x;
         string s; //m
         cin>>s;
-        // m <= 25, so after ~5 doublings x is at least as long as s; one more
-        // doubling covers any match that wraps across a copy boundary.
         int ans = -1;
         for(int count = 0; count <= 6; count++){
             if(returnSubstring(x,s).length()>0){
