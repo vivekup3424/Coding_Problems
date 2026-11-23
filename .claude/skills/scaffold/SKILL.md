@@ -379,6 +379,10 @@ func main() {
   — except Codeforces, where the stdin/stdout `main` boilerplate above IS the
   stub (still no sample inputs, input parsing, or logic).
 - Don't run or compile — an empty stub has nothing to verify.
+- Never use EnterWorktree / a git worktree when scaffolding, even in a
+  background job. Write the file directly in the main checkout
+  (`/Users/keusautomation/personal/Coding_Problems`) — it's a single new file
+  and the user may have uncommitted edits there that a worktree would miss.
 
 ## 7. Reply
 One or two short sentences: the file path, problem number + title, and the
