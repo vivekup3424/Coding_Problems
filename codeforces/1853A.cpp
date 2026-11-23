@@ -23,5 +23,22 @@ int main()
     cin >> T;
     while (T--)
     {
+        ll n;
+        cin>>n;
+        vector<int> v(n);
+        int ans = INT_MAX;
+        bool unsorted = false;
+        for (ll i = 0; i < n; i++)
+        {
+            cin>>v[i];
+            if(i > 0){
+                if (v[i] < v[i-1])
+                    unsorted = true;
+                ans = min(ans,1 + (v[i]-v[i-1])/2);
+            }
+        }
+        if (unsorted)
+            ans = 0;
+        cout<<ans<<"\n";
     }
 }
